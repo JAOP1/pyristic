@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
   name = 'pyristic',\
   packages = ['pyristic'],\
-  version = '0.1',\
+  version = '0.1.1',\
   license='MIT',\
   description = 'TYPE YOUR DESCRIPTION HERE',\
   author = 'Jesús Armando Ortíz Peñafiel',\
   author_email = 'armandopenafiel12@gmail.com',\
   url = 'https://github.com/JAOP1/',\
-  download_url = 'https://github.com/JAOP1/pyristic/archive/refs/tags/0.1.tar.gz',\
+  download_url = 'https://github.com/JAOP1/pyristic/archive/refs/tags/0.1.1.tar.gz',\
   keywords = ['Optimization', 'Metaheuristic', 'Python'],\
   install_requires=[
           'numpy>=1.15.4',
