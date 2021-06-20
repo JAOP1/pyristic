@@ -1,0 +1,1266 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{RecocidoEjemplo}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Recocido Simulado}\label{recocido-simulado}
+
+La librería \textbf{Pyristic} incluye una clase llamada
+\emph{SimulatedAnnealing} que facilita la implementación de la
+metaheurística basada en \emph{Recocido Simulado}. Para poder utilizar
+esta clase, se debe realizar lo siguiente:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Definir:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    La función objetivo \(f\).
+  \item
+    La lista de restricciones.
+  \end{itemize}
+\item
+  Crear una clase que herede de \emph{SimulatedAnnealing}.
+\item
+  Sobreescribir las siguientes funciones de la clase SimulatedAnnealing:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    get\_neighbor (requerido)
+  \item
+    update\_temperature (opcional)
+  \end{itemize}
+\end{enumerate}
+
+A continuación se muestran los elementos que se deben importar.
+Posteriormente, se resolverán dos problemas de optimización combinatoria
+usando la clase \emph{SimulatedAnnealing}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        
+        \PY{n}{library\PYZus{}path} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/home/dell/Documentos/Git\PYZus{}proejcts/optimizacion\PYZhy{}con\PYZhy{}metaheuristicas/}\PY{l+s+s2}{\PYZdq{}}
+        \PY{c+c1}{\PYZsh{}library\PYZus{}path = \PYZdq{}/Users/adrianamenchacamendez/Documentos/enes\PYZus{}morelia/papime/optimizacion\PYZhy{}con\PYZhy{}metaheuristicas/\PYZdq{}}
+        \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{abspath}\PY{p}{(}\PY{n}{library\PYZus{}path}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{optimpy}\PY{n+nn}{.}\PY{n+nn}{heuristic}\PY{n+nn}{.}\PY{n+nn}{SimulatedAnnealing\PYZus{}search} \PY{k}{import} \PY{n}{SimulatedAnnealing}
+        \PY{k+kn}{from} \PY{n+nn}{optimpy}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{helpers} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{pprint} \PY{k}{import} \PY{n}{pprint}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} 
+        \PY{k+kn}{import} \PY{n+nn}{copy} 
+\end{Verbatim}
+
+    \subsection{\texorpdfstring{Clase
+\texttt{SimulatedAnnealing}}{Clase SimulatedAnnealing}}\label{clase-simulatedannealing}
+
+\paragraph{Variables}\label{variables}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{logger.}} Diccionario con información relacionada a la
+  búsqueda con las siguientes llaves:
+\item
+  \texttt{best\_individual.} Mejor individuo encontrado.
+\item
+  \texttt{best\_f.} El valor obtenido de la función objetivo de
+  \texttt{individual}.
+\item
+  \texttt{temperature.} Temperatura inicial que se actualizará cada
+  iteración.
+\item
+  \emph{\textbf{f.}} Función objetivo.
+\item
+  \emph{\textbf{Constraints.}} Lista de restricciones del problema. Las
+  restricciones deben ser funciones que retornan True o False, indicando
+  si cumple dicha restricción.
+\end{itemize}
+
+\paragraph{Métodos}\label{muxe9todos}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{\_\_init\_\_.}} Inicializa la clase.
+\end{itemize}
+
+Argumentos: * \texttt{function.} Función objetivo. *
+\texttt{constraints.} Lista con las restricciones del problema.
+
+Valor de retorno: * Ninguno.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{optimize.}} método principal, realiza la ejecución
+  empleando la metaheurística llamada \texttt{SimulatedAnnealing}.
+\end{itemize}
+
+Argumentos: * \texttt{Init.} Solución inicial, se admite un arreglo de
+\emph{numpy} o una función que retorne un arreglo de \emph{numpy}. *
+\texttt{IniTemperature.} Valor de punto flotante que indica con que
+temperatura inicia la búsqueda. * \texttt{eps.} Valor de punto flotante
+que indica con que temperatura termina la búsqueda. * \texttt{**kwargs.}
+Parámetros externos a la búsqueda.
+
+Valor de retorno: * Ninguno
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{get\_neighbor.}} Genera una solución realizando una
+  variación aleatoria en la solución actual.
+\end{itemize}
+
+Argumentos: * \texttt{x.} Arreglo de \emph{numpy} representando a la
+solución actual. * \texttt{**kwargs} Parámetros externos a la búsqueda.
+
+Valor de retorno: * Arreglo de \emph{numpy} representando la solución
+generada.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{update\_temperature.}} Función que decrementa la
+  temperatura.
+\end{itemize}
+
+Argumentos: * \texttt{**kwargs} Parámetros externos a la búsqueda.
+
+Valor de retorno: * La nueva temperatura.
+
+    \subsection{Problema del agente
+viajero}\label{problema-del-agente-viajero}
+
+\begin{equation}
+    \label{eq:TSP}
+    \begin{array}{rll}
+    \text{minimizar:} & f(x) = d(x_n, x_1) + \sum_{i=1}^{n-1} d(x_i, x_{i+1}) &  \\
+    \text{tal que: } & x_i \in \{1,2,\cdots,n\} & \\
+    \end{array}
+\end{equation}
+
+Donde: * \(d(x_i,x_j)\) es la distancia de la ciudad \(x_i\) a la ciudad
+\(x_j\). * \(n\) es el número de ciudades. * \(x\) es una permutación de
+las \(n\) ciudades.
+
+A continuación vamos a definir una instancia de este problema utilizando
+10 ciudades.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{random} 
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        
+        \PY{n}{num\PYZus{}cities} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{dist\PYZus{}matrix} \PY{o}{=} \PYZbs{}
+        \PY{p}{[}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{49}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{53}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{76}\PY{p}{,}\PY{l+m+mi}{87}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{48}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{49}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{38}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{31}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{,}\PY{l+m+mi}{56}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{53}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{53}\PY{p}{,}\PY{l+m+mi}{38}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{52}\PY{p}{,}\PY{l+m+mi}{29}\PY{p}{,}\PY{l+m+mi}{46}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{23}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{,}\PY{l+m+mi}{52}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{63}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{31}\PY{p}{,}\PY{l+m+mi}{56}\PY{p}{,}\PY{l+m+mi}{29}\PY{p}{,}\PY{l+m+mi}{63}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{88}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{95}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{76}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{46}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{92}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{87}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{88}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{,}\PY{l+m+mi}{73}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{23}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{92}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{53}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{,}\PY{l+m+mi}{95}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{73}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PYZbs{}
+        \PY{p}{]}
+\end{Verbatim}
+
+    \subsubsection{Función objetivo}\label{funciuxf3n-objetivo}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nd}{@checkargs}
+        \PY{k}{def} \PY{n+nf}{f\PYZus{}salesman}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{p}{(}\PY{n+nb}{list}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{float}\PY{p}{:}
+            \PY{k}{global} \PY{n}{dist\PYZus{}matrix}
+            \PY{n}{total\PYZus{}dist} \PY{o}{=} \PY{n}{dist\PYZus{}matrix}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{u}\PY{p}{,}\PY{n}{v} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{total\PYZus{}dist}\PY{o}{+}\PY{o}{=} \PY{n}{dist\PYZus{}matrix}\PY{p}{[}\PY{n}{u}\PY{p}{]}\PY{p}{[}\PY{n}{v}\PY{p}{]}
+        
+            \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n}{total\PYZus{}dist}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Restricciones}\label{restricciones}
+
+Las restricciones se definen como una lista de funciones que retornan
+valores \emph{booleanos}. Estos valores permitirán verificar si una
+solución es factible o no.
+
+En el caso del problema del agente viajero queremos comprobar que
+estamos visitando todas las ciudades exactamente una vez.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n+nd}{@checkargs}
+        \PY{k}{def} \PY{n+nf}{g\PYZus{}salesman}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{bool}\PY{p}{:}
+        
+            \PY{n}{size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{n}{size\PYZus{}} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{size} \PY{o}{==} \PY{n}{size\PYZus{}}
+        
+        \PY{n}{constraints\PYZus{}list}\PY{o}{=} \PY{p}{[}\PY{n}{g\PYZus{}salesman}\PY{p}{]}
+\end{Verbatim}
+
+    \subsubsection{Solución inicial}\label{soluciuxf3n-inicial}
+
+La estrategia utilizada para generar la solución inicial es la
+siguiente:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Introducir la ciudad \(1\) en la primera posición de nuestra
+  permutación y crear un arreglo con las ciudades restantes.
+\item
+  Seleccionar la ciudad más cercana desde nuestra ubicación actual.
+\item
+  Retirar del arreglo la ciudad seleccionada y asignar la como nuestra
+  ubicación actual; Posterior, repetir el punto 2.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{getInitialSolutionTS}\PY{p}{(}\PY{n}{distance\PYZus{}matrix}\PY{p}{,} \PY{n}{total\PYZus{}cities}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:}
+            \PY{n}{Solution} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{remaining\PYZus{}cities}  \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{total\PYZus{}cities}\PY{p}{)}\PY{p}{)}
+            
+            \PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{remaining\PYZus{}cities}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{from\PYZus{}} \PY{o}{=} \PY{n}{Solution}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{to\PYZus{}} \PY{o}{=} \PY{n}{remaining\PYZus{}cities}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{dist} \PY{o}{=} \PY{n}{distance\PYZus{}matrix}\PY{p}{[}\PY{n}{from\PYZus{}}\PY{p}{]}\PY{p}{[}\PY{n}{to\PYZus{}}\PY{p}{]}
+                
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{remaining\PYZus{}cities}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{distance} \PY{o}{=} \PY{n}{distance\PYZus{}matrix}\PY{p}{[}\PY{n}{from\PYZus{}}\PY{p}{]}\PY{p}{[}\PY{n}{remaining\PYZus{}cities}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                    \PY{k}{if} \PY{n}{distance} \PY{o}{\PYZlt{}} \PY{n}{dist}\PY{p}{:}
+                        \PY{n}{to\PYZus{}} \PY{o}{=} \PY{n}{remaining\PYZus{}cities}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                        \PY{n}{dist} \PY{o}{=} \PY{n}{distance}
+                \PY{n}{Solution}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{to\PYZus{}}\PY{p}{)}
+                \PY{n}{ind} \PY{o}{=} \PY{n}{remaining\PYZus{}cities}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{to\PYZus{}}\PY{p}{)}
+                \PY{n}{remaining\PYZus{}cities}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{n}{ind}\PY{p}{)}
+                
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{Solution}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{Path} \PY{o}{=} \PY{n}{getInitialSolutionTS}\PY{p}{(}\PY{n}{dist\PYZus{}matrix}\PY{p}{,}\PY{n}{num\PYZus{}cities}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Path}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0 5 3 8 9 6 2 7 1 4]
+
+    \end{Verbatim}
+
+    \subsubsection{\texorpdfstring{Declaración de
+\texttt{SimulatedAnnealing}}{Declaración de SimulatedAnnealing}}\label{declaraciuxf3n-de-simulatedannealing}
+
+Para implementar una metaheurística basada en recocido simulado,
+utilizando la librería \textbf{Pyristic}, es necesario crear una clase
+que herede de la clase \texttt{SimulatedAnnealing}. En este ejemplo, la
+nueva clase es llamada \emph{TravellingSalesman\_solver}.
+
+La nueva clase debe sobreescribir la función \texttt{get\_neighbor}, de
+lo contrario el algoritmo no va a funcionar.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{class} \PY{n+nc}{TravellingSalesman\PYZus{}solver}\PY{p}{(}\PY{n}{SimulatedAnnealing}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n+nd}{@checkargs}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{f\PYZus{}} \PY{p}{:} \PY{n}{function\PYZus{}type} \PY{p}{,} \PY{n}{constraints\PYZus{}}\PY{p}{:} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{f\PYZus{}}\PY{p}{,}\PY{n}{constraints\PYZus{}}\PY{p}{)}
+                
+            \PY{n+nd}{@checkargs}
+            \PY{k}{def} \PY{n+nf}{get\PYZus{}neighbor}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:} 
+                
+                \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}}\PY{p}{)}
+                \PY{n}{index1} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{index2} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            
+                \PY{k}{while} \PY{n}{index2} \PY{o}{==} \PY{n}{index1}\PY{p}{:}
+                    \PY{n}{index2} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            
+                \PY{n}{v} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{index1}\PY{p}{]}
+                \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{x\PYZus{}}\PY{p}{[}\PY{n}{v} \PY{o}{!=} \PY{n}{x\PYZus{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n}{x\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{n}{index2}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{+} \PY{n}{x\PYZus{}}\PY{p}{[}\PY{n}{index2}\PY{p}{:}\PY{p}{]}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+    La función \texttt{get\_neigbor} debe regresar una solución
+\emph{vecina} de la solución actual, es decir, una variación de la
+solución actual. Para nuestro ejemplo, una solución vecina de la
+solución \(x\), la vamos a definir como sigue:
+
+Se seleccionan dos indices distintos de manera aleatoria llamados \(i\)
+y \(j\), donde, tomaremos el elemento \(x_i\) y desplazaremos las otras
+posiciones de la solución \(x\) de modo que \(x_i\) se encuentre en la
+posición \(j\) y esta nueva solución será retornada.
+
+    \subsubsection{Ejecución de la
+metaheurística}\label{ejecuciuxf3n-de-la-metaheuruxedstica}
+
+Una vez definida la clase \emph{TravellingSalesman\_solver}, se crea una
+instancia indicando en los parámetros la función objetivo y las
+restricciones del problema. En este caso llamamos
+\emph{TravellingSalesman} a la instancia creada.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{TravellingSalesman} \PY{o}{=}\PYZbs{}
+        \PY{n}{TravellingSalesman\PYZus{}solver}\PY{p}{(} \PY{n}{f\PYZus{}salesman}\PY{p}{,} \PY{n}{constraints\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+    Finalmente, se llama la función \texttt{optimize} (esta función es la
+misma para todas las clases en la librería). La función
+\texttt{optimize} recibe tres parámetros:
+
+\begin{itemize}
+\tightlist
+\item
+  Solución inicial o función generadora de soluciones iniciales.
+\item
+  La temperatura inicial.
+\item
+  La temperatura final.
+\end{itemize}
+
+Vamos a utilizar los siguientes parámetros: * Emplearemos la solución
+obtenida por la función \emph{getInitialSolutionTS}. * \(1000\) de
+temperatura inicial. * \(0.1\) de temperatura final.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{TravellingSalesman}\PY{o}{.}\PY{n}{optimize}\PY{p}{(}\PY{n}{Path}\PY{p}{,} \PY{l+m+mf}{1000.0} \PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{TravellingSalesman}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simulated Annealing: 
+ f(X) = 271.0 
+ X = [0 5 3 8 9 6 2 7 1 4] 
+ 
+
+    \end{Verbatim}
+
+    Para revisar el comportamiento de la metaheurística en determinado
+problema, la librería \textbf{Pyristic} cuenta con una función llamada
+\texttt{get\_stats}. Esta función se encuentra en \textbf{utils.helpers}
+y recibe como parámetros:
+
+\begin{itemize}
+\tightlist
+\item
+  El objeto creado para ejecutar la metaheurística.
+\item
+  El número de veces que se quiere ejecutar la metaheurística.
+\item
+  Los argumentos que recibe la función \texttt{optimize} deben estar
+  contenidos en una tupla.
+\end{itemize}
+
+La función \textbf{get\_stats} retorna un diccionario con algunas
+estadísticas de las ejecuciones.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}Ejecutamos get\PYZus{}stats 30 veces.}
+         \PY{n}{args} \PY{o}{=} \PY{p}{(}\PY{n}{Path}\PY{p}{,} \PY{l+m+mf}{1000.0}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{TravellingSalesman}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{args}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{pprint}\PY{p}{(}\PY{n}{statistics}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Best solution': \{'f': 248.0, 'x': array([0, 5, 3, 8, 9, 6, 2, 7, 4, 1])\},
+ 'Mean': 258.1333333333333,
+ 'Standard deviation': 11.035498277025022,
+ 'Worst solution': \{'f': 271.0, 'x': array([0, 5, 3, 8, 9, 6, 2, 7, 1, 4])\}\}
+
+    \end{Verbatim}
+
+    \subsection{Problema de la mochila}\label{problema-de-la-mochila}
+
+\begin{equation}
+  \label{eq:KP}
+  \begin{array}{rll}
+  \text{maximizar:} & f(\vec{x}) = \sum_{i=1}^{n} p_i \cdot x_{i} &  \\
+  \text{donde: } & g_1(\vec{x}) = \sum_{i=1}^{n} w_i \cdot x_{i}  \leq c &  \\
+          &  x_i \in \{0,1\} & i\in\{1,\ldots,n\}\\
+  \end{array}
+\end{equation}
+
+    Para este problema vamos a crear una instancia de \(1000\) objetos,
+donde, cada objeto estará definido: * \(p_{i} \in [50,100]\) *
+\(w_{i} \in [5,100]\) * \(C = 9786\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{101}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+         \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{101}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+         \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{9786}
+\end{Verbatim}
+
+    A continuación mostraremos dos algorimos basados en recocido simulado.
+El primero de ellos es un diseño sencillo y el segundo es un diseño más
+elaborado que obtiene mejores resultados.
+
+    \subsubsection{Función objetivo}\label{funciuxf3n-objetivo}
+
+Dado que la clase \texttt{SimulatedAnnealing} considera problemas de
+minimización, es necesario convertir el problema de la mochila a un
+problema de minimización. Para esto se multiplica el valor de la función
+objetivo por -1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nd}{@checkargs}
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{float}\PY{p}{:}
+             \PY{k}{global} \PY{n}{p}
+             \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}\PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Restricciones}\label{restricciones}
+
+La restricción del problema de la mochila es seleccionar un número de
+objetos sin exceder la capacidad de la mochila.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nd}{@checkargs} 
+         \PY{k}{def} \PY{n+nf}{g1}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{bool}\PY{p}{:}
+             \PY{k}{global} \PY{n}{w}\PY{p}{,}\PY{n}{c}
+             \PY{n}{result} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+             \PY{n}{g1}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}doc\PYZus{}\PYZus{}}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ \PYZlt{}= }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{result}\PY{p}{,}\PY{n}{c}\PY{p}{)}
+             \PY{k}{return} \PY{n}{result} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{c}
+         
+         \PY{n}{constraints\PYZus{}list}\PY{o}{=} \PY{p}{[}\PY{n}{g1}\PY{p}{]}
+\end{Verbatim}
+
+    \subsubsection{Solución inicial}\label{soluciuxf3n-inicial}
+
+Nuestra solución inicial es creada introduciendo objetos de manera
+aleatoria, mientras no se exceda el peso de la mochila.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{getInitialSolution}\PY{p}{(}\PY{n}{NumObjects}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{:}
+             \PY{k}{global} \PY{n}{n}\PY{p}{,}\PY{n}{p}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{c}
+             \PY{c+c1}{\PYZsh{}Empty backpack}
+             \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}
+             \PY{n}{weight\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{c+c1}{\PYZsh{}Random order to insert objects.}
+             \PY{n}{objects} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{objects}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{o} \PY{o+ow}{in}  \PY{n}{objects}\PY{p}{[}\PY{p}{:}\PY{n}{NumObjects}\PY{p}{]}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}Check the constraint about capacity.}
+                 \PY{k}{if} \PY{n}{weight\PYZus{}x} \PY{o}{+} \PY{n}{w}\PY{p}{[}\PY{n}{o}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{c}\PY{p}{:}
+                     \PY{n}{x}\PY{p}{[}\PY{n}{o}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n}{weight\PYZus{}x} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{o}\PY{p}{]}
+                     
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Ejecución de la
+metaheurística}\label{ejecuciuxf3n-de-la-metaheuruxedstica}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{class} \PY{n+nc}{Knapsack\PYZus{}solver}\PY{p}{(}\PY{n}{SimulatedAnnealing}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n+nd}{@checkargs}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{f\PYZus{}} \PY{p}{:} \PY{n}{function\PYZus{}type} \PY{p}{,} \PY{n}{constraints\PYZus{}}\PY{p}{:} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{f\PYZus{}}\PY{p}{,}\PY{n}{constraints\PYZus{}}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}neighbor}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:} 
+                 
+                 \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}}\PY{p}{)}
+                 \PY{k}{while}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{ind} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{n}{x\PYZus{}}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{\PYZca{}}\PY{o}{=} \PY{l+m+mi}{1}
+                     
+                     \PY{k}{if}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}valid}\PY{p}{(}\PY{n}{x\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{break}
+                     
+                     \PY{n}{x\PYZus{}}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{\PYZca{}}\PY{o}{=} \PY{l+m+mi}{1}
+                 
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x\PYZus{}}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{update\PYZus{}temperature}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{float}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logger}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{l+m+mf}{0.99}
+\end{Verbatim}
+
+    Parte clave de este algoritmo es la temperatura. La temperatura es una
+función que varía de acuerdo al tiempo \(t\), donde, al inicio de la
+búsqueda permite aceptar con mayor probabilidad soluciones peores.
+
+La clase \texttt{SimulatedAnnealing} define esta función como
+\texttt{update\_temperature} que está implementada por defecto. En este
+ejemplo vamos a definir nuestra función de cambio lineal
+\(T(t + 1) = \sigma T(t)\)
+
+    La función \texttt{get\_neighbor} tomará la solución \(x\) (arreglo de
+0's y 1's), donde, el valor de retorno será la solución \(x\) con una
+posición aleatoria \(i\) que será reemplazada por el valor 0 si la
+posición \(x_i\) es 1, sino, será 1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{Knapsack\PYZus{}} \PY{o}{=} \PY{n}{Knapsack\PYZus{}solver}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{p}{[}\PY{n}{g1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{Knapsack\PYZus{}}\PY{o}{.}\PY{n}{optimize}\PY{p}{(}\PY{n}{getInitialSolution}\PY{p}{,}\PY{l+m+mf}{1000.0}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{Knapsack\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simulated Annealing: 
+ f(X) = -15402.0 
+ X = [0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 0 0 0 0 1 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 1 1 0 0 0 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0
+ 0 1 0 0 0 1 1 1 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0
+ 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1
+ 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 1 0 0 1 0 0 0
+ 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0
+ 0 0 1 0 1 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 1 0 0 1 0 1
+ 0 0 0 0 0 1 0 0 1 1 0 0 0 0 1 0 0 0 0 0 1 0 1 0 1 0 0 0 0 0 1 1 0 0 0 0 0
+ 0 0 0 1 0 0 1 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 1 0 1 0 0
+ 0 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 0 1 0 1 0 0 0 0 1 0 0 1 0 0 1 0
+ 0 0 0 0 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 1 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 1 1
+ 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 1 0 0 1 0 0 1 0 1 0
+ 0 0 1 0 0 0 1 0 0 0 0 1 0 1 1 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1
+ 0 1 0 1 0 0 0 0 0 0 1 0 0 1 0 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 1 0 1
+ 0 0 0 0 1 1 1 0 1 1 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 1 0
+ 1 0 0 1 0 0 0 0 0 1 0 0 0 1 0 0 1 0 0 1 1 0 1 0 1 0 0 0 0 1 0 0 0 1 1 0 1
+ 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1
+ 0 1 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0 1 0 0 1 1 0 0 0
+ 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 1 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 1 0 1 0 0 0 0
+ 0 0 0 1 0 0 1 0 0 0 0 1 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0
+ 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 0 0 0 0 1 0 0 0 0
+ 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0
+ 0 0 0 1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0
+ 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1 0 0 1 0 0 0 0 0 1 1 0 0
+ 0 1 1 1 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0
+ 0] 
+ Constraints: 
+ 9785 <= 9786 
+
+
+    \end{Verbatim}
+
+    Para realizar un estudio estadístico del comportamiento de la
+metaheurística, la librería Pyristic cuenta con una función llamada
+get\_stats. Esta función se encuentra en utils.helpers y recibe como
+parámetros:
+
+\begin{verbatim}
+Objeto que realiza la ejecución de la metaheurística.
+El número de veces que se quiere ejecutar la metaheurística.
+Tupla con los argumentos que recibe la función optimize.
+Argumentos adicionales a la búsqueda (opcional).
+\end{verbatim}
+
+La función get\_stats considera las solución regresada por la
+metaheurística en cada ejecución y retorna un diccionario con la mejor y
+peor solución encontrada, la media y desviación estándar del valor de la
+función objetivo.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{args} \PY{o}{=} \PY{p}{(}\PY{n}{getInitialSolution}\PY{p}{,}\PY{l+m+mf}{1000.0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{Knapsack\PYZus{}}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{args}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{pprint}\PY{p}{(}\PY{n}{statistics}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Best solution': \{'f': -16780.0,
+                   'x': array([1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0,
+       0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+       1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+       1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+       0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0,
+       0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+       0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+       0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0,
+       1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
+       0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+       0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0,
+       0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+       0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
+       0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
+       0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0,
+       0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0,
+       1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0,
+       1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1,
+       0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0,
+       0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0,
+       1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+       1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1,
+       0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+       0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0,
+       1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1,
+       0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+       0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1,
+       0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0,
+       1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1,
+       1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+       0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+       0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+       0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+       1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+       1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
+       0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+       0, 0, 1, 0, 0, 1, 0, 0, 0, 0])\},
+ 'Mean': -15396.4,
+ 'Standard deviation': 488.9018715447917,
+ 'Worst solution': \{'f': -14012.0,
+                    'x': array([0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
+       1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0,
+       0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1,
+       1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0,
+       0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0,
+       0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+       0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0,
+       0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+       1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0,
+       0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+       0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+       0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+       1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0,
+       1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
+       0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0,
+       0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0,
+       1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+       0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0,
+       0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+       0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
+       1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+       0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+       0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+       0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1,
+       1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+       0, 0, 0, 1, 1, 0, 0, 0, 0, 0])\}\}
+
+    \end{Verbatim}
+
+    Se puede observar que los resultados obtenidos no son tan buenos como
+los obtenidos con la metaheurística basada en Búsqueda Tabú. A
+continuación se harán algunas modificaciones en el diseño, con el
+objetivo de mejorar los resultados.
+
+    \subsubsection{Solución inicial}\label{soluciuxf3n-inicial}
+
+En el diseño anterior, no se consideró el beneficio de introducir un
+objeto determinado a la mochila según su valor y peso. Una forma de
+hacerlo es la siguiente:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Asignar a cada objeto su valor por unidad de peso:
+  \(\frac{p_{i}}{w_{i}}\).
+\item
+  Ordenar todos los objetos con respecto a este indicador.
+\item
+  Seleccionar los objetos que tenga mayor valor en este indicador sin
+  exceder la capacidad.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{Init\PYZus{}GISP}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{global} \PY{n}{n}\PY{p}{,}\PY{n}{p}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{c}
+             \PY{n}{Arr\PYZus{}}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{Arr\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{p}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{/}\PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{Arr\PYZus{}}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{k}{return} \PY{n}{Arr\PYZus{}}
+         \PY{n}{GISP\PYZus{}Arr} \PY{o}{=} \PY{n}{Init\PYZus{}GISP}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{getInitialSolution2}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{global} \PY{n}{n}\PY{p}{,}\PY{n}{p}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{c}\PY{p}{,} \PY{n}{GISP\PYZus{}Arr}
+             \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}
+             \PY{n}{current\PYZus{}weight} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ind} \PY{o}{=} \PY{n}{GISP\PYZus{}Arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{current\PYZus{}weight}\PY{o}{+} \PY{n}{w}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{c}\PY{p}{:}
+                     \PY{n}{current\PYZus{}weight}\PY{o}{+}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{n}{ind}\PY{p}{]}
+                     \PY{n}{X}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+    Para crear un nuevo vecino, seguiremos la misma estrategia que en el
+diseño anterior. Sin embargo, si la nueva solución no es válida vamos a
+realizar lo siguiente:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Fase de reparación.
+\item
+  Fase de mejoramiento.
+\end{enumerate}
+
+\textbf{Fase de reparación:} En esta fase retiramos objetos que se
+encuentran en la mochila mientras la capacidad actual exceda el límite
+definido \(c\). Los objetos son retirados de acuerdo a los valores más
+pequeños en el indicador definido (\(\frac{p_{i}}{w_{i}}\)).
+
+\textbf{Fase de mejoramiento:} En esta fase se introducen objetos a la
+mochila siempre y cuando no excedan la capacidad. Estos objetos son
+introducidos priorizando aquellos con los valores más grandes en el
+indicador definido (\(\frac{p_{i}}{w_{i}}\)).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{class} \PY{n+nc}{Knapsack\PYZus{}solver2}\PY{p}{(}\PY{n}{SimulatedAnnealing}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n+nd}{@checkargs}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{f\PYZus{}} \PY{p}{:} \PY{n}{function\PYZus{}type} \PY{p}{,} \PY{n}{constraints\PYZus{}}\PY{p}{:} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{f\PYZus{}}\PY{p}{,}\PY{n}{constraints\PYZus{}}\PY{p}{)}
+                 
+                 
+             \PY{k}{def} \PY{n+nf}{generate\PYZus{}neighbor}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:}
+                 \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}}\PY{p}{)}
+                 \PY{n}{ind} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{x\PYZus{}}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{\PYZca{}}\PY{o}{=} \PY{l+m+mi}{1}
+                 
+                 \PY{k}{return} \PY{n}{x\PYZus{}}
+             
+             \PY{k}{def} \PY{n+nf}{repair\PYZus{}neighbor}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:}
+                 \PY{k}{global} \PY{n}{GISP\PYZus{}Arr}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{c}\PY{p}{,}\PY{n}{n}
+                 
+                 \PY{c+c1}{\PYZsh{}Get the total weight}
+                 \PY{n}{total\PYZus{}weight}\PY{o}{=}\PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{total\PYZus{}weight} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{ind} \PY{o}{=} \PY{n}{GISP\PYZus{}Arr}\PY{p}{[}\PY{n}{n} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{}Lowest}
+                     
+                     \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{total\PYZus{}weight} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{ind}\PY{p}{]}
+                         \PY{n}{x}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                     
+                     \PY{k}{if} \PY{n}{total\PYZus{}weight} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{c}\PY{p}{:}
+                         \PY{k}{break}
+                         
+             \PY{k}{def} \PY{n+nf}{improve\PYZus{}neighbor}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:}
+                 \PY{k}{global} \PY{n}{GISP\PYZus{}Arr}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{c}\PY{p}{,}\PY{n}{n}
+                 
+                 \PY{c+c1}{\PYZsh{}Get the total weight}
+                 \PY{n}{total\PYZus{}weight}\PY{o}{=}\PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{total\PYZus{}weight} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                         
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{ind} \PY{o}{=} \PY{n}{GISP\PYZus{}Arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                     \PY{k}{if} \PY{n}{total\PYZus{}weight} \PY{o}{+} \PY{n}{w}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{c}\PY{p}{:}
+                         \PY{k}{continue}
+                         
+                     \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0} \PY{p}{:}
+                         \PY{n}{total\PYZus{}weight} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{ind}\PY{p}{]}
+                         \PY{n}{x}\PY{p}{[}\PY{n}{ind}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                         
+                     
+             \PY{n+nd}{@checkargs}
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}neighbor}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:} 
+                 
+                 \PY{n}{neighbor\PYZus{}} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}neighbor}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                     
+                 \PY{k}{if}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}valid}\PY{p}{(}\PY{n}{neighbor\PYZus{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{neighbor\PYZus{}}
+                 
+                 \PY{c+c1}{\PYZsh{}RI strategy}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{repair\PYZus{}neighbor}\PY{p}{(}\PY{n}{neighbor\PYZus{}}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{improve\PYZus{}neighbor}\PY{p}{(}\PY{n}{neighbor\PYZus{}}\PY{p}{)}
+                 
+                 \PY{k}{return} \PY{n}{neighbor\PYZus{}}
+\end{Verbatim}
+
+    Ejecutamos nuestra metaheurística:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{f}\PY{p}{(}\PY{n}{getInitialSolution2}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} -29887.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{Knapsack\PYZus{}2} \PY{o}{=} \PY{n}{Knapsack\PYZus{}solver2}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{p}{[}\PY{n}{g1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{Knapsack\PYZus{}2}\PY{o}{.}\PY{n}{optimize}\PY{p}{(}\PY{n}{getInitialSolution2}\PY{p}{,}\PY{l+m+mf}{1000.0}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Knapsack\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simulated Annealing: 
+ f(X) = -29901.0 
+ X = [1 0 0 0 1 0 0 1 0 0 0 0 1 0 0 0 1 1 0 1 0 0 1 0 1 0 1 1 0 1 1 0 0 1 0 1 0
+ 1 1 0 1 0 1 0 0 1 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 0 0 1 0 1 1
+ 0 1 0 0 0 0 0 1 1 1 0 0 0 1 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 0 0 1 1 0 0 1 1
+ 0 0 0 0 0 0 0 0 1 0 1 1 0 0 1 0 0 0 0 0 1 0 1 0 1 0 0 0 0 1 0 0 0 0 0 0 1
+ 1 0 1 1 1 0 1 1 1 0 1 1 0 0 0 0 0 0 1 1 0 1 0 1 0 0 1 0 0 0 1 0 1 1 0 1 1
+ 1 1 1 0 1 0 0 0 1 1 0 1 0 1 1 0 0 1 1 1 0 0 0 0 1 0 1 0 1 1 0 1 0 0 0 1 1
+ 0 0 0 1 0 0 0 0 1 0 1 0 0 1 0 0 1 0 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 0 0 1 1
+ 1 0 1 1 0 1 1 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 1 1 1 1 0
+ 0 0 0 0 0 1 1 0 1 0 1 0 0 1 1 1 0 0 0 0 0 0 1 0 1 0 0 1 0 1 0 0 0 0 0 0 0
+ 0 0 1 1 0 0 1 1 0 1 0 1 1 1 1 0 0 0 0 0 0 1 0 0 1 1 0 0 0 0 0 0 1 0 0 0 0
+ 0 0 0 1 1 1 0 0 0 1 1 1 0 1 1 0 0 0 0 0 1 0 1 0 1 0 1 0 0 0 0 1 1 1 0 1 0
+ 1 0 1 1 0 0 0 1 1 0 1 1 0 0 0 0 1 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1
+ 1 1 1 0 0 1 0 0 0 0 0 1 0 0 0 1 1 0 1 0 0 0 0 0 1 0 0 1 1 1 0 0 0 1 0 1 0
+ 1 1 1 0 1 1 1 0 0 1 0 1 0 1 0 0 1 0 1 0 1 0 1 0 0 0 1 0 0 0 1 0 0 0 1 1 1
+ 0 1 0 0 1 1 1 0 1 0 1 0 0 0 1 0 0 1 1 1 0 1 1 0 1 0 0 0 1 1 0 1 0 0 1 0 1
+ 0 0 0 0 1 1 0 0 0 1 0 0 0 0 0 1 1 0 0 0 1 0 1 0 0 0 0 0 0 0 0 1 1 1 1 0 0
+ 1 0 1 1 0 1 0 0 1 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 1
+ 1 0 0 1 1 0 0 1 1 1 1 0 0 0 0 0 1 0 1 0 1 0 1 0 0 0 1 1 0 0 1 0 0 1 0 0 1
+ 1 1 0 0 0 0 0 1 0 0 0 0 1 1 1 0 0 0 1 0 0 1 1 1 0 1 0 0 1 1 1 0 0 0 1 0 0
+ 1 0 0 1 1 0 0 1 1 1 0 0 1 0 1 0 1 1 0 0 0 0 0 1 0 1 1 0 0 0 0 0 0 0 0 0 1
+ 1 1 1 0 0 0 0 0 0 0 0 1 0 1 0 0 0 1 0 0 0 0 0 1 1 1 0 1 1 1 1 1 0 0 1 0 0
+ 1 0 0 0 0 1 0 0 0 1 1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 1 0 1 0 0
+ 1 1 1 0 0 1 0 0 1 0 1 1 0 1 1 1 1 0 0 1 1 0 0 1 0 1 1 1 1 0 0 0 1 0 0 1 0
+ 1 0 0 1 1 1 1 1 0 0 0 1 1 0 0 0 1 1 1 0 0 0 0 1 0 1 0 0 0 1 0 1 1 1 0 0 0
+ 1 0 0 1 1 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 1 1 0 1 1 0 1 0 1 0 0 1 0 1 1
+ 0 0 0 0 0 1 0 0 1 1 1 1 0 1 0 1 0 1 0 0 1 1 0 1 1 1 0 1 1 1 0 1 1 0 1 0 0
+ 1 1 0 0 0 0 0 1 0 0 1 1 1 0 0 1 1 1 1 0 0 0 1 0 0 0 0 1 1 0 0 0 0 1 0 0 0
+ 0] 
+ Constraints: 
+ 9786 <= 9786 
+
+
+    \end{Verbatim}
+
+    \subsection{Resultados}\label{resultados}
+
+Vamos a comparar las distintas combinaciones entre la forma de generar
+la solución inicial y la estrategia de generar un nuevo vecino.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Solución por Indicador y RI estrategia.
+\item
+  Solución por Indicador y estrategia ingenua.
+\item
+  Solución ingenua y RI estrategia.
+\item
+  Solución ingenua y estrategia ingenua.
+\end{enumerate}
+
+    \subsubsection{Solución por Indicador y RI
+estrategia.}\label{soluciuxf3n-por-indicador-y-ri-estrategia.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{args} \PY{o}{=} \PY{p}{(}\PY{n}{getInitialSolution2}\PY{p}{,}\PY{l+m+mf}{1000.0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{Knapsack\PYZus{}2}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{args}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f(x*) = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{función objetivo promedio: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{función objetivo de la peor solución: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Worst solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+f(x*) = -29912.0 
+función objetivo promedio: -29894.8 
+función objetivo de la peor solución: -29887.0
+
+    \end{Verbatim}
+
+    \subsubsection{Solución por Indicador y estrategia
+ingenua.}\label{soluciuxf3n-por-indicador-y-estrategia-ingenua.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{args} \PY{o}{=} \PY{p}{(}\PY{n}{getInitialSolution2}\PY{p}{,}\PY{l+m+mf}{1000.0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{Knapsack\PYZus{}}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{args}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f(x*) = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{función objetivo promedio: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{función objetivo de la peor solución: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Worst solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+f(x*) = -29887.0 
+función objetivo promedio: -29887.0 
+función objetivo de la peor solución: -29887.0
+
+    \end{Verbatim}
+
+    \subsubsection{Solución ingenua y RI
+estrategia.}\label{soluciuxf3n-ingenua-y-ri-estrategia.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{args} \PY{o}{=} \PY{p}{(}\PY{n}{getInitialSolution}\PY{p}{,}\PY{l+m+mf}{1000.0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{Knapsack\PYZus{}2}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{args}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f(x*) = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{función objetivo promedio: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{función objetivo de la peor solución: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Worst solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+f(x*) = -29768.0 
+función objetivo promedio: -29577.533333333333 
+función objetivo de la peor solución: -29331.0
+
+    \end{Verbatim}
+
+    \subsubsection{Solución ingenua y estrategia
+ingenua.}\label{soluciuxf3n-ingenua-y-estrategia-ingenua.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{args} \PY{o}{=} \PY{p}{(}\PY{n}{getInitialSolution}\PY{p}{,}\PY{l+m+mf}{1000.0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{Knapsack\PYZus{}}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{args}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f(x*) = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{función objetivo promedio: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{función objetivo de la peor solución: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Worst solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+f(x*) = -16269.0 
+función objetivo promedio: -15303.1 
+función objetivo de la peor solución: -14115.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
