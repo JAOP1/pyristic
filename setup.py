@@ -13,7 +13,7 @@ setup(
   install_requires=[
           'numpy>=1.15.4',
           'tqdm>=4.28.1',
-          'numba>=0.41.0'
+          'numba==0.41.0'
       ],\
   classifiers=[
     'Development Status :: 3 - Alpha',
