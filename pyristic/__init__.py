@@ -1,2 +1,2 @@
-from pyristic.heuristic import *
-from pyristic.utils import *
+from .utils import *
+from .heuristic import *
