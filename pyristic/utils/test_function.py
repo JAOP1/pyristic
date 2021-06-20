@@ -122,5 +122,5 @@ def constraint1_Himmelblau(X : np.ndarray) -> bool:
 Himmelblau_constraints = [constraint1_Himmelblau]
 Himmelblau_bounds = [-5,5]
 
-bukin_ = {'function': Himmelblau_function, 'constraints': Himmelblau_constraints,\
+Himmelblau_ = {'function': Himmelblau_function, 'constraints': Himmelblau_constraints,\
            'bounds': Himmelblau_bounds, 'decision_variables': 2}
