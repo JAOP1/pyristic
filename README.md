@@ -26,8 +26,8 @@ Pyristic se divide como sigue:
 
 Uso de la librería de pyristic para encontrar una solución a un problema continuo con la metaheurística Estrategias evolutivas.
 ```python
-from optimpy.heuristic.EvolutionStrategy_search import EvolutionStrategy
-from optimpy.utils.test_function import beale_
+from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
+from pyristic.utils.test_function import beale_
 """
 Declaración del algoritmo: 
 - Función objetivo
