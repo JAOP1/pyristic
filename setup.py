@@ -1,12 +1,17 @@
 from distutils.core import setup
+
+with open("README.md") as f:
+    LONG_DESCRIPTION = f.read()
+
 setup(
   name = 'pyristic',\
   packages = ['pyristic'],\
   version = '0.1.2',\
   license='MIT',\
-  description = 'TYPE YOUR DESCRIPTION HERE',\
+  description = 'Set of metaheuristic for solve optimization problems.',\
   author = 'Jesús Armando Ortíz Peñafiel',\
   author_email = 'armandopenafiel12@gmail.com',\
+  long_description = LONG_DESCRIPTION,\
   url = 'https://github.com/JAOP1/',\
   download_url = 'https://github.com/JAOP1/pyristic/archive/refs/tags/0.1.2.tar.gz',\
   keywords = ['Optimization', 'Metaheuristic', 'Python'],\
