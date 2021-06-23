@@ -12,6 +12,7 @@ setup(
   author = 'Jesús Armando Ortíz Peñafiel',\
   author_email = 'armandopenafiel12@gmail.com',\
   long_description = LONG_DESCRIPTION,\
+  long_description_content_type="text/markdown",\
   url = 'https://github.com/JAOP1/',\
   download_url = 'https://github.com/JAOP1/pyristic/archive/refs/tags/0.1.3-alpha.tar.gz',\
   keywords = ['Optimization', 'Metaheuristic', 'Python'],\
