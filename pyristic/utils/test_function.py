@@ -16,7 +16,6 @@ def beale_function(X : np.ndarray) -> float:
     return a+b+c
 
 
-@jit(nopython=False,parallel=False)
 def constraint1_beale(X: np.ndarray) -> bool:
     for i in range(len(X)):
         if -4.5>X[i] or X[i] > 4.5:
@@ -44,7 +43,6 @@ def ackley_function(X : np.ndarray) -> float:
  
     return -20*np.exp( -0.2 * np.sqrt(square_sum)) - np.exp(trigonometric_sum) + 20 + np.e
 
-@jit(nopython=False, parallel=False)
 def constraint1_ackley(X : np.ndarray) -> bool:
     str_ = ""
     valid = True
@@ -75,7 +73,6 @@ def bukin_function(X: np.ndarray) -> float:
     B = np.abs(X[0] + 10)
     return 100.0 * A + 0.01* B
 
-@jit(nopython=False, parallel=False)
 def constraint1_bukin(X : np.ndarray) -> bool:
     str_ = ""
     str_+= "x{}: -15 <= {:.2f} <= -5 \n ".format(1, X[0])    
@@ -106,7 +103,6 @@ def Himmelblau_function(X: np.ndarray) -> float:
     B = (X[0] + X[1]**2 - 7)**2
     return A+B
 
-@jit(nopython=False, parallel=False)
 def constraint1_Himmelblau(X : np.ndarray) -> bool:
     str_ = ""
     valid = True
