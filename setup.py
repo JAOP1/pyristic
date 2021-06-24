@@ -1,11 +1,11 @@
-from distutils.core import setup
+# from distutils.core import setup
+from setuptools import find_packages,setup
 
 with open("README.md") as f:
     LONG_DESCRIPTION = f.read()
 
 setup(
   name = 'pyristic',\
-  packages = ['pyristic'],\
   version = '0.1.3-alpha',\
   license='MIT',\
   description = 'Set of metaheuristic for solve optimization problems.',\
@@ -28,5 +28,6 @@ setup(
     'Topic :: Software Development :: Build Tools',
     'License :: OSI Approved :: MIT License',
     'Programming Language :: Python :: 3.7'
-  ],
+  ],\
+  packages=find_packages(exclude=("examples",))
 )
