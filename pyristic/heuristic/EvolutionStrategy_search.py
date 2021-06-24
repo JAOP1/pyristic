@@ -32,10 +32,10 @@ class EvolutionStrategy:
         
         #Configuration.
         self._mutation_operator           = config.mutation_op  if config.mutation_op != None else mutation.sigma_mutator()
-        self._crossover_operator          = config.cross_op if config.cross_op != None else crossover.discrete()
+        self._crossover_operator          = config.cross_op if config.cross_op != None else crossover.discrete_crossover()
         self._survivor_selector           = config.survivor_selector if config.survivor_selector != None else selection.merge_selector()
         self._fixer                       = config.fixer if config.fixer != None else  ContinuosFixer(self.Bounds)
-        self._adaptive_crossover_operator = config.adaptive_crossover_op if config.adaptive_crossover_op != None else crossover.intermediate()
+        self._adaptive_crossover_operator = config.adaptive_crossover_op if config.adaptive_crossover_op != None else crossover.intermediate_crossover()
         self._adaptive_mutation_operator  = config.adaptive_mutation_op  if config.adaptive_mutation_op != None else mutation.mult_sigma_adaptive_mutator(self.Decision_variables)
 
         #Search information.
