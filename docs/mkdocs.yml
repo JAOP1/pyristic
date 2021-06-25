@@ -1,0 +1,10 @@
+site_name: Pyristic
+site_url: https://example.com/
+theme:
+  name: material
+nav: 
+  - Inicio: index.md
+  - Heuristicas: 
+    - Búsqueda Tabú: tabu.md
+    - Recocido Simulado: SA.md
+    
