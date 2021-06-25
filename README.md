@@ -55,7 +55,7 @@ print(BealeOptimizer)
 La instalación de la librería y dependencias es empleando el manejador de paquetes pip. La instrucción para instalar es la siguiente:
 
 ```
-pip3 install pyristic
+pip install pyristic
 ```
 
 
