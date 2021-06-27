@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://pyristic.com/SA/">
+        <link rel="canonical" href="https://pyristic.com/PE/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
     
     
       
-        <title>Recocido Simulado - Pyristic</title>
+        <title>Programación evolutiva - Pyristic</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#recocido-simulado" class="md-skip">
+        <a href="#programacion-evolutiva" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Recocido Simulado
+              Programación evolutiva
             
           </span>
         </div>
@@ -316,6 +316,18 @@
             
   
   
+  
+    <li class="md-nav__item">
+      <a href="../SA/" class="md-nav__link">
+        Recocido Simulado
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
   
   
@@ -328,12 +340,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Recocido Simulado
+          Programación evolutiva
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Recocido Simulado
+        Programación evolutiva
       </a>
       
         
@@ -351,6 +363,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#configuracion-de-programacion-evolutiva" class="md-nav__link">
+    Configuración de programación evolutiva
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ejemplo" class="md-nav__link">
     Ejemplo
   </a>
@@ -361,18 +380,6 @@
   
 </nav>
       
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../PE/" class="md-nav__link">
-        Programación evolutiva
-      </a>
     </li>
   
 
@@ -502,6 +509,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#configuracion-de-programacion-evolutiva" class="md-nav__link">
+    Configuración de programación evolutiva
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ejemplo" class="md-nav__link">
     Ejemplo
   </a>
@@ -521,33 +535,57 @@
               
                 
                 
-                <h1 id="recocido-simulado">Recocido simulado</h1>
-<p>La búsqueda de recocido simulado la podemos importar:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.heuristic.SimulatedAnnealing_search</span> <span class="kn">import</span> <span class="n">SimulatedAnnealing</span>
+                <h1 id="programacion-evolutiva">Programación evolutiva</h1>
+<p>La búsqueda se importar:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.heuristic.EvolutiveProgramming_search</span> <span class="kn">import</span> <span class="n">EvolutionaryProgramming</span>
 </code></pre></div>
 </td></tr></table>
 <div class="admonition info">
-<p class="admonition-title">SimulatedAnnealing (Clase recocido simulado)</p>
+<p class="admonition-title">EvolutionaryProgramming (clase de la metaheurística)</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Variables</label><div class="tabbed-content">
 <ul>
-<li><em><strong>logger.</strong></em> Diccionario con información relacionada a la búsqueda con las siguientes llaves:<ul>
+<li>
+<p><em><strong>logger.</strong></em> Diccionario con información relacionada a la búsqueda con las siguientes llaves:</p>
+<ul>
 <li><code>best_individual.</code> Mejor individuo encontrado.</li>
-<li><code>best_f.</code> El valor obtenido de la función objetivo de <code>individual</code>.</li>
-<li><code>temperature.</code> Temperatura inicial que se actualizará cada iteración.</li>
+<li><code>best_f.</code> El vlor obtenido de la función objetivo evaluado en el individuo almacenado en individual.</li>
+<li><code>current_iter.</code> Iteración actual de la búsqueda.</li>
+<li><code>total_iter.</code> Número total de iteraciones.</li>
+<li><code>parent_population_x.</code> Arreglo bidimensional de numpy que representa cada fila a un individuo de la población, mientras, las columnas representan el número de variables de decisión.</li>
+<li><code>offspring_population_x.</code> Arreglo bidimensional de numpy que representa cada fila a un individuo de la población, mientras, las columnas representan el número de variables de decisión.</li>
+<li><code>parent_population_sigma.</code> Arreglo de numpy que representa el desplazamiento de por variable de decisión de cada uno de los individuos.</li>
+<li><code>offspring_population_sigma.</code> Arreglo de numpy que representa el desplazamiento de por variable de decisión de cada uno de los individuos.</li>
+<li><code>parent_population_f.</code> Arreglo de numpy que contiene el valor de la función objetivo para cada uno de los individuos de la población de parent_population_x.</li>
+<li><code>offspring_population_f.</code> Arreglo de numpy que contiene el valor de la función objetivo para cada uno de los individuos de la población de offspring_population_x.</li>
 </ul>
 </li>
-<li><em><strong>f.</strong></em> Función objetivo.</li>
+<li>
+<p><em><strong>f.</strong></em> Función objetivo.</p>
+</li>
 <li><em><strong>Constraints.</strong></em> Lista de restricciones del problema. Las restricciones deben ser funciones que retornan True o False, indicando si cumple dicha restricción.</li>
+<li>
+<p><em><strong>Bounds.</strong></em>  Representa los límites definidos para cada una de las variables del problema. Se aceptan las siguientes representaciones:</p>
+<ul>
+<li>Arreglo de numpy con solo dos componentes numéricas, donde, la primera componente es el límite inferior y la segunda componente es el límite superior. Esto significa que todas las variables de decisión estarán definidas para el mismo intervalo.</li>
+<li>Arreglo bidimensional de numpy con dos arreglos de numpy, donde, el primer arreglo de numpy representa el límite inferior para cada variable de decisión, mientras, la segunda componente representa el límite superior para cada variable de decisión.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Decision_variables.</strong></em> El número de variables de decisión del problema.</p>
+</li>
 </ul>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Métodos</label><div class="tabbed-content">
 <ul>
 <li>
-<p><em><strong>__init__.</strong></em> Inicializa la clase.</p>
+<p><em><strong>__init__.</strong></em> Constructor de la clase.</p>
 <p>Argumentos:</p>
 <ul>
 <li><code>function.</code> Función objetivo.</li>
+<li><code>decision_variables.</code> Número que indica las variables de decisión del problema.</li>
 <li><code>constraints.</code> Lista con las restricciones del problema.</li>
+<li><code>bounds.</code> Límites del espacio de búsqueda de cada una de las variables de decisión del problema.</li>
+<li><code>config.</code> Estructura de datos (<code>EvolutionaryProgrammingConfig</code>) con los operadores que se emplearán en la búsqueda.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
@@ -555,66 +593,177 @@
 </ul>
 </li>
 <li>
-<p><em><strong>optimize.</strong></em> método principal, realiza la ejecución empleando la metaheurística llamada <code>SimulatedAnnealing</code>.</p>
+<p><em><strong>optimize.</strong></em> método principal, realiza la ejecución de la metaheurística.</p>
 <p>Argumentos:</p>
 <ul>
-<li><code>Init.</code> Solución inicial, se admite un arreglo de <em>numpy</em> o una función que retorne un arreglo de <em>numpy</em>.</li>
-<li><code>IniTemperature.</code> Valor de punto flotante que indica con que temperatura inicia la búsqueda.</li>
-<li><code>eps.</code> Valor de punto flotante que indica con que temperatura termina la búsqueda.</li>
-<li><code>**kwargs.</code> Parámetros externos a la búsqueda.</li>
+<li><code>generations.</code> Número de generaciones (iteraciones de la metaheurística).</li>
+<li><code>size_population.</code> Tamaño de la población (número de individuos).</li>
+<li><code>verbose.</code> Indica si se imprime en qué iteración se encuentra nuestra búsqueda. Por defecto, está en True.</li>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
-<li>Ninguno</li>
+<li>Ninguno.</li>
 </ul>
 </li>
 <li>
-<p><em><strong>update_temperature.</strong></em> Función que decrementa la temperatura.</p>
+<p><em><strong>mutatio_operator.</strong></em>  Muta las variables de decisión que se encuentran almacenadas en el diccionario <code>logger</code> con la llave <code>parent_population_x</code>.</p>
 <p>Argumentos:</p>
 <ul>
-<li><code>**kwargs</code> Parámetros externos a la búsqueda.</li>
+<li><code>**kwargs</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
-<li>La nueva temperatura.</li>
+<li>Un arreglo bidimensional de <em>numpy</em> representado a los nuevos individuos (se almacenarán en <code>logger</code> con la llave <code>offspring_population_x</code>).</li>
+</ul>
+</li>
+<li>
+<p><em><strong>adaptive_mutation.</strong></em> Muta los tamaños de paso que se encuentran almacenados en el diccionario <code>logger</code> con la llave <code>parent_population_sigma</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de numpy con los tamaños de desplazamiento para cada una de las variables de decisión de los individuos (se almacenarán en <code>logger</code> con la llave <code>offspring_population_sigma</code>).</li>
+</ul>
+</li>
+<li>
+<p><em><strong>survivor_selection.</strong></em> Selección de los individuos que pasarán a la siguiente generación.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>
+<p>Un diccionario con las siguientes llaves:</p>
+<ul>
+<li><code>parent_population_f.</code> El valor de la función objetivo de cada individuo que pasará a la siguiente generación.</li>
+<li><code>parent_population_sigma.</code> El/los valor(es) de desplazamiento de los individuos seleccionados.</li>
+<li><code>parent_population_x.</code> el vector <span class="arithmatex">\(\vec{x}\)</span> de cada uno de los individuos.</li>
 </ul>
 </li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Funciones que se deben sobreescribir</p>
-<ul>
+<p>Por defecto la metaheurística utiliza el esquema de selección <span class="arithmatex">\((\mu + \lambda)\)</span> que se encuentra en utils.operators.selection con el nombre de merge_selector.</p>
+</li>
 <li>
-<p><em><strong>get_neighbor.</strong></em> Genera una solución realizando una variación aleatoria en la solución actual.</p>
+<p><em><strong>initialize_population.</strong></em> Crea una población de individuos aleatorios. Para ello se utiliza una distribución uniforme y se generan números aleatorios dentro de los límites indicados para cada variable. Los individuos generados son almacenados en <code>logger</code> con la llave <code>parent_population_x</code>. Esta función es llamada dentro de la función optimize.</p>
 <p>Argumentos:</p>
 <ul>
-<li><code>x.</code> Arreglo de <em>numpy</em> representando a la solución actual.</li>
-<li><code>**kwargs</code> Parámetros externos a la búsqueda.</li>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
-<li>Arreglo de <em>numpy</em> representando la solución generada.</li>
+<li>Un arreglo bidimensional de <em>numpy</em>. El número de filas es igual al tamaño de la población y el número de columnas es igual al número de variables que tiene el problema que se está resolviendo.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>initialize_step_weights.</strong></em> Inicializa el tamaño de desplazamiento de cada una de las variables de decisión pertenecientes a cada individuo de la población. Para ello se generan números aleatorios en el intervalo <span class="arithmatex">\([0,1]\)</span>, utilizando una distribución uniforme. Los tamaños de desplazamiento están almacenados en <code>logger</code> con la llave <code>parent_population_sigma</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de numpy. El número de filas es igual al tamaño de la población y el número de columnas es igual al número de variables que tiene el problema que se está resolviendo. Cada variable tiene su propio tamaño de paso.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>fixer.</strong></em> Si la solución no está dentro de los límites definidos para cada variable (restricciones de caja), actualiza el valor de la variable con el valor del límite que rebasó. De lo contrario, regresa la misma solución.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>ind.</code> Índice del individuo.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo de <em>numpy</em> que reemplazará la solución infactible de la población con la llave <code>offspring_population_x</code>.</li>
 </ul>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<h2 id="configuracion-de-programacion-evolutiva">Configuración de programación evolutiva</h2>
+<p>Se debe importar como sigue:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.utils.helpers</span> <span class="kn">import</span> <span class="n">EvolutionaryProgrammingConfig</span> 
+</code></pre></div>
+</td></tr></table></p>
+<div class="admonition info">
+<p class="admonition-title">EvolutionaryProgrammingConfig (Configuración de la metaheurística)</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Variables</label><div class="tabbed-content">
+<ul>
+<li><em><strong>mutation_op.</strong></em> Variable con el operador de mutación.</li>
+<li><em><strong>survivor_selector.</strong></em> Variable con el esquema de selección de los individuos que pasan a la siguiente generación.</li>
+<li><em><strong>fixer.</strong></em> Variable con una función auxiliar para los individuos que no cumplen las restricciones del problema.</li>
+<li><em><strong>adaptive_mutation_op.</strong></em> Variable con el operador de mutación de los tamaños de paso <span class="arithmatex">\(\sigma\)</span>.</li>
+</ul>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Métodos</label><div class="tabbed-content">
+<ul>
+<li>
+<p><em><strong>mutate.</strong></em> Actualiza el operador de mutación de la variable <code>mutation_op</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>mutate_.</code> Función o clase que realiza la mutación de la población almacenada con la llave <code>offspring_population_x</code>.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>survivor_selection.</strong></em> Actualiza el esquema de selección de la variable <code>survivor_selector</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>survivor_function.</code>Función o clase que realiza la selección de individuos para la próxima generación.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>fixer_invalide_solutions.</strong></em> Actualiza la función auxiliar de la variable <code>fixer</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>fixer_function.</code> Función o clase que ajustará los individuos de la población que no cumplen con al menos una de las restricciones del problema.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>adaptive_mutation.</strong></em> Actualiza el operador de mutación de los <span class="arithmatex">\(\sigma\)</span> de la variable <code>adaptive_mutation_op</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>adaptive_mutation_function.</code> Función o clase que muta los tamaños de paso que se encuentran en <code>logger</code> con la llave <code>parent_population_sigma</code>.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <h2 id="ejemplo">Ejemplo</h2>
-<p>Para emplear la búsqueda se debe crear una clase nueva que herede todos los métodos de <code>SimulatedAnnealing</code>, por ejemplo:</p>
+<p>Hay varias formas de emplear la metaheurística, le sugerimos revisar los ejemplos. A continuación presentamos un ejemplo de empleo para el problema de ackley_: </p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">class</span> <span class="nc">simulatedAnnealingExample</span><span class="p">(</span><span class="n">SimulatedAnnealing</span><span class="p">):</span>
-
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_</span> <span class="p">:</span> <span class="n">function_type</span> <span class="p">,</span> <span class="n">constraints_</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">f_</span><span class="p">,</span><span class="n">constraints_</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">get_neighbor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>             
-            <span class="c1"># Código para su búsqueda.</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">configuration</span> <span class="o">=</span> <span class="p">(</span><span class="n">EvolutionaryProgrammingConfig</span><span class="p">()</span>
+                 <span class="o">.</span><span class="n">adaptive_mutation</span><span class="p">(</span>
+                     <span class="n">mutation</span><span class="o">.</span><span class="n">sigma_ep_adaptive_mutator</span><span class="p">(</span><span class="n">ackley_</span><span class="p">[</span><span class="s1">&#39;decision_variables&#39;</span><span class="p">],</span> <span class="mf">2.0</span><span class="p">)</span>
+                     <span class="p">)</span> 
+                 <span class="p">)</span>
+<span class="n">Optimizer_by_configuration</span> <span class="o">=</span> <span class="n">EvolutionaryProgramming</span><span class="p">(</span><span class="o">**</span><span class="n">ackley_</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">configuration</span><span class="p">)</span>
+<span class="n">Optimizer_by_configuration</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
                 
@@ -640,7 +789,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Pie">
       
         
-        <a href="../tabu/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Búsqueda Tabú" rel="prev">
+        <a href="../SA/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Recocido Simulado" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -649,20 +798,20 @@
               <span class="md-footer__direction">
                 Anterior
               </span>
-              Búsqueda Tabú
+              Recocido Simulado
             </div>
           </div>
         </a>
       
       
         
-        <a href="../PE/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Programación evolutiva" rel="next">
+        <a href="../EE/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Estrategias evolutivas" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Siguiente
               </span>
-              Programación evolutiva
+              Estrategias evolutivas
             </div>
           </div>
           <div class="md-footer__button md-icon">

@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="es" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -9,7 +9,7 @@
       
       
       
-        <link rel="canonical" href="https://example.com/tabu/">
+        <link rel="canonical" href="https://pyristic.com/tabu/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
@@ -49,13 +49,17 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="green">
   
     
     <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -63,8 +67,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#tabu" class="md-skip">
-          Skip to content
+        <a href="#busqueda-tabu" class="md-skip">
+          Saltar a contenido
         </a>
       
     </div>
@@ -73,7 +77,7 @@
     </div>
     
       <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href=".." title="Pyristic" class="md-header__button md-logo" aria-label="Pyristic" data-md-component="logo">
       
   
@@ -100,6 +104,28 @@
       </div>
     </div>
     
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+      </form>
+    
     
     
       <label class="md-header__button md-icon" for="__search">
@@ -110,12 +136,12 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+      <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
@@ -123,7 +149,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            Inicializando búsqueda
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -140,6 +166,73 @@
       
       
         
+          
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Inicio
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Heuristicas
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../helpers/" class="md-tabs__link">
+        Utilidades
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../Agradecimientos/" class="md-tabs__link">
+      Desarrolladores
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
@@ -151,8 +244,10 @@
                   <div class="md-sidebar__inner">
                     
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Pyristic" class="md-nav__button md-logo" aria-label="Pyristic" data-md-component="logo">
       
@@ -220,9 +315,46 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Búsqueda Tabú
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Búsqueda Tabú
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lista-tabu" class="md-nav__link">
+    Lista Tabú
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo" class="md-nav__link">
+    Ejemplo
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -240,8 +372,113 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PE/" class="md-nav__link">
+        Programación evolutiva
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EE/" class="md-nav__link">
+        Estrategias evolutivas
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AG/" class="md-nav__link">
+        Algoritmos genéticos
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Utilidades
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Utilidades" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Utilidades
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helpers/" class="md-nav__link">
+        Funciones auxiliares y prueba
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operadores/" class="md-nav__link">
+        operadores para algoritmos de computo evolutivo
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Agradecimientos/" class="md-nav__link">
+        Desarrolladores
+      </a>
     </li>
   
 
@@ -258,12 +495,34 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
   
   
   
     
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lista-tabu" class="md-nav__link">
+    Lista Tabú
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo" class="md-nav__link">
+    Ejemplo
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -276,7 +535,197 @@
               
                 
                 
-                <h1 id="tabu">Tabú</h1>
+                <h1 id="busqueda-tabu">Búsqueda Tabú</h1>
+<p>La búsqueda tabú la podemos importar:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.heuristic.Tabu_search</span> <span class="kn">import</span> <span class="n">TabuSearch</span>
+</code></pre></div>
+</td></tr></table></p>
+<div class="admonition info">
+<p class="admonition-title">TabuSearch (clase búsqueda tabú)</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Variables</label><div class="tabbed-content">
+<ul>
+<li><em><strong>logger.</strong></em> Diccionario con información relacionada a la búsqueda con las siguientes llaves:<ul>
+<li><code>best_individual.</code> Mejor individuo encontrado.</li>
+<li><code>best_f.</code> El valor obtenido de la función objetivo de <code>individual</code>.</li>
+<li><code>current_iter.</code> Iteración actual de la búsqueda.</li>
+<li><code>total_iter.</code> Número total de iteraciones.</li>
+</ul>
+</li>
+<li><em><strong>TL.</strong></em> Estructura de datos auxiliar que mantendrá memoria de las soluciones encontradas durante el tiempo especificado en <code>optimize</code>, por defecto utiliza <code>TabuList</code>.</li>
+<li><em><strong>f.</strong></em> Función objetivo.</li>
+<li><em><strong>Constraints.</strong></em> Lista de restricciones del problema. Las restricciones deben ser funciones que retornan True o False, indicando si cumple dicha restricción.</li>
+</ul>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Métodos</label><div class="tabbed-content">
+<ul>
+<li>
+<p><em><strong>__init__.</strong></em> Constructor de la clase.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>function.</code> Función objetivo.</li>
+<li><code>constraints.</code> Lista con las restricciones del problema.</li>
+<li><code>TabuStruct.</code> Estructura de datos que almacena información de variaciones que mejoran la solución.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>optimize.</strong></em> método principal, realiza la ejecución empleando la metaheurística llamada <code>TabuSearch</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>Init.</code> Solución inicial, se admite un arreglo de <em>numpy</em> o una función que retorne un arreglo de <em>numpy</em>.</li>
+<li><code>iterations.</code> Número de iteraciones.</li>
+<li><code>memory_time.</code> Tiempo que permanecerá una solución en nuestra estructura llamada <code>TabuList</code>.</li>
+<li><code>**kwargs.</code> Parámetros externos a la búsqueda.</li>
+</ul>
+<p>Valor de retorno:
+- Ninguno</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Funciones que se deben sobreescribir</p>
+<ul>
+<li>
+<p><em><strong>get_neighbors.</strong></em> Función que genera el vecindario de soluciones de la solución <span class="arithmatex">\(x\)</span>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>x.</code> Arreglo de <em>numpy</em> representando a la solución actual.</li>
+<li><code>**kwargs</code> Parámetros externos a la búsqueda.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Arreglo bidimensional de <em>numpy</em> representando a todas las soluciones generadas desde la solución <span class="arithmatex">\(x\)</span>.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>encode_change.</strong></em> Revisa nuestra solución actual <span class="arithmatex">\(x\)</span> y la solución generada para indicar en dónde sucedió la pequeña variación. </p>
+<p>Argumentos:</p>
+<ul>
+<li><code>neighbor.</code> Arreglo de <em>numpy</em> representando una variación de nuestra solución actual <span class="arithmatex">\(x\)</span>.</li>
+<li><code>x.</code> Arreglo de <em>numpy</em> representando nuestra solución actual.</li>
+<li><code>**kwargs.</code> Parámetros externos a la búsqueda.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Lista con dos elementos, donde, la primera componente será la posición <span class="arithmatex">\(i\)</span> donde sucedió la variación y la segunda componente es el elemento en la componente <span class="arithmatex">\(i\)</span> de <code>neighbor</code>.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<h2 id="lista-tabu">Lista Tabú</h2>
+<div class="admonition info">
+<p class="admonition-title">TabuList (clase lista tabú)</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Variables</label><div class="tabbed-content">
+<ul>
+<li><em><strong>_TB.</strong></em> Lista de listas que representarán las posiciones que fueron modificadas con un contador de tiempo.</li>
+<li><em><strong>timer.</strong></em> El tiempo que durará cada solución en la lista.</li>
+</ul>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Métodos</label><div class="tabbed-content">
+<ul>
+<li>
+<p><em><strong>push.</strong></em> Introduce los cambios que proporcionaron una mejora en la búsqueda.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>x.</code> Arreglo con la siguiente información: <ul>
+<li>Primera componente: posición (indice) donde se encontró una mejora en la función objetivo.</li>
+<li>Segunda componente: valor por el cual mejoró nuestra solución.</li>
+<li>Tercera componente: iteración en la que se realizó la mejora.</li>
+</ul>
+</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>find.</strong></em>  Revisa si la nueva solución sea una de las modificaciones hechas en iteraciones previas almacenadas en <code>_TB</code>. </p>
+<p>Argumentos:</p>
+<ul>
+<li><code>x.</code> Arreglo de <em>numpy</em> que representa el cambio realizado en la solución actual de la búsqueda, es decir, recibe el arreglo que retorna la función <code>encode_change(neighbor,x)</code>.  </li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Valor booleano que indica si la modificación en dicha solución ya se encontraba en nuestra lista tabú. </li>
+</ul>
+</li>
+<li>
+<p><em><strong>reset.</strong></em> Borra toda la información almacenada en nuestro contenedor <code>_TB</code> y actualiza la variable <code>timer</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>timer.</code> Número que representa el tiempo que durarán ahora las soluciones en nuestra lista tabú.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>update.</strong></em> Realiza la actualización en el contendor <code>_TB</code> modificando el tiempo de cada uno de los individuos almacenados y elimina aquellos individuos que ya expiró su tiempo. </p>
+<p>Argumentos:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>pop_back.</strong></em>  Elimina el último elemento del contenedor <code>_TB</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>get_back.</strong></em> Regresa el último elemento del contenedor <code>_TB</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Elemento del contendor <code>_TB</code>.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<h2 id="ejemplo">Ejemplo</h2>
+<p>Para emplear la búsqueda tabú se debe crear una clase nueva que herede todos los métodos de <code>TabuSearch</code>, por ejemplo:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">class</span> <span class="nc">tabuExample</span><span class="p">(</span><span class="n">TabuList</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_</span> <span class="p">:</span> <span class="n">function_type</span> <span class="p">,</span> <span class="n">constraints_</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">TabuStruct_</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">f_</span><span class="p">,</span> <span class="n">constraints_</span><span class="p">,</span> <span class="n">TabuStruct</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">get_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="c1"># Código para su búsqueda.</span>
+
+        <span class="k">def</span> <span class="nf">encode_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">neighbor</span> <span class="p">:</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">),</span> <span class="n">x</span> <span class="p">:</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">),</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="c1"># Código para su búsqueda</span>
+</code></pre></div>
+</td></tr></table>
                 
               
               
@@ -288,22 +737,26 @@
           </div>
         </div>
         
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
       </main>
       
         
 <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    <nav class="md-footer__inner md-grid" aria-label="Pie">
       
         
-        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Inicio" rel="prev">
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Anterior: Inicio" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
-                Previous
+                Anterior
               </span>
               Inicio
             </div>
@@ -312,11 +765,11 @@
       
       
         
-        <a href="../SA/" class="md-footer__link md-footer__link--next" aria-label="Next: Recocido Simulado" rel="next">
+        <a href="../SA/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Recocido Simulado" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
-                Next
+                Siguiente
               </span>
               Recocido Simulado
             </div>
@@ -339,6 +792,25 @@
         
       </div>
       
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="mailto:armandopenafiel12@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/JAOP1" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
     </div>
   </div>
 </footer>
@@ -347,10 +819,16 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      
+        <script src="../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

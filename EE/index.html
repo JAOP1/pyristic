@@ -1,0 +1,953 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://pyristic.com/EE/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
+    
+    
+      
+        <title>Estrategias evolutivas - Pyristic</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#estrategias-evolutivas" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="Pyristic" class="md-header__button md-logo" aria-label="Pyristic" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pyristic
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Estrategias evolutivas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Inicio
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../tabu/" class="md-tabs__link md-tabs__link--active">
+        Heuristicas
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../helpers/" class="md-tabs__link">
+        Utilidades
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../Agradecimientos/" class="md-tabs__link">
+      Desarrolladores
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Pyristic" class="md-nav__button md-logo" aria-label="Pyristic" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Pyristic
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Heuristicas
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Heuristicas" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Heuristicas
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tabu/" class="md-nav__link">
+        Búsqueda Tabú
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SA/" class="md-nav__link">
+        Recocido Simulado
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PE/" class="md-nav__link">
+        Programación evolutiva
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Estrategias evolutivas
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Estrategias evolutivas
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-estrategias-evolutivas" class="md-nav__link">
+    Configuración de Estrategias evolutivas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo" class="md-nav__link">
+    Ejemplo
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AG/" class="md-nav__link">
+        Algoritmos genéticos
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Utilidades
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Utilidades" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Utilidades
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helpers/" class="md-nav__link">
+        Funciones auxiliares y prueba
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operadores/" class="md-nav__link">
+        operadores para algoritmos de computo evolutivo
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Agradecimientos/" class="md-nav__link">
+        Desarrolladores
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-estrategias-evolutivas" class="md-nav__link">
+    Configuración de Estrategias evolutivas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo" class="md-nav__link">
+    Ejemplo
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="estrategias-evolutivas">Estrategias evolutivas</h1>
+<p>La búsqueda se importar:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.heuristic.EvolutionStrategy_search</span> <span class="kn">import</span> <span class="n">EvolutionStrategy</span>
+</code></pre></div>
+</td></tr></table>
+<div class="admonition info">
+<p class="admonition-title">EvolutionStrategy (clase de la metaheurística)</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Variables</label><div class="tabbed-content">
+<ul>
+<li><em><strong>logger.</strong></em> Diccionario con información relacionada a la búsqueda. <ul>
+<li><code>best_individual.</code> Individuo con el mejor valor encontrado en la función objetivo.</li>
+<li><code>best_f.</code> Valor de la función objetivo.</li>
+<li><code>current_iter.</code> Iteración actual de la búsqueda.</li>
+<li><code>total_iter.</code> Número total de iteraciones.</li>
+<li><code>parent_population_size.</code> Tamaño de la población de padres.</li>
+<li><code>offspring_population_size.</code> Tamaño de la población de hijos.</li>
+<li><code>parent_population_x.</code> Arreglo bidimensional de <em>numpy</em>. Cada fila representa un individuo de la población actual y cada columna corresponde a una variable de decisión.</li>
+<li><code>offspring_population_x.</code> Arreglo bidimensional de <em>numpy</em>. Cada fila representa un individuo de la población de hijos y cada columna corresponde a una variable de decisión.</li>
+<li><code>parent_population_sigma.</code> Arreglo de <em>numpy</em>, donde, cada elemento representa el desplazamiento de todas las variables de decisión de cada individuo o un arreglo bidimensional de <em>numpy</em>, donde,  cada fila representa el desplazamiento de cada una de  las variables de decisión de un individuo. </li>
+<li><code>offspring_population_sigma.</code>Arreglo de <em>numpy</em>, donde, cada elemento representa el desplazamiento de todas las variables de decisión de un individuo o un arreglo bidimensional de <em>numpy</em>, donde,  cada fila representa el desplazamiento de cada una de  las variables de decisión de un individuo. </li>
+<li><code>parent_population_f.</code> Arreglo de <em>numpy</em> que contiene el valor de la función objetivo para cada uno de los individuos de la población con la llave <code>parent_population_x</code> en <code>logger</code>.</li>
+<li><code>offspring_population_f.</code> Arreglo de <em>numpy</em> que contiene el valor de la función objetivo para cada uno de los individuos de la población con la llave <code>offspring_population_x</code>.</li>
+</ul>
+</li>
+<li><em><strong>f.</strong></em> Función objetivo.</li>
+<li><em><strong>Constraints.</strong></em> Lista de restricciones del problema. Las restricciones deben ser funciones que retornan True o False, indicando si cumple dicha restricción.</li>
+<li>
+<p><em><strong>Bounds.</strong></em> Representa los límites definidos para cada una de las variables del problema. Se aceptan las siguientes representaciones:</p>
+<ul>
+<li>Arreglo de <em>numpy</em> con solo dos componentes numéricas, donde, la primera componente es el límite inferior y la segunda componente es el límite superior. Esto significa que todas las variables de decisión estarán definidas para el mismo intervalo.</li>
+<li>Arreglo bidimensional de <em>numpy</em> con únicamente dos filas, donde, la primer fila es el límite inferior para cada variable de decisión, mientras, la segunda fila representa el límite superior para cada variable de decisión.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Decision_variables.</strong></em> El número de variables de decisión del problema.</p>
+</li>
+</ul>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Métodos</label><div class="tabbed-content">
+<ul>
+<li>
+<p><em><strong>__init__.</strong></em> Constructor de la clase.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>function.</code> Función objetivo.</li>
+<li><code>decision_variables.</code> Número de variables de decisión del problema.</li>
+<li><code>constraints.</code> Lista con las restricciones del problema (se describe los tipos de datos admisibles en el apartado de variables de la clase con el nombre <code>Constraints</code>).</li>
+<li><code>bounds.</code> Límites de las variables de decisión (se describe los tipos de datos admisibles en el apartado de variables de la clase con el nombre <code>Bounds</code>).  </li>
+<li><code>config.</code> Estructura de datos (<code>EvolutionStrategyConfig</code>) con los operadores que se emplearán en la búsqueda.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>optimize.</strong></em> Método principal, realiza la ejecución de la metaheurística.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>generations.</code>  Número de generaciones (iteraciones de la metaheurística).</li>
+<li><code>population_size.</code> Tamaño de la población (número de individuos).</li>
+<li><code>offspring_size.</code> Tamaño de la población creada a partir de los operadores de cruza y mutación.</li>
+<li><code>eps_sigma.</code> Valor mínimo que pueden tener los tamaños de paso. Por defecto, está en 0.001.</li>
+<li><code>verbose.</code>  Indica si se imprime en qué iteración se encuentra nuestra búsqueda. Por defecto, está en True.</li>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno: </p>
+<ul>
+<li>Ninguno.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>fixer</strong></em>. Si la solución no está dentro de los límites definidos para cada variable (restricciones de caja), actualiza el valor de la variable con el valor del límite que rebasó. De lo contrario, regresa la misma solución.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>ind.</code> Índice del individuo.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo de <em>numpy</em> que reemplazará la solución infactible.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>initialize_population</strong></em>. Crea una población de individuos aleatorios. Para ello se utiliza una distribución uniforme y se generan números aleatorios dentro de los límites indicados para cada variable. Los individuos generados son almacenados en <code>logger</code> con la llave <code>parent_population_x</code>. Esta función es llamada dentro de la función <code>optimize</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de <em>numpy</em>. Cada fila representa un individuo, cada columna indica los valores para cada variable de decisión del individuo.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>initialize_step_weights</strong></em>. Inicializa el tamaño de desplazamiento de cada individuo de la población, por defecto se emplea un sigma por cada variable de decisión en cada uno de los individuos. Para ello se generan números aleatorios en el intervalo <span class="arithmatex">\([0,1]\)</span>, utilizando una distribución uniforme. Los tamaños de desplazamiento están almacenados en logger con la llave <code>parent_population_sigma</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>eps_sigma.</code> Valor mínimo que pueden tomar sigma (tamaños de paso).</li>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de <em>numpy</em>. Cada fila almacena la información de los tamaños de paso de cada individuo, cada columna pertenece al tamaño de paso de una de las variables de decisión.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>crossover_operator.</strong></em> Genera <span class="arithmatex">\(\lambda\)</span> hijos (individuos nuevos), aplicando una recombinación sexual. Es decir, se seleccionan dos individuos aleatoriamente de <code>parent_population_x</code> que actuarán como padres y generarán un hijo. Este procedimiento se repite <span class="arithmatex">\(\lambda\)</span> veces. Los nuevos individuos se almacenan en <code>logger</code> con la llave <code>offspring_population_x</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>parent_ind1.</code> Índices de los individuos que son seleccionados para actuar como padre 1.</li>
+<li><code>parent_ind2.</code> Índices de los individuos que son seleccionados para actuar como padre 2.</li>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de <em>numpy</em> con los valores de las variables de decisión de los nuevos individuos.</li>
+</ul>
+<p><em>Por defecto la metaheurística utiliza el operador de cruza discreta que se encuentra en <code>utils.operators.crossover</code> con el nombre de <code>discrete</code>.</em></p>
+</li>
+<li>
+<p><em><strong>mutation_operator.</strong></em> Muta las variables de decisión de los individuos creados con el operador de cruza. Estos individuos están almacenados en el diccionario <code>logger</code> con la llave <code>offspring_population_x</code>. La mutación se realiza de la siguiente forma por defecto:</p>
+<div class="arithmatex">\[\begin{equation}
+\label{eq:mutarVariables}
+x'_i = x_i + \sigma'_i \cdot N_i(0, 1)
+\end{equation}\]</div>
+<p>donde <span class="arithmatex">\(x'_i\)</span> es la variable mutada, <span class="arithmatex">\(x_i\)</span> la variable a mutar, <span class="arithmatex">\(\sigma'_i\)</span> el tamaño de paso (previamente mutado) y <span class="arithmatex">\(N_{i}(0,1)\)</span> devuelve un número aleatorio por cada variable de decisión utilizando una distribución normal con media <span class="arithmatex">\(0\)</span> y desviación estándar igual con <span class="arithmatex">\(1\)</span>.</p>
+<p><em>Nota</em>. Es importante tener en cuenta que la fila <span class="arithmatex">\(j\)</span> de <code>offspring_population_x</code> debe corresponder con la fila <span class="arithmatex">\(j\)</span> de <code>offspring_population_sigma</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de numpy que almacena los nuevos valores de las variables de decisión.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>adaptive_crossover.</strong></em> Genera los tamaños de paso de los nuevos individuos, aplicando una recombinación sexual. Utiliza las mismas parejas de padres que se usaron con el operador <code>crossover_operator</code>. Los nuevos tamaños de paso son almacenados en <code>logger</code> con la llave <code>offspring_population_sigma</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>parent_ind1.</code> Índices de los individuos que son seleccionados para actuar como padre 1.</li>
+<li><code>parent_ind2.</code> Índices de los individuos que son seleccionados para actuar como padre 2.</li>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de <em>numpy</em> con los valores de los nuevos tamaños de paso.</li>
+</ul>
+<p><em>Por defecto la metaheurística utiliza el operador de cruza intermedia que se encuentra en <code>utils.operators.crossover</code> con el nombre de <code>intermediate</code>.</em></p>
+</li>
+<li>
+<p><em><strong>adaptive_mutation.</strong></em>  Muta los tamaños de paso que se encuentran almacenados en el diccionario <code>logger</code> con la llave <code>offspring_population_sigma</code>. Este método se ejecuta antes del método <code>mutation_operator</code>. La mutación se realiza de la siguiente forma por defecto:</p>
+<div class="arithmatex">\[\begin{equation*}
+\label{eq:mutarNSigmas}
+\sigma'_i = \sigma_i \cdot e ^ {\tau' \cdot N(0,1) + \tau \cdot N_i(0,1)}
+\end{equation*}\]</div>
+<p>Donde,</p>
+<ul>
+<li><span class="arithmatex">\(\sigma_{i}\)</span> es el tamaño de paso actual.</li>
+<li><span class="arithmatex">\(\sigma'_{i}\)</span> es tamaño de paso mutado. </li>
+<li><span class="arithmatex">\(\tau\)</span> está definido como <span class="arithmatex">\(\frac{1}{\sqrt{2n}}\)</span>, donde, <span class="arithmatex">\(n\)</span> es el número de variables del problema.</li>
+<li><span class="arithmatex">\(\tau'\)</span> está definido como <span class="arithmatex">\(\frac{1}{\sqrt{2\sqrt{n}}}\)</span>, donde, <span class="arithmatex">\(n\)</span> es el número de variables del problema.</li>
+<li><span class="arithmatex">\(N(0,1)\)</span> devuelve un número aleatorio usando una distribución normal con media 0 y desviación estándar igual a 1. Es importante notar que se genera un único número aleatorio  para todas las <span class="arithmatex">\(\sigma_{i}\)</span>.</li>
+<li><span class="arithmatex">\(N_{i}(0,1)\)</span> devuelve un número aleatorio por <span class="arithmatex">\(\sigma_i\)</span> utilizando una distribución normal con media 0 y desviación estandas igual a 1.   </li>
+</ul>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de <em>numpy</em> con los tamaños de desplazamiento para cada una de las variables de decisión de los individuos.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>survivor_selection.</strong></em> Selecciona los individuos que formarán parte de la siguiente generación. </p>
+<p>Argumentos: </p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>
+<p>Un diccionario con las siguientes llaves:</p>
+<ul>
+<li><code>parent_population_fitness.</code> El valor de aptitud de cada individuo que pasará a la siguiente generación.</li>
+<li><code>parent_population_sigma.</code> El/los valor(es) de desplazamiento de los individuos seleccionados.</li>
+<li><code>parent_population_x.</code> el vector <span class="arithmatex">\(\vec{x}\)</span> de cada uno de los individuos. </li>
+</ul>
+</li>
+</ul>
+<p><em>Por defecto la metaheurística utiliza el esquema de selección <span class="arithmatex">\((\mu + \lambda)\)</span> que se encuentra en <code>utils.operators.selection</code> con el nombre de <code>merge_selector</code>.</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<h2 id="configuracion-de-estrategias-evolutivas">Configuración de Estrategias evolutivas</h2>
+<p>Se debe importar como sigue:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.utils.helpers</span> <span class="kn">import</span> <span class="n">EvolutionStrategyConfig</span>
+</code></pre></div>
+</td></tr></table></p>
+<div class="admonition info">
+<p class="admonition-title">EvolutionStrategyConfig (Configuración de la metaheurística)</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Variables</label><div class="tabbed-content">
+<ul>
+<li><em><strong>cross_op.</strong></em> Variable con el operador de cruza.</li>
+<li><em><strong>mutation_op.</strong></em> Variable con el operador de mutación.</li>
+<li><em><strong>survivor_selector.</strong></em> Variable con el esquema de selección que decide cuáles individuos pasan a la siguiente generación.</li>
+<li><em><strong>fixer.</strong></em> Variable con una función que determina qué hacer con los individuos que no cumplen las restricciones del problema. </li>
+<li><em><strong>adaptive_crossover_op.</strong></em> Variable con el operador de cruza que se aplica a los tamaños de paso <span class="arithmatex">\(\sigma\)</span>.</li>
+<li><em><strong>adaptive_mutation_op.</strong></em> Variable con el operador de mutación que se aplica a los tamaños de paso <span class="arithmatex">\(\sigma\)</span>.</li>
+</ul>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Métodos</label><div class="tabbed-content">
+<ul>
+<li>
+<p><em><strong>cross.</strong></em> Actualiza el operador de cruza de la variable <code>cross_op</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>crossover_.</code> Función o clase que realiza la cruza de la población almacenada con la llave <code>parent_population_x</code>.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>mutate.</strong></em> Actualiza el operador de mutación de la variable <code>mutation_op</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>mutate_.</code> Función o clase que realiza la mutación de la población almacenada con la llave <code>offspring_population_x</code>.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de mutación. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>survivor_selection.</strong></em> Actualiza el esquema de selección de la variable <code>survivor_selector</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>survivor_function.</code> Función o clase que realiza la selección de individuos que formarán parte de la siguiente generación.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del esquema de selección de sobrevivientes. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>fixer_invalide_solutions.</strong></em> Actualiza la función de la variable <code>fixer</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>fixer_function.</code> Función o clase que ajustará los individuos de la población que no cumplen con las restricciones del problema.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización de la función auxiliar. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>adaptive_crossover.</strong></em> Actualiza el operador de cruza de los <span class="arithmatex">\(\sigma\)</span> de la variable <code>adaptive_crossover_op</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>adaptive_crossover_function.</code> Función o clase que cruza los tamaños de paso de los individuos seleccionados para la cruza. Estos tamaños de paso están almacenados en el diccionario <code>logger</code> con la llave <code>offspring_population_sigma</code>. </li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza en los tamaños de paso. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>adaptive_mutation.</strong></em> Actualiza el operador de mutación de los <span class="arithmatex">\(\sigma\)</span> de la variable <code>adaptive_mutation_op</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>adaptive_mutation_function.</code> Función o clase que muta los tamaños de paso que se encuentran en <code>logger</code>con la llave <code>offspring_population_sigma</code>.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de mutación en los tamaños de paso. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<h2 id="ejemplo">Ejemplo</h2>
+<p>Hay varias formas de emplear la metaheurística, le sugerimos revisar los ejemplos. A continuación presentamos un ejemplo de empleo para el problema de ackley_: </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">configuration_ackley</span> <span class="o">=</span> <span class="p">(</span><span class="n">EvolutionStrategyConfig</span><span class="p">()</span>
+                       <span class="o">.</span><span class="n">survivor_selection</span><span class="p">(</span><span class="n">selection</span><span class="o">.</span><span class="n">replacement_selector</span><span class="p">())</span>
+                       <span class="o">.</span><span class="n">adaptive_mutation</span><span class="p">(</span>
+                           <span class="n">mutation</span><span class="o">.</span><span class="n">single_sigma_adaptive_mutator</span><span class="p">(</span>
+                                           <span class="n">ackley_</span><span class="p">[</span><span class="s1">&#39;decision_variables&#39;</span><span class="p">])</span>
+                                         <span class="p">)</span>
+                       <span class="p">)</span>
+<span class="n">solver_ackley_custom</span> <span class="o">=</span> <span class="n">EvolutionStrategy</span><span class="p">(</span><span class="o">**</span><span class="n">ackley_</span><span class="p">,</span><span class="n">config</span><span class="o">=</span><span class="n">configuration_ackley</span><span class="p">)</span>
+<span class="n">solver_ackley_custom</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">solver_ackley_custom</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Pie">
+      
+        
+        <a href="../PE/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Programación evolutiva" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              Programación evolutiva
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../AG/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Algoritmos genéticos" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              Algoritmos genéticos
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="mailto:armandopenafiel12@gmail.com" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2 12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/JAOP1" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.82b56eb2.min.js"></script>
+      
+        <script src="../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

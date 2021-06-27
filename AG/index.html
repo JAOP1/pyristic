@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://pyristic.com/SA/">
+        <link rel="canonical" href="https://pyristic.com/AG/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.9">
     
     
       
-        <title>Recocido Simulado - Pyristic</title>
+        <title>Algoritmos genéticos - Pyristic</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#recocido-simulado" class="md-skip">
+        <a href="#algoritmos-geneticos" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Recocido Simulado
+              Algoritmos genéticos
             
           </span>
         </div>
@@ -316,51 +316,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Recocido Simulado
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../SA/" class="md-nav__link">
         Recocido Simulado
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Tabla de contenidos
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#ejemplo" class="md-nav__link">
-    Ejemplo
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -392,11 +352,58 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../AG/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Algoritmos genéticos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Algoritmos genéticos
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-algoritmos-geneticos" class="md-nav__link">
+    Configuración de algoritmos genéticos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo" class="md-nav__link">
+    Ejemplo
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -502,6 +509,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#configuracion-de-algoritmos-geneticos" class="md-nav__link">
+    Configuración de algoritmos genéticos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ejemplo" class="md-nav__link">
     Ejemplo
   </a>
@@ -521,33 +535,50 @@
               
                 
                 
-                <h1 id="recocido-simulado">Recocido simulado</h1>
-<p>La búsqueda de recocido simulado la podemos importar:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.heuristic.SimulatedAnnealing_search</span> <span class="kn">import</span> <span class="n">SimulatedAnnealing</span>
+                <h1 id="algoritmos-geneticos">Algoritmos Genéticos</h1>
+<p>La búsqueda se importar:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.heuristic.GeneticAlgorithm_search</span> <span class="kn">import</span> <span class="n">Genetic</span>
 </code></pre></div>
 </td></tr></table>
 <div class="admonition info">
-<p class="admonition-title">SimulatedAnnealing (Clase recocido simulado)</p>
+<p class="admonition-title">Genetic (clase de la metaheurística)</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Variables</label><div class="tabbed-content">
 <ul>
-<li><em><strong>logger.</strong></em> Diccionario con información relacionada a la búsqueda con las siguientes llaves:<ul>
+<li>
+<p><em><strong>logger.</strong></em> Diccionario con información relacionada a la búsqueda.</p>
+<ul>
 <li><code>best_individual.</code> Mejor individuo encontrado.</li>
-<li><code>best_f.</code> El valor obtenido de la función objetivo de <code>individual</code>.</li>
-<li><code>temperature.</code> Temperatura inicial que se actualizará cada iteración.</li>
+<li><code>best_f.</code> Aptitud del mejor individuo.</li>
+<li><code>current_iter.</code> Iteración actual de la búsqueda.</li>
+<li><code>total_iter.</code> Número total de iteraciones.</li>
+<li><code>population_size.</code> Tamaño de la población.</li>
+<li><code>parent_population_x.</code> Arreglo bidimensional de numpy. Cada fila representa a un individuo de la población actual y cada columna corresponde a una variable de decisión.</li>
+<li><code>offspring_population_x.</code> Arreglo bidimensional de numpy. Cada fila representa a un individuo de la población de hijos y cada columna corresponde a una variable de decisión.</li>
+<li><code>parent_population_f.</code> Arreglo de numpy que contiene el valor de la función objetivo para cada uno de los individuos de la población de <code>parent_population_x</code>.</li>
+<li><code>offspring_population_f.</code> Arreglo de numpy que contiene el valor de la función objetivo para cada uno de los individuos de la población de <code>offspring_population_x</code>.</li>
 </ul>
 </li>
-<li><em><strong>f.</strong></em> Función objetivo.</li>
+<li>
+<p><em><strong>f.</strong></em> Función objetivo.</p>
+</li>
 <li><em><strong>Constraints.</strong></em> Lista de restricciones del problema. Las restricciones deben ser funciones que retornan True o False, indicando si cumple dicha restricción.</li>
+<li><em><strong>Bounds.</strong></em> Representa los límites definidos para cada una de las variables del problema. Se aceptan las siguientes representaciones:</li>
+<li>Arreglo de <em>numpy</em> con solo dos componentes numéricas, donde, la primera componente es el límite inferior y la segunda componente es el límite superior. Esto significa que todas las variables de decisión estarán definidas para el mismo intervalo.</li>
+<li>Arreglo bidimensional de <em>numpy</em> con dos arreglos de numpy, donde, el primer arreglo de numpy representa el límite inferior para cada variable de decisión, mientras, la segunda componente representa el límite superior para cada variable de decisión.</li>
+<li><em><strong>Decision_variables.</strong></em> El número de variables de decisión del problema.</li>
 </ul>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Métodos</label><div class="tabbed-content">
 <ul>
 <li>
-<p><em><strong>__init__.</strong></em> Inicializa la clase.</p>
+<p><em><strong>_<em>init</em>_</strong></em> Constructor de la clase.</p>
 <p>Argumentos:</p>
 <ul>
 <li><code>function.</code> Función objetivo.</li>
-<li><code>constraints.</code> Lista con las restricciones del problema.</li>
+<li><code>decision_variables.</code> Número de variables de decisión.</li>
+<li><code>constraints.</code> Lista con las restricciones del problema. Las restricciones deben ser funciones que retornan True o False, dependiendo de si se cumple o no dicha restricción.</li>
+<li><code>bounds.</code> Límites de las variables de decisión (se describe los tipos de datos admisibles en el apartado de variables de la clase con el nombre Bounds).</li>
+<li><code>config.</code> Estructura de datos (<code>GeneticConfig</code>) con los operadores que se emplearán en la búsqueda.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
@@ -555,66 +586,195 @@
 </ul>
 </li>
 <li>
-<p><em><strong>optimize.</strong></em> método principal, realiza la ejecución empleando la metaheurística llamada <code>SimulatedAnnealing</code>.</p>
+<p><em><strong>optimize.</strong></em> Método principal, realiza la ejecución de la metaheurística.</p>
 <p>Argumentos:</p>
 <ul>
-<li><code>Init.</code> Solución inicial, se admite un arreglo de <em>numpy</em> o una función que retorne un arreglo de <em>numpy</em>.</li>
-<li><code>IniTemperature.</code> Valor de punto flotante que indica con que temperatura inicia la búsqueda.</li>
-<li><code>eps.</code> Valor de punto flotante que indica con que temperatura termina la búsqueda.</li>
-<li><code>**kwargs.</code> Parámetros externos a la búsqueda.</li>
+<li><code>generations.</code> Número de generaciones (iteraciones de la metaheurística).</li>
+<li><code>size_population.</code> Tamaño de la población (número de individuos).</li>
+<li><code>verbose.</code> Indica si se imprime en qué iteración se encuentra nuestra búsqueda. Por defecto, está en True.</li>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
-<li>Ninguno</li>
+<li>Ninguno.</li>
 </ul>
 </li>
 <li>
-<p><em><strong>update_temperature.</strong></em> Función que decrementa la temperatura.</p>
+<p>*<strong>fixer.</strong>*Si nuestro individuo al ser evaluado no cumple las restricciones del problema, esta función auxiliar actualizará nuestro individuo de modo que sea válida. La función auxiliar es necesario definirla (No tiene ninguna por defecto), se especifica en la configuración (GeneticConfig) o sobreescribiendo dicha función.</p>
 <p>Argumentos:</p>
 <ul>
-<li><code>**kwargs</code> Parámetros externos a la búsqueda.</li>
+<li><code>ind.</code> Índice del individuo.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
-<li>La nueva temperatura.</li>
+<li>Un arreglo de <em>numpy</em> con la solución factible.</li>
 </ul>
 </li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Funciones que se deben sobreescribir</p>
-<ul>
 <li>
-<p><em><strong>get_neighbor.</strong></em> Genera una solución realizando una variación aleatoria en la solución actual.</p>
+<p><em><strong>initialize_population.</strong></em> Crea una población de individuos aleatorios. Para ello se utiliza una distribución uniforme y se generan números aleatorios dentro de los límites indicados para cada variable. Los individuos generados son almacenados en <code>logger</code> con la llave <code>parent_population_x</code>. Esta función es llamada dentro de la función <code>optimize</code>.</p>
 <p>Argumentos:</p>
 <ul>
-<li><code>x.</code> Arreglo de <em>numpy</em> representando a la solución actual.</li>
-<li><code>**kwargs</code> Parámetros externos a la búsqueda.</li>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
-<li>Arreglo de <em>numpy</em> representando la solución generada.</li>
+<li>Un arreglo bidimensional de <em>numpy</em>. Cada fila representa un individuo, cada columna indica los valores para cada variable de decisión del individuo.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>mutation_operator.</strong></em> Muta las variables de decisión de la población de hijos, las cuales se encuentran almacenadas en el diccionario <code>logger</code> con la llave <code>offspring_population_x</code>. El operador de mutación es necesario definirlo (No tiene ningún operador por defecto), se especifica en la configuración (<code>GeneticConfig</code>) o sobreescribiendo el operador.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de <em>numpy</em> con la población mutada. Cada fila representa un individuo y cada columna corresponde a una variable de decisión.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>crossover_operator.</strong></em> Dada una población de padres, genera una población de hijos aplicando algún tipo de cruza. El operador de cruza es necesario definirlo (No tiene ningún operador por defecto), se especifica en la configuración (<code>GeneticConfig</code>) o sobreescribiendo el operador.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>parent_ind1.</code> Índices de los individuos que son seleccionados para actuar como padre 1.</li>
+<li><code>parent_ind2.</code> Índices de los individuos que son seleccionados para actuar como padre 2.</li>
+<li><code>**kwargs.</code>  Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Un arreglo bidimensional de <em>numpy</em> con la población generada por la cruza. Cada fila representa un individuo y cada columna corresponde a una variable de decisión.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>parent_selection.</strong></em> Selecciona a los individuos que actuarán padres. El método de selección es necesario definirlo (No tiene ningún operador por defecto), se especifica en la configuración (<code>GeneticConfig</code>) o sobreescribiendo el método.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Regresa un arreglo con los índices de los individuos seleccionados. Estos índices corresponden con la variable <code>parent_population_x</code> que está almacenada en el diccionario <code>logger</code>.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>survivor_selection.</strong></em> Selección de los individuos que pasarán a la siguiente generación. El método de selección de sobrevivientes es necesario definirlo (No tiene ningún operador por defecto), se especifica en la configuración (<code>GeneticConfig</code>) o sobreescribiendo el método.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>**kwargs.</code> Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>
+<p>Un diccionario con las siguientes llaves:</p>
+<ul>
+<li><code>parent_population_f.</code> Arreglo de <em>numpy</em> con la aptitud de cada uno de los  individuos que pasará a la siguiente generación.</li>
+<li><code>parent_population_x.</code> Arreglo bidimensional de <em>numpy</em> con los individuos que pasarán a la siguiente generación.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<h2 id="configuracion-de-algoritmos-geneticos">Configuración de algoritmos genéticos</h2>
+<p>Se debe importar como sigue:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.utils.helpers</span> <span class="kn">import</span> <span class="n">GeneticConfig</span>
+</code></pre></div>
+</td></tr></table></p>
+<div class="admonition info">
+<p class="admonition-title">GeneticConfig (Configuración de la metaheurística)</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Variables</label><div class="tabbed-content">
+<ul>
+<li><em><strong>cross_op.</strong></em> Variable con el operador de cruza.</li>
+<li><em><strong>mutation_op.</strong></em> Variable con el operador de mutación.</li>
+<li><em><strong>survivor_selection.</strong></em> Variable con el esquema de selección que decide cuáles individuos pasan a la siguiente generación.</li>
+<li><em><strong>fixer.</strong></em> Variable con una función que determina qué hacer con los individuos que no cumplen las restricciones del problema.</li>
+<li><em><strong>parent_selector.</strong></em> Variable que almacena el operador de selección.</li>
+</ul>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Métodos</label><div class="tabbed-content">
+<ul>
+<li>
+<p><em><strong>cross.</strong></em> Actualiza el operador de cruza de la variable <code>cross_op</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>crossover_.</code> Función o clase que realiza la cruza de la población almacenada con la llave <code>parent_population_x</code>.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>mutate.</strong></em> Actualiza el operador de mutación de la variable <code>mutation_op</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>mutate_.</code> Función o clase que realiza la mutación de la población almacenada con la llave <code>offspring_population_x</code>.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>survivor_selection.</strong></em> Actualiza el operador de selección de la variable <code>survivor_selector</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>survivor_function.</code> Función o clase que realiza la selección de individuos que pasarán a la siguiente generación.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>fixer_invalide_solutions.</strong></em> Actualiza la función auxiliar de la variable <code>fixer</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>fixer_function.</code> Función o clase que ajustará los individuos de la población que no cumplen con las restricciones del problema.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>parent_selection.</strong></em> Actualiza el operador de selección de los individuos con mayores posibilidades de reproducción, se encuentran en la variable <code>parent_selector</code>.</p>
+<p>Argumentos:</p>
+<ul>
+<li><code>parent_function.</code> Función o clase que elige los individuos de acuerdo a su contribución de aptitud. Este método en la búsqueda es realizado antes de la cruza.</li>
+</ul>
+<p>Valor de retorno:</p>
+<ul>
+<li>Retorna la configuración con la actualización del operador de cruza. El objetivo es poder aplicar varios operadores en cascada.</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <h2 id="ejemplo">Ejemplo</h2>
-<p>Para emplear la búsqueda se debe crear una clase nueva que herede todos los métodos de <code>SimulatedAnnealing</code>, por ejemplo:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">class</span> <span class="nc">simulatedAnnealingExample</span><span class="p">(</span><span class="n">SimulatedAnnealing</span><span class="p">):</span>
+<p>Hay varias formas de emplear la metaheurística, le sugerimos revisar los ejemplos. A continuación presentamos un ejemplo de empleo para el problema de ackley_: </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">configuration</span> <span class="o">=</span> <span class="p">(</span><span class="n">helpers</span><span class="o">.</span><span class="n">GeneticConfig</span><span class="p">()</span>
+                 <span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">crossover</span><span class="o">.</span><span class="n">intermediate_crossover</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+                 <span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">mutation</span><span class="o">.</span><span class="n">uniform_mutator</span><span class="p">(</span><span class="n">ackley_</span><span class="p">[</span><span class="s1">&#39;bounds&#39;</span><span class="p">]))</span>
+                 <span class="o">.</span><span class="n">survivor_selection</span><span class="p">(</span><span class="n">selection</span><span class="o">.</span><span class="n">merge_selector</span><span class="p">())</span>
+                 <span class="o">.</span><span class="n">parent_selection</span><span class="p">(</span><span class="n">selection</span><span class="o">.</span><span class="n">tournament_sampler</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+                 <span class="o">.</span><span class="n">fixer_invalide_solutions</span><span class="p">(</span><span class="n">helpers</span><span class="o">.</span><span class="n">ContinuosFixer</span><span class="p">(</span><span class="n">ackley_</span><span class="p">[</span><span class="s1">&#39;bounds&#39;</span><span class="p">])))</span>
 
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_</span> <span class="p">:</span> <span class="n">function_type</span> <span class="p">,</span> <span class="n">constraints_</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">f_</span><span class="p">,</span><span class="n">constraints_</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">get_neighbor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>             
-            <span class="c1"># Código para su búsqueda.</span>
+<span class="n">AckleyGenetic</span>  <span class="o">=</span> <span class="n">Genetic</span><span class="p">(</span><span class="o">**</span><span class="n">ackley_</span><span class="p">,</span><span class="n">config</span><span class="o">=</span><span class="n">configuration</span><span class="p">)</span>
+<span class="n">AckleyGenetic</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">AckleyGenetic</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
                 
@@ -640,7 +800,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Pie">
       
         
-        <a href="../tabu/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Búsqueda Tabú" rel="prev">
+        <a href="../EE/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Estrategias evolutivas" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -649,20 +809,20 @@
               <span class="md-footer__direction">
                 Anterior
               </span>
-              Búsqueda Tabú
+              Estrategias evolutivas
             </div>
           </div>
         </a>
       
       
         
-        <a href="../PE/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Programación evolutiva" rel="next">
+        <a href="../helpers/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Funciones auxiliares y prueba" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Siguiente
               </span>
-              Programación evolutiva
+              Funciones auxiliares y prueba
             </div>
           </div>
           <div class="md-footer__button md-icon">
