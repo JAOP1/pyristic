@@ -1,10 +1,65 @@
 site_name: Pyristic
-site_url: https://example.com/
+site_url: https://pyristic.com/
 theme:
   name: material
+  language: es
+  
+  palette:
+    - scheme: slate
+      primary: cyan
+      accent: green
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - scheme: default 
+      primary: cyan
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - admonition
+  - attr_list
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      linenums: true
+
+extra_javascript:
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:armandopenafiel12@gmail.com
+    - icon: fontawesome/brands/github
+      link: https://github.com/JAOP1
+
+
 nav: 
   - Inicio: index.md
   - Heuristicas: 
     - Búsqueda Tabú: tabu.md
     - Recocido Simulado: SA.md
+    - Programación evolutiva: PE.md
+    - Estrategias evolutivas: EE.md
+    - Algoritmos genéticos: AG.md
+  - Utilidades:
+    - Funciones auxiliares y prueba: helpers.md
+    - operadores para algoritmos de computo evolutivo: operadores.md
+  - Desarrolladores: Agradecimientos.md
+  
     
