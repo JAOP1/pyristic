@@ -66,6 +66,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#funciones-auxiliares-y-funciones-de-prueba" class="md-skip">
+          Saltar a contenido
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -397,10 +402,62 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Funciones auxiliares y prueba
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Funciones auxiliares y prueba
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#funciones-de-prueba" class="md-nav__link">
+    Funciones de prueba
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluando-nuestra-metaheuristica" class="md-nav__link">
+    Evaluando nuestra metaheurística
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluando nuestra metaheurística">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-utilizando-get_stats" class="md-nav__link">
+    Ejemplo utilizando get_stats
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -412,7 +469,7 @@
   
     <li class="md-nav__item">
       <a href="../operadores/" class="md-nav__link">
-        operadores para algoritmos de computo evolutivo
+        operadores para algoritmos de cómputo evolutivo
       </a>
     </li>
   
@@ -446,15 +503,129 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#funciones-de-prueba" class="md-nav__link">
+    Funciones de prueba
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluando-nuestra-metaheuristica" class="md-nav__link">
+    Evaluando nuestra metaheurística
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluando nuestra metaheurística">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-utilizando-get_stats" class="md-nav__link">
+    Ejemplo utilizando get_stats
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
                 
-                  <h1>Funciones auxiliares y prueba</h1>
-                
-                
+                <h1 id="funciones-auxiliares-y-funciones-de-prueba">Funciones auxiliares y funciones de prueba.</h1>
+<h2 id="funciones-de-prueba">Funciones de prueba</h2>
+<p>En esta sección se describe los problemas de optimización continua implementados, estos se encuentran en:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyristic.utils.test_function</span> <span class="k">as</span> <span class="nn">pcTest</span>
+</code></pre></div>
+</td></tr></table>
+<p>La representación de las funciones implementadas es en un diccionario con las siguientes llaves:</p>
+<ul>
+<li><code>function</code>: La función a optimizar.</li>
+<li><code>constraints</code>: Restricciones del problema.</li>
+<li><code>bounds</code>: Límites para cada una de las variables del problema. Si nuestro problema todas las variables están en el mismo rango podemos expresarlo en un solo arreglo con el límite inferio y límite superior, sino, deben ser dos arreglos, expresando los límites inferiores y límites superiores.</li>
+<li><code>decision_variables</code>: El número de variables del problema. </li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Observaciones</p>
+<ul>
+<li>
+<p>Las metaheurísticas descritas de la librería son para resolver problemas de minimización, entonces, se debe convertir el problema, es decir, <span class="arithmatex">\(max \{ f(x) \}= min \{ -f(x)\}\)</span> </p>
+</li>
+<li>
+<p>Las llaves señaladas, son importantes al momento de ser llamadas por la metaheurística. Se debe emplear las mismas llaves.</p>
+</li>
+</ul>
+</div>
+<p>Las funciones prueba que están actualmente son: </p>
+<ul>
+<li>beale_</li>
+<li>ackley_</li>
+<li>himmelblau_</li>
+<li>bukin_</li>
+</ul>
+<p>Para mayor información, puedes revisar las funciones prueba en <a href="https://en.wikipedia.org/wiki/Test_functions_for_optimization">wikipedia</a>.</p>
+<h2 id="evaluando-nuestra-metaheuristica">Evaluando nuestra metaheurística</h2>
+<p>Pyristic cuenta con una función auxiliar <code>get_stats</code> para evaluar la eficacia de nuestro algoritmo al encontrar soluciones buenas. </p>
+<p>La podemos importar de la siguiente manera:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.utils.helpers</span> <span class="kn">import</span>  <span class="n">get_stats</span>
+</code></pre></div>
+</td></tr></table>
+<p>Los parámetros son:</p>
+<ul>
+<li><code>optimizer</code>: Nuestro objeto creado para resolver el problema (metaheurística).</li>
+<li><code>NIter</code>: Número de ejecuciones de nuestro objeto.</li>
+<li><code>OptArgs</code>: Una tupla con los parámetros de nuestro algoritmo (al momento de ejecutar el método <em>optimize</em>).</li>
+<li><code>ExternOptArgs</code>: Diccionario con los argumentos incluidos al momento de sobreescribir alguno de los métodos en la metaheurística desarrollada.</li>
+</ul>
+<h3 id="ejemplo-utilizando-get_stats">Ejemplo utilizando get_stats</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyristic.heuristic.EvolutionStrategy_search</span> <span class="kn">import</span> <span class="n">EvolutionStrategy</span>
+<span class="kn">from</span> <span class="nn">pyristic.utils.test_function</span> <span class="kn">import</span> <span class="n">beale_</span>
+<span class="kn">from</span> <span class="nn">pyristic.utils.helpers</span> <span class="kn">import</span>  <span class="n">get_stats</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="n">Beale</span> <span class="o">=</span> <span class="n">EvolutionStrategy</span><span class="p">(</span><span class="o">**</span><span class="n">beale_</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">statistics</span> <span class="o">=</span> <span class="n">get_stats</span><span class="p">(</span><span class="n">Beale</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">statistics</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
                 
               
               
@@ -494,13 +665,13 @@
       
       
         
-        <a href="../operadores/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: operadores para algoritmos de computo evolutivo" rel="next">
+        <a href="../operadores/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: operadores para algoritmos de cómputo evolutivo" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Siguiente
               </span>
-              operadores para algoritmos de computo evolutivo
+              operadores para algoritmos de cómputo evolutivo
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -548,7 +719,7 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.82b56eb2.min.js"></script>
