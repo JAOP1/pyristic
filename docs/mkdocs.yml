@@ -20,7 +20,6 @@ theme:
   
   features:
     - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.top
 
 markdown_extensions:
@@ -59,7 +58,7 @@ nav:
     - Algoritmos genéticos: AG.md
   - Utilidades:
     - Funciones auxiliares y prueba: helpers.md
-    - operadores para algoritmos de computo evolutivo: operadores.md
+    - operadores para algoritmos de cómputo evolutivo: operadores.md
   - Desarrolladores: Agradecimientos.md
   
     

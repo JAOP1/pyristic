@@ -2,8 +2,8 @@
 
 Librería de metaheurísticas para resolver problemas de optimización mono-objetivo con o sin restricciones en el lenguaje de python. Los fundamentos de pyristic es proporcionar una accesibilidad para cualquier desarrollador con conocimiento en el área de optimización.
 
-Para iniciar es necesario instalar pyristic. Recomendaco crear un entorno de conda como sigue:
-```
+Para iniciar es necesario instalar pyristic. Recomendamos crear un entorno de conda como sigue:
+```console
     conda create pyristic-env
     conda activate pyristic-env
     pip install pyristic
@@ -37,7 +37,7 @@ BealeOptimizer.optimize(300,80,160,verbose=True)
 print(BealeOptimizer)
 ```
 
-Si todo funciona correctamente es momento de conocer como está estructurada la librería. Actualmente, se encuentran todos los algoritmos en *heuristic* y todas las utilidades en *utils* (funciones prueba, clases para almacenar las configuraciones y los operadores para las metaheurísticas de computo evolutivo).
+Si todo funciona correctamente es momento de conocer como está estructurada la librería. Actualmente, se encuentran todos los algoritmos en *heuristic* y todas las utilidades en *utils* (funciones prueba, clases para almacenar las configuraciones y los operadores para las metaheurísticas de cómputo evolutivo).
 
 ```
 🗀 Pyristic
@@ -59,3 +59,5 @@ Si todo funciona correctamente es momento de conocer como está estructurada la 
      │   │   selection 
 ```
 
+!!! Tip ""
+    Te invitamos a revisar los notebooks de cada una de las metaheurísticas en [github](https://github.com/JAOP1/pyristic/tree/main/examples/SpanishExamples).
