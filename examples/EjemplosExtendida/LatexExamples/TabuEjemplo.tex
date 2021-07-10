@@ -1,0 +1,1026 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{TabuEjemplo}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Búsqueda Tabú}\label{buxfasqueda-tabuxfa}
+
+La librería \textbf{Pyristic} incluye una clase llamada
+\texttt{TabuSearch} que facilita la implementación de una metaheurística
+basada en Búsqueda Tabú para resolver problemas de minimización. Para
+poder utilizar esta clase es necesario:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Definir:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    La función objetivo \(f\).
+  \item
+    La lista de restricciones.
+  \item
+    Estructura de datos (opcional).
+  \end{itemize}
+\item
+  Crear una clase que herede de \texttt{TabuSearch}.
+\item
+  Sobreescribir las siguientes funciones de la clase
+  \texttt{TabuSearch}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    get\_neighbors (requerido)
+  \item
+    encode\_change (requerido)
+  \end{itemize}
+\end{enumerate}
+
+A continuación se muestran las librerías y elementos que se deben
+importar. Posteriormente, se resolverán dos problemas de optimización
+combinatoria usando la clase \texttt{TabuSearch}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        
+        \PY{c+c1}{\PYZsh{}library\PYZus{}path is the path where the Optimpy library is located.}
+        \PY{n}{library\PYZus{}path} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/home/dell/Documentos/Git\PYZus{}proejcts/optimizacion\PYZhy{}con\PYZhy{}metaheuristicas/}\PY{l+s+s2}{\PYZdq{}}
+        \PY{c+c1}{\PYZsh{}library\PYZus{}path = \PYZdq{}/Users/adrianamenchacamendez/Documentos/enes\PYZus{}morelia/papime/optimizacion\PYZhy{}con\PYZhy{}metaheuristicas/\PYZdq{}}
+        \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{abspath}\PY{p}{(}\PY{n}{library\PYZus{}path}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{optimpy}\PY{n+nn}{.}\PY{n+nn}{heuristic}\PY{n+nn}{.}\PY{n+nn}{Tabu\PYZus{}search} \PY{k}{import} \PY{n}{TabuSearch}
+        \PY{k+kn}{from} \PY{n+nn}{optimpy}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{helpers} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{pprint} \PY{k}{import} \PY{n}{pprint}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} 
+        \PY{k+kn}{import} \PY{n+nn}{copy} 
+\end{Verbatim}
+
+    \subsection{\texorpdfstring{Clase
+\texttt{TabuSearch}}{Clase TabuSearch}}\label{clase-tabusearch}
+
+\paragraph{Variables}\label{variables}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{logger.}} Diccionario con información relacionada a la
+  búsqueda con las siguientes llaves:
+\item
+  \texttt{best\_individual.} Mejor individuo encontrado.
+\item
+  \texttt{best\_f.} El valor obtenido de la función objetivo de
+  \texttt{individual}.
+\item
+  \texttt{current\_iter.} Iteración actual de la búsqueda.
+\item
+  \texttt{total\_iter.} Número total de iteraciones.
+\item
+  \emph{\textbf{TL.}} Estructura de datos auxiliar que mantendrá memoria
+  de las soluciones encontradas durante el tiempo especificado en
+  \texttt{optimize}, por defecto utiliza \texttt{TabuList}.
+\item
+  \emph{\textbf{f.}} Función objetivo.
+\item
+  \emph{\textbf{Constraints.}} Lista de restricciones del problema. Las
+  restricciones deben ser funciones que retornan True o False, indicando
+  si cumple dicha restricción.
+\end{itemize}
+
+\paragraph{Métodos}\label{muxe9todos}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{\_\_init\_\_.}} Constructor de la clase.
+\end{itemize}
+
+Argumentos: * \texttt{function.} Función objetivo. *
+\texttt{constraints.} Lista con las restricciones del problema. *
+\texttt{TabuStruct.} Estructura de datos que almacena información de
+variaciones que mejoran la solución.
+
+Valor de retorno: * Ninguno.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{optimize.}} método principal, realiza la ejecución
+  empleando la metaheurística llamada \texttt{TabuSearch}.
+\end{itemize}
+
+Argumentos: * \texttt{Init.} Solución inicial, se admite un arreglo de
+\emph{numpy} o una función que retorne un arreglo de \emph{numpy}. *
+\texttt{iterations.} Número de iteraciones. * \texttt{memory\_time.}
+Tiempo que permanecerá una solución en nuestra estructura llamada
+\texttt{TabuList}. * \texttt{**kwargs.} Parámetros externos a la
+búsqueda.
+
+Valor de retorno: * Ninguno
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{get\_neighbors.}} Función que genera el vecindario de
+  soluciones de la solución \(x\).
+\end{itemize}
+
+Argumentos: * \texttt{x.} Arreglo de \emph{numpy} representando a la
+solución actual. * \texttt{**kwargs} Parámetros externos a la búsqueda.
+
+Valor de retorno: * Arreglo bidimensional de \emph{numpy} representando
+a todas las soluciones generadas desde la solución \(x\).
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{encode\_change.}} Revisa nuestra solución actual \(x\) y
+  la solución generada para indicar en dónde sucedió la pequeña
+  variación.
+\end{itemize}
+
+Argumentos: * \texttt{neighbor.} Arreglo de \emph{numpy} representando
+una variación de nuestra solución actual \(x\). * \texttt{x.} Arreglo de
+\emph{numpy} representando nuestra solución actual. * \texttt{**kwargs.}
+Parámetros externos a la búsqueda.
+
+Valor de retorno: * Lista con dos elementos, donde, la primera
+componente será la posición \(i\) donde sucedió la variación y la
+segunda componente es el elemento en la componente \(i\) de
+\texttt{neighbor}.
+
+    \subsubsection{\texorpdfstring{Clase
+\texttt{TabuList}}{Clase TabuList}}\label{clase-tabulist}
+
+Clase auxiliar que almacenará las soluciones encontradas en la búsqueda,
+las soluciones permanecerá en la estructura de datos por un tiempo
+especificado en la función \texttt{optimize} de \texttt{TabuSearch}.
+
+\paragraph{Variables}\label{variables}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{\_TB.}} Lista de listas que representarán las posiciones
+  que fueron modificadas con un contador de tiempo.
+\item
+  \emph{\textbf{timer.}} El tiempo que durará cada solución en la lista.
+\end{itemize}
+
+\paragraph{Métodos}\label{muxe9todos}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{push.}} Introduce los cambios que proporcionaron una
+  mejora en la búsqueda.
+\end{itemize}
+
+Argumentos: * \texttt{x.} Arreglo con la siguiente información: *
+Primera componente: posición (indice) donde se encontró una mejora en la
+función objetivo. * Segunda componente: valor por el cual mejoró nuestra
+solución. * Tercera componente: iteración en la que se realizó la
+mejora.
+
+Valor de retorno: * Ninguno.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{find.}} Revisa si la nueva solución sea una de las
+  modificaciones hechas en iteraciones previas almacenadas en
+  \texttt{\_TB}.
+\end{itemize}
+
+Argumentos: * \texttt{x.} Arreglo de \emph{numpy} que representa el
+cambio realizado en la solución actual de la búsqueda, es decir, recibe
+el arreglo que retorna la función \texttt{encode\_change(neighbor,x)}.
+
+Valor de retorno: * Valor booleano que indica si la modificación en
+dicha solución ya se encontraba en nuestra lista tabú.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{reset.}} Borra toda la información almacenada en nuestro
+  contenedor \texttt{\_TB} y actualiza la variable \texttt{timer}.
+\end{itemize}
+
+Argumentos: * \texttt{timer.} Número que representa el tiempo que
+durarán ahora las soluciones en nuestra lista tabú.
+
+Valor de retorno: * Ninguno.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{update.}} Realiza la actualización en el contendor
+  \texttt{\_TB} modificando el tiempo de cada uno de los individuos
+  almacenados y elimina aquellos individuos que ya expiró su tiempo.
+\end{itemize}
+
+Argumentos: * Ninguno.
+
+Valor de retorno: * Ninguno.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{pop\_back.}} Elimina el último elemento del contenedor
+  \texttt{\_TB}.
+\end{itemize}
+
+Argumentos: * Ninguno.
+
+Valor de retorno: * Ninguno.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{\textbf{get\_back.}} Regresa el último elemento del contenedor
+  \texttt{\_TB}.
+\end{itemize}
+
+Argumentos: * Ninguno.
+
+Valor de retorno: * Elemento del contendor \texttt{\_TB}.
+
+    \subsection{Problema de la mochila}\label{problema-de-la-mochila}
+
+\begin{equation}
+  \label{eq:KP}
+  \begin{array}{rll}
+  \text{maximizar:} & f(\vec{x}) = \sum_{i=1}^{n} p_i \cdot x_{i} &  \\
+  \text{donde: } & g_1(\vec{x}) = \sum_{i=1}^{n} w_i \cdot x_{i}  \leq c &  \\
+          &  x_i \in \{0,1\} & i\in\{1,\ldots,n\}\\
+  \end{array}
+\end{equation}
+
+Consideremos la siguiente entrada: - \(n = 5\) -
+\(p = \{5, 14, 7, 2, 23\}\) - \(w = \{2, 3, 7, 5, 10\}\) - \(c = 15\)
+
+Donde la mejor solución es: \(x = [1, 1, 0, 0, 1]\) , \(f(x) = 42\) y
+\(g_{1}(x) = 15\)
+
+    \subsubsection{Función objetivo}\label{funciuxf3n-objetivo}
+
+    Dado que la clase \texttt{TabuSearch} considera problemas de
+minimización, es necesario convertir el problema de la mochila a un
+problema de minimización. Para esto se multiplica el valor de la función
+objetivo por -1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nd}{@checkargs}
+        \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{float}\PY{p}{:}
+            \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{23}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Restricciones}\label{restricciones}
+
+    Las restricciones se definen en funciones diferentes y se agregan a una
+lista.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nd}{@checkargs} 
+        \PY{k}{def} \PY{n+nf}{g1}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{bool}\PY{p}{:}
+            \PY{n}{w} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{15}
+        
+        \PY{n}{constraints\PYZus{}list}\PY{o}{=} \PY{p}{[}\PY{n}{g1}\PY{p}{]}
+\end{Verbatim}
+
+    En el problema de la mochila unicamente queremos revisar que no se
+exceda el peso.
+
+    \subsubsection{\texorpdfstring{Uso de
+\texttt{TabuSearch}}{Uso de TabuSearch}}\label{uso-de-tabusearch}
+
+Para poder hacer uso de la metaheurística de búsqueda tabú implementada
+en la librería \textbf{Pyristic}, es necesario crear una clase que
+herede de la clase \texttt{TabuSearch}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{class} \PY{n+nc}{Knapsack\PYZus{}solver}\PY{p}{(}\PY{n}{TabuSearch}\PY{p}{)}\PY{p}{:}
+            \PY{n+nd}{@checkargs}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{f\PYZus{}} \PY{p}{:} \PY{n}{function\PYZus{}type} \PY{p}{,} \PY{n}{constraints\PYZus{}}\PY{p}{:} \PY{n+nb}{list}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{f\PYZus{}}\PY{p}{,}\PY{n}{constraints\PYZus{}}\PY{p}{)}
+                
+                
+            \PY{k}{def} \PY{n+nf}{get\PYZus{}neighbors}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{list}\PY{p}{:}   
+                \PY{n}{neighbors\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZca{}}\PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}1}
+                    \PY{n}{neighbors\PYZus{}list}\PY{o}{+}\PY{o}{=}\PY{p}{[}\PY{n}{copy}\PY{o}{.}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{]}
+                    \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZca{}}\PY{o}{=} \PY{l+m+mi}{1} 
+                    
+                \PY{k}{return} \PY{n}{neighbors\PYZus{}list}
+                
+            \PY{k}{def} \PY{n+nf}{encode\PYZus{}change}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{neighbor} \PY{p}{:} \PY{p}{(}\PY{n+nb}{list}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{p}{(}\PY{n+nb}{list}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{list}\PY{p}{:} \PY{c+c1}{\PYZsh{}2}
+                
+                \PY{n}{x\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{k+kc}{None}\PY{p}{]}
+                
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{n}{neighbor}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                        \PY{k}{return} \PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{neighbor}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                    
+                \PY{k}{return} \PY{n}{x\PYZus{}}
+\end{Verbatim}
+
+    La nueva clase es llamada \emph{Knapsack\_solver}, donde, se han
+sobrescrito las funciones \texttt{get\_neighbors} y
+\texttt{encode\_change}. Si no implementamos las funciones mencionadas
+el algoritmo no va a funcionar.
+
+    \subsubsection{Ejecución de la
+metaheurística}\label{ejecuciuxf3n-de-la-metaheuruxedstica}
+
+Una vez definida la clase \emph{Knapsack\_solver}, se crea un objeto de
+tipo \emph{Knapsack\_solver} indicando en los parámetros la función
+objetivo y las restricciones del problema. En este caso llamamos
+\emph{Knapsack} al objeto creado.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{Knapsack} \PY{o}{=} \PY{n}{Knapsack\PYZus{}solver}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{p}{[}\PY{n}{g1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    Finalmente, se llama a la función \texttt{optimize}. Esta función recibe
+tres parámetros:
+
+\begin{itemize}
+\tightlist
+\item
+  Solución inicial o función generadora de soluciones iniciales.
+\item
+  El número de iteraciones.
+\item
+  El tiempo donde evitaremos hacer un cambio en cierta posición (tiempo
+  tabú).
+\end{itemize}
+
+Para este ejemplo usamos una mochila vacía (\(x_0 = [0,0,0,0,0]\)),
+\(30\) iteraciones y un tiempo tabú igual a \(3\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{init\PYZus{}backpack\PYZus{}solution} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Parameters:}
+        \PY{l+s+sd}{    Initial solution}
+        \PY{l+s+sd}{    Number of iterations}
+        \PY{l+s+sd}{    Tabu time}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{Knapsack}\PY{o}{.}\PY{n}{optimize}\PY{p}{(}\PY{n}{init\PYZus{}backpack\PYZus{}solution}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Knapsack}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tabu search: 
+ f(X) = -42 
+ X = [1 1 0 0 1] 
+ 
+
+    \end{Verbatim}
+
+    A continuación resolveremos el mismo problema para una instancia más
+grande.
+
+    Tenemos que definir nuevamente la función objetivo y la restricción para
+emplearlo para cualquier instancia del problema.
+
+Definiremos las siguientes variables como variables globales: * n es un
+número que indicará el tamaño de nuestra instancia. * p es un arreglo
+que se refiere al beneficio que proporciona cada uno de los objetos. * w
+es un arreglo con el peso de cada uno de los objetos. * c es el peso
+máximo que puede tener nuestra mochila.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{50}
+        \PY{n}{p} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{52}\PY{p}{,} \PY{l+m+mi}{90}\PY{p}{,} \PY{l+m+mi}{57}\PY{p}{,} \PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{63}\PY{p}{,} \PY{l+m+mi}{94}\PY{p}{,} \PY{l+m+mi}{44}\PY{p}{,} \PY{l+m+mi}{90}\PY{p}{,} \PY{l+m+mi}{66}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{39}\PY{p}{,} \PY{l+m+mi}{91}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{73}\PY{p}{,} \PY{l+m+mi}{61}\PY{p}{,} \PY{l+m+mi}{82}\PY{p}{,} \PY{l+m+mi}{94}\PY{p}{,} \PY{l+m+mi}{39}\PY{p}{,} \PY{l+m+mi}{68}\PY{p}{,} \PY{l+m+mi}{94}\PY{p}{,} \PY{l+m+mi}{98}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{79}\PY{p}{,} \PY{l+m+mi}{73}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{,} \PY{l+m+mi}{49}\PY{p}{,} \PY{l+m+mi}{56}\PY{p}{,} \PY{l+m+mi}{69}\PY{p}{,} \PY{l+m+mi}{49}\PY{p}{,} \PY{l+m+mi}{82}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{,} \PY{l+m+mi}{65}\PY{p}{,} \PY{l+m+mi}{34}\PY{p}{,} \PY{l+m+mi}{31}\PY{p}{,} \PY{l+m+mi}{85}\PY{p}{,} \PY{l+m+mi}{67}\PY{p}{,} \PY{l+m+mi}{62}\PY{p}{,} \PY{l+m+mi}{56}\PY{p}{,} \PY{l+m+mi}{38}\PY{p}{,} \PY{l+m+mi}{54}\PY{p}{,} \PY{l+m+mi}{81}\PY{p}{,} \PY{l+m+mi}{98}\PY{p}{,} \PY{l+m+mi}{63}\PY{p}{,} \PY{l+m+mi}{48}\PY{p}{,} \PY{l+m+mi}{83}\PY{p}{]}
+        \PY{n}{w} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{38}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{,} \PY{l+m+mi}{37}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{33}\PY{p}{,} \PY{l+m+mi}{35}\PY{p}{,} \PY{l+m+mi}{29}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{35}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{29}\PY{p}{,} \PY{l+m+mi}{22}\PY{p}{,} \PY{l+m+mi}{34}\PY{p}{,} \PY{l+m+mi}{31}\PY{p}{,} \PY{l+m+mi}{36}\PY{p}{,} \PY{l+m+mi}{36}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{38}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{38}\PY{p}{,} \PY{l+m+mi}{37}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{23}\PY{p}{,} \PY{l+m+mi}{39}\PY{p}{,} \PY{l+m+mi}{31}\PY{p}{,} \PY{l+m+mi}{27}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{38}\PY{p}{,} \PY{l+m+mi}{38}\PY{p}{,} \PY{l+m+mi}{36}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{39}\PY{p}{,} \PY{l+m+mi}{22}\PY{p}{,} \PY{l+m+mi}{23}\PY{p}{,} \PY{l+m+mi}{22}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{,} \PY{l+m+mi}{23}\PY{p}{,} \PY{l+m+mi}{33}\PY{p}{,} \PY{l+m+mi}{31}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{22}\PY{p}{,} \PY{l+m+mi}{37}\PY{p}{]}
+        \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{870}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nd}{@checkargs}
+        \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{float}\PY{p}{:}
+            \PY{k}{global} \PY{n}{p}
+            \PY{k}{return} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+        
+        \PY{n+nd}{@checkargs} 
+        \PY{k}{def} \PY{n+nf}{g1}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{bool}\PY{p}{:}
+            \PY{k}{global} \PY{n}{w}\PY{p}{,}\PY{n}{c}
+            \PY{n}{result} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+            \PY{n}{g1}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}doc\PYZus{}\PYZus{}}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ \PYZlt{}= }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{result}\PY{p}{,}\PY{n}{c}\PY{p}{)}
+            \PY{k}{return} \PY{n}{result} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{c}
+        
+        \PY{n}{constraints\PYZus{}list}\PY{o}{=} \PY{p}{[}\PY{n}{g1}\PY{p}{]}
+\end{Verbatim}
+
+    \subsubsection{Solución inicial}\label{soluciuxf3n-inicial}
+
+En el ejemplo anterior, la solución inicial fue una mochila vacía. Ahora
+crearemos una mochila que introduce objetos de manera aleatoria,
+mientras no se exceda el peso de la mochila.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{getInitialSolution}\PY{p}{(}\PY{n}{NumObjects}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{global} \PY{n}{n}\PY{p}{,}\PY{n}{p}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{c}
+             \PY{c+c1}{\PYZsh{}Empty backpack}
+             \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}
+             \PY{n}{weight\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{c+c1}{\PYZsh{}Random order to insert objects.}
+             \PY{n}{objects} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{objects}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{o} \PY{o+ow}{in}  \PY{n}{objects}\PY{p}{[}\PY{p}{:}\PY{n}{NumObjects}\PY{p}{]}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}Check the constraint about capacity.}
+                 \PY{k}{if} \PY{n}{weight\PYZus{}x} \PY{o}{+} \PY{n}{w}\PY{p}{[}\PY{n}{o}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{c}\PY{p}{:}
+                     \PY{n}{x}\PY{p}{[}\PY{n}{o}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n}{weight\PYZus{}x} \PY{o}{+}\PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n}{o}\PY{p}{]}
+                     
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+    Definiremos nuestro objeto del tipo \emph{Knapsack\_solver} y llamaremos
+el método \texttt{optimize}con los siguientes parámetros:
+
+\begin{itemize}
+\tightlist
+\item
+  La función que crea la solución inicial.
+\item
+  \(100\) iteraciones.
+\item
+  El tiempo tabú será \(\frac{n}{2}\).
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{Knapsack\PYZus{}2} \PY{o}{=} \PY{n}{Knapsack\PYZus{}solver}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{p}{[}\PY{n}{g1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{Knapsack\PYZus{}2}\PY{o}{.}\PY{n}{optimize}\PY{p}{(}\PY{n}{getInitialSolution}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{n}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Knapsack\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tabu search: 
+ f(X) = -2276 
+ X = [1 0 1 1 0 1 0 0 0 1 0 1 1 1 0 0 1 0 1 0 1 1 0 1 1 1 1 1 1 1 0 0 1 0 1 1 1
+ 0 1 1 1 0 0 0 0 1 1 0 0 1] 
+ Constraints: 
+ 870 <= 870 
+
+
+    \end{Verbatim}
+
+    Para revisar el comportamiento de la metaheurística en determinado
+problema, la librería \textbf{Pyristic} cuenta con una función llamada
+\texttt{get\_stats}. Esta función se encuentra en \textbf{utils.helpers}
+y recibe como parámetros:
+
+\begin{itemize}
+\tightlist
+\item
+  El objeto creado para ejecutar la metaheurística.
+\item
+  El número de veces que se quiere ejecutar la metaheurística.
+\item
+  Los argumentos que recibe la función \texttt{optimize} (debe ser una
+  tupla).
+\end{itemize}
+
+La función \texttt{get\_stats} retorna un diccionario con algunas
+estadísticas de las ejecuciones.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{args} \PY{o}{=} \PY{p}{(}\PY{n}{getInitialSolution}\PY{p}{,}\PY{l+m+mi}{500}\PY{p}{,}\PY{n}{n}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{Knapsack\PYZus{}2}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{,} \PY{n}{args}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{pprint}\PY{p}{(}\PY{n}{statistics}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Best solution': \{'f': -2309,
+                   'x': array([0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1,
+       0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+       0, 1, 1, 0, 0, 1])\},
+ 'Mean': -2244.5238095238096,
+ 'Standard deviation': 38.099642602522,
+ 'Worst solution': \{'f': -2180,
+                    'x': array([0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0,
+       0, 1, 1, 0, 0, 1])\}\}
+
+    \end{Verbatim}
+
+    \subsection{Problema del agente
+viajero}\label{problema-del-agente-viajero}
+
+\begin{equation}
+    \label{eq:TSP}
+    \begin{array}{rll}
+    \text{minimizar:} & f(x) = d(x_n, x_1) + \sum_{i=1}^{n-1} d(x_i, x_{i+1}) &  \\
+    \text{tal que: } & x_i \in \{1,2,\cdots,n\} & \\
+    \end{array}
+\end{equation}
+
+Donde: * \(d(x_i,x_j)\) es la distancia desde la ciudad \(x_i\) a la
+ciudad \(x_j\). * \(n\) es el número de ciudades. * \(x\) es una
+permutación de las \(n\) ciudades.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{import} \PY{n+nn}{random} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{num\PYZus{}cities} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{iterations} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{dist\PYZus{}matrix} \PY{o}{=} \PYZbs{}
+         \PY{p}{[}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{49}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{53}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{76}\PY{p}{,}\PY{l+m+mi}{87}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{48}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{49}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{38}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{31}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{,}\PY{l+m+mi}{56}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{53}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{53}\PY{p}{,}\PY{l+m+mi}{38}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{52}\PY{p}{,}\PY{l+m+mi}{29}\PY{p}{,}\PY{l+m+mi}{46}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{23}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{,}\PY{l+m+mi}{52}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{63}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{31}\PY{p}{,}\PY{l+m+mi}{56}\PY{p}{,}\PY{l+m+mi}{29}\PY{p}{,}\PY{l+m+mi}{63}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{88}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{95}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{76}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{46}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{92}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{87}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{69}\PY{p}{,}\PY{l+m+mi}{88}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{,}\PY{l+m+mi}{73}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{23}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{92}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{[}\PY{l+m+mi}{48}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{53}\PY{p}{,}\PY{l+m+mi}{98}\PY{p}{,}\PY{l+m+mi}{82}\PY{p}{,}\PY{l+m+mi}{95}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{73}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PYZbs{}
+         \PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nd}{@checkargs}
+         \PY{k}{def} \PY{n+nf}{f\PYZus{}salesman}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{float}\PY{p}{:}
+             \PY{k}{global} \PY{n}{dist\PYZus{}matrix}
+             \PY{n}{total\PYZus{}dist} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{u}\PY{p}{,}\PY{n}{v} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{total\PYZus{}dist}\PY{o}{+}\PY{o}{=} \PY{n}{dist\PYZus{}matrix}\PY{p}{[}\PY{n}{u}\PY{p}{]}\PY{p}{[}\PY{n}{v}\PY{p}{]}
+             \PY{n}{total\PYZus{}dist} \PY{o}{+}\PY{o}{=} \PY{n}{dist\PYZus{}matrix}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{return} \PY{n}{total\PYZus{}dist}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nd}{@checkargs}
+         \PY{k}{def} \PY{n+nf}{g\PYZus{}salesman}\PY{p}{(}\PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{bool}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Xi in \PYZob{}1,2, ... , N\PYZcb{}}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{size\PYZus{}} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{size} \PY{o}{==} \PY{n}{size\PYZus{}}
+\end{Verbatim}
+
+    En este ejemplo mostraremos la forma de definir nuestra lista tabú para
+el problema del agente viajero para emplearla en nuestra búsqueda
+\texttt{TabuSearch}. Es necesario que nuestra lista tabú contenga los
+siguientes métodos: - \texttt{reset} - \texttt{update} - \texttt{push} -
+\texttt{find}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{class} \PY{n+nc}{Tabu\PYZus{}Salesman\PYZus{}list}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{timer}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}TB} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{timer} \PY{o}{=} \PY{n}{timer}
+             
+             \PY{k}{def} \PY{n+nf}{reset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{timer}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}TB} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{timer} \PY{o}{=} \PY{n}{timer}
+                 
+             \PY{k}{def} \PY{n+nf}{update}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{to\PYZus{}pop} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}TB}\PY{p}{:}
+                     \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}TB}\PY{p}{[}\PY{n}{key}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                         \PY{n}{to\PYZus{}pop}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{key}\PY{p}{)}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}TB}\PY{p}{[}\PY{n}{key}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n}{to\PYZus{}pop}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}TB}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{n}{key}\PY{p}{)}
+                 
+             \PY{n+nd}{@checkargs}
+             \PY{c+c1}{\PYZsh{}x has [p,v,step], we are only interested in v (value)}
+             \PY{k}{def} \PY{n+nf}{push}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{n+nb}{list} \PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}TB}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{timer}
+                 
+             \PY{n+nd}{@checkargs}
+             \PY{k}{def} \PY{n+nf}{find}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{n+nb}{list}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{bool}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}TB}
+                 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{class} \PY{n+nc}{TravellingSalesman\PYZus{}solver}\PY{p}{(}\PY{n}{TabuSearch}\PY{p}{)}\PY{p}{:}
+         
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{f\PYZus{}} \PY{p}{:} \PY{n}{function\PYZus{}type} \PY{p}{,} \PY{n}{constraints\PYZus{}}\PY{p}{:} \PY{n+nb}{list}\PY{p}{,} \PY{n}{TabuStorage}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{f\PYZus{}}\PY{p}{,}\PY{n}{constraints\PYZus{}}\PY{p}{,}\PY{n}{TabuStorage}\PY{p}{)}
+                 
+             \PY{n+nd}{@checkargs}
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}neighbors}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{list}\PY{p}{:} 
+                 
+                 \PY{n}{neighbors\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+                 \PY{n}{ind} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{while}  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{TL}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{ind} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{v} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{ind}\PY{p}{]}
+                 \PY{n}{x\PYZus{}tmp} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{v} \PY{o}{!=} \PY{n}{x}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{ind} \PY{o}{==} \PY{n}{i}\PY{p}{:}
+                         \PY{k}{continue}
+                     \PY{n}{neighbors\PYZus{}list} \PY{o}{+}\PY{o}{=} \PY{p}{[} \PY{n}{x\PYZus{}tmp}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{+} \PY{n}{x\PYZus{}tmp}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+                     
+                 \PY{k}{return} \PY{n}{neighbors\PYZus{}list}
+         
+                 
+             \PY{n+nd}{@checkargs}
+             \PY{k}{def} \PY{n+nf}{encode\PYZus{}change}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{neighbor} \PY{p}{:} \PY{p}{(}\PY{n+nb}{list}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)}\PY{p}{,} \PY{n}{x} \PY{p}{:} \PY{p}{(}\PY{n+nb}{list}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n+nb}{list}\PY{p}{:} \PY{c+c1}{\PYZsh{}2}
+                 
+                 \PY{n}{x\PYZus{}p} \PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{:} \PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+                 \PY{n}{n\PYZus{}p} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{neighbor}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:} \PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+                 \PY{n}{ind} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 \PY{n}{max\PYZus{}dist} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 \PY{n}{value} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{v} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                     \PY{n}{dist} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{x\PYZus{}p}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{n\PYZus{}p}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{dist} \PY{o}{\PYZgt{}} \PY{n}{max\PYZus{}dist}\PY{p}{:}
+                         \PY{n}{ind} \PY{o}{=} \PY{n}{i}
+                         \PY{n}{max\PYZus{}dist} \PY{o}{=} \PY{n}{dist}
+                         \PY{n}{value} \PY{o}{=} \PY{n}{v}
+                
+                 \PY{k}{return} \PY{p}{[}\PY{n}{ind} \PY{p}{,} \PY{n}{value}\PY{p}{]}
+\end{Verbatim}
+
+    \subsubsection{Solución inicial}\label{soluciuxf3n-inicial}
+
+En este caso, creamos la solución inicial utilizando una estrategia
+voraz.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{def} \PY{n+nf}{getInitialSolutionTS}\PY{p}{(}\PY{n}{distance\PYZus{}matrix}\PY{p}{,} \PY{n}{total\PYZus{}cities}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Solution} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{remaining\PYZus{}cities}  \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{total\PYZus{}cities}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{remaining\PYZus{}cities}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{from\PYZus{}} \PY{o}{=}\PY{n}{Solution}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} 
+                 \PY{n}{to\PYZus{}} \PY{o}{=} \PY{n}{remaining\PYZus{}cities}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{dist} \PY{o}{=} \PY{n}{distance\PYZus{}matrix}\PY{p}{[}\PY{n}{from\PYZus{}}\PY{p}{]}\PY{p}{[}\PY{n}{to\PYZus{}}\PY{p}{]}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{remaining\PYZus{}cities}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{distance} \PY{o}{=} \PY{n}{distance\PYZus{}matrix}\PY{p}{[}\PY{n}{from\PYZus{}}\PY{p}{]}\PY{p}{[}\PY{n}{remaining\PYZus{}cities}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                     \PY{k}{if} \PY{n}{distance} \PY{o}{\PYZlt{}} \PY{n}{dist}\PY{p}{:}
+                         \PY{n}{to\PYZus{}} \PY{o}{=} \PY{n}{remaining\PYZus{}cities}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                         \PY{n}{dist} \PY{o}{=} \PY{n}{distance}
+                 \PY{n}{Solution}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{to\PYZus{}}\PY{p}{)}
+                 \PY{n}{ind} \PY{o}{=} \PY{n}{remaining\PYZus{}cities}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{to\PYZus{}}\PY{p}{)}
+                 \PY{n}{remaining\PYZus{}cities}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{n}{ind}\PY{p}{)}
+             \PY{k}{return} \PY{n}{Solution}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{TravellingSalesman} \PY{o}{=} \PY{n}{TravellingSalesman\PYZus{}solver}\PY{p}{(}\PY{n}{f\PYZus{}salesman}\PY{p}{,}\PY{p}{[}\PY{n}{g\PYZus{}salesman}\PY{p}{]}\PY{p}{,}\PY{n}{Tabu\PYZus{}Salesman\PYZus{}list}\PY{p}{(}\PY{n}{num\PYZus{}cities}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n}{init\PYZus{}path} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{getInitialSolutionTS}\PY{p}{(}\PY{n}{dist\PYZus{}matrix}\PY{p}{,}\PY{n}{num\PYZus{}cities}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Initialize search with this initial point }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ f(x) = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{init\PYZus{}path}\PY{p}{,} \PY{n}{f\PYZus{}salesman}\PY{p}{(}\PY{n}{init\PYZus{}path}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Initialize search with this initial point [0 5 3 8 9 6 2 7 1 4] 
+ f(x) = 271
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{TravellingSalesman}\PY{o}{.}\PY{n}{optimize}\PY{p}{(}\PY{n}{init\PYZus{}path}\PY{p}{,} \PY{n}{iterations}\PY{p}{,} \PY{n}{num\PYZus{}cities}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{TravellingSalesman}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tabu search: 
+ f(X) = 248 
+ X = [0 5 3 8 9 6 2 7 4 1] 
+ Constraints: 
+ 
+    Xi in \{1,2, {\ldots} , N\}
+     
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{args} \PY{o}{=} \PY{p}{(}\PY{n}{init\PYZus{}path}\PY{p}{,} \PY{n}{iterations}\PY{p}{,} \PY{n}{num\PYZus{}cities}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{TravellingSalesman}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{args}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{pprint}\PY{p}{(}\PY{n}{statistics}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Best solution': \{'f': 248, 'x': array([0, 5, 3, 8, 9, 6, 2, 7, 4, 1])\},
+ 'Mean': 248.0,
+ 'Standard deviation': 0.0,
+ 'Worst solution': \{'f': 248, 'x': array([0, 5, 3, 8, 9, 6, 2, 7, 4, 1])\}\}
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
