@@ -7,6 +7,7 @@ __all__ = ['proporcional_sampler', 'roulette_sampler', 'stochastic_universal_sam
             'proporcional_sampling', 'roulette_sampling', 'stochastic_universal_sampling',\
             'deterministic_sampling', 'tournament_sampling']
 
+@jit(nopython=True, parallel=True)
 def get_expected_values(aptitude: np.array) -> np.array:
     averageAptitude = np.sum(aptitude)
     N = len(aptitude)
@@ -77,12 +78,10 @@ def stochastic_universal_sampling(expectedVals : np.ndarray) -> np.ndarray:
             r += 1
     return np.array(sample)
 
-@jit(nopython=False, parallel=True)
 def deterministic_sampling(expectedVals : np.ndarray) -> np.ndarray:
     expectedVals = get_expected_values(expectedVals)
 
     N = len(expectedVals)
-    # expectedVals_ = np.copy(expectedVals)
 
     integer_part = np.array(expectedVals, dtype=int)
     indices = np.arange(N)
@@ -95,7 +94,6 @@ def deterministic_sampling(expectedVals : np.ndarray) -> np.ndarray:
     
     return sample[:N]
 
-@jit(nopython=False, parallel=True)
 def tournament_sampling( expectedVals : np.ndarray, chunks : int=2 , prob: float=1.0) -> np.ndarray:
     """
     ------------------------------------------------------

@@ -1,5 +1,6 @@
 import numpy as np 
 from numba import jit,prange
+from numba.typed import List
 
 __all__ = ['intermediate_crossover','n_point_crossover',\
            'uniform_crossover','permutation_order_crossover','simulated_binary_crossover',\
@@ -272,6 +273,7 @@ class simulated_binary_crossover:
                 parent_ind1: np.ndarray,\
                 parent_ind2: np.ndarray) -> np.ndarray:
         assert len(parent_ind1) == len(parent_ind2)
+
         return simulated_binary_cross(population, parent_ind1,parent_ind2, self.nc)
 
 class none_cross_crossover:
@@ -292,6 +294,8 @@ class discrete_crossover:
                        parent_ind1: np.ndarray,\
                        parent_ind2: np.ndarray) -> np.ndarray:
         assert len(parent_ind1) == len(parent_ind2)
+        # p1 = List(parent_ind1)
+        # p2 = List(parent_ind2)
         return discrete_cross(population, parent_ind1, parent_ind2)
 
     
