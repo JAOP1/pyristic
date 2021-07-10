@@ -99,7 +99,7 @@ class TabuSearch:
         return printable
         
     def optimize(self,Init: (np.ndarray,function_type) ,iterations: int,\
-                 memory_time : int, **kwargs)->None:
+                 memory_time : int, verbose:bool=True, **kwargs)->None:
         """
         ------------------------------------------------------
         Description:
@@ -125,7 +125,7 @@ class TabuSearch:
         f_candidate =self.f(best_candidate)
         
         try:
-            for step_ in range(1,iterations+1):
+            for step_ in tqdm(range(1,iterations+1), disable=not verbose):
 
                 Neighbors =[neighbor for  neighbor in self.get_neighbors(best_candidate,**kwargs) \
                             if not self.TL.find(self.encode_change(neighbor, best_candidate,**kwargs))]
