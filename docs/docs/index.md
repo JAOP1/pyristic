@@ -58,6 +58,3 @@ Si todo funciona correctamente es momento de conocer como está estructurada la 
      │   │   mutation
      │   │   selection 
 ```
-
-!!! Tip ""
-    Te invitamos a revisar los notebooks de cada una de las metaheurísticas en [github](https://github.com/JAOP1/pyristic/tree/main/examples/SpanishExamples).
