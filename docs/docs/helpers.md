@@ -49,11 +49,11 @@ Los parámetros son:
 
 ```python
 from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
-from pyristic.utils.test_function import beale_
+import pyristic.utils.test_function as pcTest
 from pyristic.utils.helpers import  get_stats
 from pprint import pprint
 
-Beale = EvolutionStrategy(**beale_)
+Beale = EvolutionStrategy(**pcTest.beale_)
 args = (200, 80, 160, False)
 statistics = get_stats(Beale, 21, args)
 pprint(statistics)

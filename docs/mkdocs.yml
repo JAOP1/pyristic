@@ -3,7 +3,7 @@ site_url: https://pyristic.com/
 theme:
   name: material
   language: es
-  
+  custom_dir: overrides
   palette:
     - scheme: slate
       primary: cyan
@@ -47,7 +47,10 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/JAOP1
 
-
+plugins:
+  - mkdocs-jupyter:
+      include_source: True
+  
 nav: 
   - Inicio: index.md
   - Heuristicas: 
@@ -59,6 +62,10 @@ nav:
   - Utilidades:
     - Funciones auxiliares y prueba: helpers.md
     - operadores para algoritmos de cómputo evolutivo: operadores.md
-  - Desarrolladores: Agradecimientos.md
-  
+  - Ejemplos:
+    - Búsqueda Tabú: TabuEjemplo.ipynb
+    - Recocido Simulado: RecocidoEjemplo.ipynb
+    - Programación evolutiva: PEEjemplo.ipynb
+    - Estrategias evolutivas: EEEjemplo.ipynb
+    - Algoritmos genéticos: AGEjemplo.ipynb
     
