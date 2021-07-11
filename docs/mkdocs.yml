@@ -1,5 +1,8 @@
 site_name: Pyristic
 site_url: https://pyristic.com/
+site_description: Librería de optimización con metaheurísticas en python.
+site_author: Jesús Armando Ortíz Peñafiel
+
 theme:
   name: material
   language: es
@@ -23,6 +26,7 @@ theme:
     - navigation.top
 
 markdown_extensions:
+  - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.tabbed
