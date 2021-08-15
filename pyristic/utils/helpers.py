@@ -1,5 +1,6 @@
 import inspect
 import numpy as np
+import time
 
 def f(x):
     pass
@@ -39,9 +40,11 @@ def get_stats(optimizer, NIter, OptArgs,**ExternOptArgs) -> dict:
     """
     f_ = []
     x_ = []
-    
+    timeByExecution = []
     for i in range(NIter):
+        start_time = time.time()
         optimizer.optimize(*OptArgs,**ExternOptArgs)
+        timeByExecution.append(time.time() - start_time)
         f_.append(optimizer.logger['best_f'])
         x_.append(optimizer.logger['best_individual'])
         
@@ -54,8 +57,10 @@ def get_stats(optimizer, NIter, OptArgs,**ExternOptArgs) -> dict:
     
     stats_["Worst solution"]["f"] = f_[IndWorst]
     stats_["Best solution"]["f"] = f_[IndBest]
-    
+
+    stats_["objectiveFunction"] = f_
     stats_["Mean"] = np.mean(f_)
+    stats_["averageTime"] = np.mean(timeByExecution)
     stats_["Standard deviation"] = np.std(f_)
     stats_['Median'] = np.median(f_)
 
