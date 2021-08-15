@@ -4,9 +4,10 @@ from setuptools import find_packages,setup
 with open("README.md") as f:
     LONG_DESCRIPTION = f.read()
 
+
 setup(
   name = 'pyristic',\
-  version = '0.1.0',\
+  version = '0.1.1',\
   license='MIT',\
   description = 'Set of metaheuristic for solve optimization problems.',\
   author = 'Jesús Armando Ortíz Peñafiel',\
@@ -29,5 +30,5 @@ setup(
     'License :: OSI Approved :: MIT License',
     'Programming Language :: Python :: 3.7'
   ],\
-  packages=find_packages(exclude=("examples",))
+  packages=find_packages(exclude=("examples","docs"))
 )
