@@ -1,5 +1,7 @@
 import numpy as np 
 from numba import jit,prange
+from numba.typed import List
+import numba
 
 __all__ = ['insertion_mutator','exchange_mutator','boundary_mutator','uniform_mutator',\
            'non_uniform_mutator','none_mutator','sigma_mutator','mult_sigma_adaptive_mutator',\
@@ -141,43 +143,57 @@ def exchange_mutation(X : np.ndarray) -> np.ndarray:
     return X
 
 #Continuos mutation.
-@jit(nopython=False, parallel=True)
-def boundary_mutation(X: np.ndarray, lower_bound: (list,int),\
-                      upper_bound: (list,int)) -> np.ndarray:
+@jit(nopython=True, parallel=True)
+def boundary_mutationArray(X: np.ndarray, lower_bound:list,\
+                      upper_bound:list) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
 
-    LB,UB = lower_bound, upper_bound
     for ind in prange(num_individuals):
         variable = np.random.randint(0,decision_variables)
-        
-        if type(lower_bound) == list:
-            LB = lower_bound[variable]
-            UB = upper_bound[variable]
-                
+        LB = lower_bound[variable]
+        UB = upper_bound[variable]
         X[ind][variable] = LB
-
         if np.random.rand()>0.5:
             X[ind][variable] = UB
-        
     return X
 
-@jit(nopython=False, parallel=True)
-def uniform_mutation(X: np.ndarray, lower_bound: (list,int),\
-                     upper_bound: (list,int)) -> np.ndarray:
+@jit(nopython=True, parallel=True)
+def boundary_mutation(X: np.ndarray, lower_bound,\
+                      upper_bound) -> np.ndarray:
+    num_individuals = len(X)
+    decision_variables = len(X[0])
+    LB,UB = lower_bound, upper_bound
+    for ind in prange(num_individuals):
+        variable = np.random.randint(0,decision_variables)
+        X[ind][variable] = LB
+        if np.random.rand()>0.5:
+            X[ind][variable] = UB
+    return X
+
+@jit(nopython=True, parallel=True)
+def uniform_mutationArray(X: np.ndarray, lower_bound: list,\
+                     upper_bound: list) -> np.ndarray:
+    num_individuals = len(X)
+    decision_variables = len(X[0])
+
+    for ind in prange(num_individuals):
+        variable = np.random.randint(0,decision_variables)
+        LB = lower_bound[variable]
+        UB = upper_bound[variable]    
+        X[ind][variable] = np.random.uniform(LB, UB)
+    return X
+
+@jit(nopython=True, parallel=True)
+def uniform_mutation(X: np.ndarray, lower_bound,\
+                     upper_bound) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
 
     LB,UB = lower_bound, upper_bound
     for ind in prange(num_individuals):
-        variable = np.random.randint(0,decision_variables)
-
-        if type(lower_bound) == list:
-            LB = lower_bound[variable]
-            UB = upper_bound[variable]    
-
+        variable = np.random.randint(0,decision_variables)   
         X[ind][variable] = np.random.uniform(LB, UB)
-        
     return X
 
 @jit(nopython=False, parallel=True)
@@ -210,18 +226,27 @@ class exchange_mutator:
 class boundary_mutator:
     def __init__(self, bounds:list):
         self.Bounds = bounds
+        self.typeBound =(list if type(self.Bounds[0]) == list else float)
         self.__doc__="Boundary\n\t Arguments:\n\t\t -Lower bound: {}\n\t\t -Upper bound: {}".format(self.Bounds[0],self.Bounds[1])
 
     def __call__(self, X:np.ndarray) -> np.ndarray:
-        return boundary_mutation(X, self.Bounds[0], self.Bounds[1])
+        if self.typeBound != list:
+            return boundary_mutation(List(X), self.Bounds[0], self.Bounds[1])
+
+        return boundary_mutationArray(List(X), List(self.Bounds[0]), List(self.Bounds[1]))
 
 class uniform_mutator:
     def __init__(self, bounds: list):
         self.Bounds = bounds
+        self.typeBound =(list if type(self.Bounds[0]) == list else float)
         self.__doc__ = "Uniform\n\t Arguments:\n\t\t -Lower bound: {}\n\t\t -Upper bound: {}".format(self.Bounds[0],self.Bounds[1])
 
     def __call__(self, X:np.ndarray) -> np.ndarray:
-        return uniform_mutation(X, self.Bounds[0], self.Bounds[1])
+        
+        if self.typeBound != list:
+            return uniform_mutation(List(X), self.Bounds[0], self.Bounds[1])
+
+        return uniform_mutationArray(List(X), List(self.Bounds[0]), List(self.Bounds[1]))
 
 class non_uniform_mutator:
     def __init__(self, sigma: float=1.0):
