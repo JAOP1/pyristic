@@ -31,7 +31,6 @@ def discrete_cross(X : np.ndarray, parent_ind1: np.ndarray ,\
     ------------------------------------------------------
     """
 
-    #print(X)
     rows,cols = X.shape
     rows_new = len(parent_ind1)
     A = np.zeros((rows_new,cols))
@@ -88,13 +87,16 @@ def n_point_cross(X : np.ndarray , parent_ind1 : np.ndarray,\
         Matriz with size 2m x n.
     ------------------------------------------------------
     """
-    assert len(parent_ind1) == len(parent_ind2)
 
     num_individuals = len(parent_ind1)
     decision_variables = len(X[0])    
-    new_population = np.ones((num_individuals*2,decision_variables))
-    new_population[np.arange(0,num_individuals*2,2)] = X[parent_ind1]
-    new_population[np.arange(1,num_individuals*2,2)] = X[parent_ind2]
+    new_population = np.ones((num_individuals*2,decision_variables), dtype=np.float64)
+
+    for i in prange(0,num_individuals*2):
+        if i%2 == 0:
+            new_population[i] =  X[parent_ind1[(i//2)]]
+        else:
+            new_population[i] = X[parent_ind2[(i//2)]]
 
     for row in prange(num_individuals):
         cross_points  = np.random.choice(decision_variables-1,n_cross,replace=False)
@@ -129,13 +131,16 @@ def uniform_cross(X: np.ndarray, parent_ind1: np.ndarray,\
         Matriz with size 2m x n.
     ------------------------------------------------------
     """
-    assert len(parent_ind1) == len(parent_ind2)
 
     num_individuals = len(parent_ind1)
     decision_variables = len(X[0])
-    new_population = np.ones((num_individuals*2,decision_variables))
-    new_population[np.arange(0,num_individuals*2,2)] = X[parent_ind1]
-    new_population[np.arange(1,num_individuals*2,2)] = X[parent_ind2]
+    new_population = np.ones((num_individuals*2,decision_variables),dtype=np.float64)
+
+    for i in prange(0,num_individuals*2):
+        if i%2 == 0:
+            new_population[i] =  X[parent_ind1[(i//2)]]
+        else:
+            new_population[i] = X[parent_ind2[(i//2)]]
 
     for i in prange(num_individuals):
         for x in range(decision_variables):
@@ -185,7 +190,6 @@ def permutation_order_cross(X : np.ndarray , parent_ind1:np.ndarray,\
         Matriz with size 2m x n.
     ------------------------------------------------------
     """
-    assert len(parent_ind1) == len(parent_ind2)
 
     num_individuals = len(parent_ind1)
     decision_variables = len(X[0])
@@ -201,7 +205,6 @@ def permutation_order_cross(X : np.ndarray , parent_ind1:np.ndarray,\
 def simulated_binary_cross(X: np.ndarray, parent_ind1: np.ndarray,\
                            parent_ind2: np.ndarray,\
                            nc: int=1) -> np.ndarray:
-    #assert len(parent_ind1) == len(parent_ind2)
 
     num_individuals = len(parent_ind1)
     decision_variables = len(X[0])                       
@@ -213,9 +216,14 @@ def simulated_binary_cross(X: np.ndarray, parent_ind1: np.ndarray,\
         B = np.power((2*u), exponent)
     else:
         B = np.power(1/(2 * (1-u)), exponent)
-    
-    A = X[parent_ind1] + X[parent_ind2]
-    B = np.absolute(X[parent_ind2] - X[parent_ind1]) * B
+    X_1 =np.ones((num_individuals,decision_variables), dtype=np.float64)
+    X_2 = np.ones((num_individuals,decision_variables), dtype=np.float64)
+    for  i in prange(0, num_individuals):
+        X_1[i] = X[parent_ind1[i]]
+        X_2[i] = X[parent_ind2[i]]
+
+    A = X_1 + X_2
+    B = np.absolute(X_2 - X_1) * B
 
     return np.concatenate((0.5 * (A - B) , 0.5 * (A + B)) , axis = 0)
 
@@ -241,7 +249,8 @@ class n_point_crossover:
                     parent_ind1: np.ndarray,\
                     parent_ind2: np.ndarray) -> np.ndarray:
         assert len(parent_ind1) == len(parent_ind2)
-        return n_point_cross(population, parent_ind1, parent_ind2, self.n_cross)
+        
+        return n_point_cross(population, List(parent_ind1), List(parent_ind2), self.n_cross)
 
 class uniform_crossover:
     def __init__(self,flip_prob : int=0.5):
@@ -252,7 +261,7 @@ class uniform_crossover:
                     parent_ind1: np.ndarray,\
                     parent_ind2: np.ndarray) -> np.ndarray:
         assert len(parent_ind1) == len(parent_ind2)    
-        return uniform_cross(population, parent_ind1, parent_ind2, self.prob)
+        return uniform_cross(population, List(parent_ind1), List(parent_ind2), self.prob)
 
 class permutation_order_crossover:
     def __init__(self):
@@ -274,7 +283,7 @@ class simulated_binary_crossover:
                 parent_ind2: np.ndarray) -> np.ndarray:
         assert len(parent_ind1) == len(parent_ind2)
 
-        return simulated_binary_cross(population, parent_ind1,parent_ind2, self.nc)
+        return simulated_binary_cross(List(population), List(parent_ind1),List(parent_ind2), self.nc)
 
 class none_cross_crossover:
     def __init__(self):

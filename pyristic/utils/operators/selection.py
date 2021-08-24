@@ -288,9 +288,14 @@ class replacement_selector:
                 
         ------------------------------------------------------
         """  
-        result = {}
-        indices = get_lowest_indices(offspring_f, len(parent_f))
+        assert len(parent_f) <= len(offspring_f)
         
+        result = {}
+        if len(parent_f) < len(offspring_f):
+            indices = get_lowest_indices(offspring_f, len(parent_f))
+        else:
+            indices = range(len(parent_f))
+
         result['parent_population_f'] = offspring_f[indices]
 
         for feature in features.keys():
