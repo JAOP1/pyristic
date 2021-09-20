@@ -20,7 +20,7 @@ def checkargs(function):
     return _f
 
 
-def get_stats(optimizer, NIter, OptArgs,**ExternOptArgs) -> dict:
+def get_stats(optimizer, NIter, OptArgs, ExternOptArgs={}, transformer=None) -> dict:
     """
     ------------------------------------------------------
     Description:
@@ -35,7 +35,9 @@ def get_stats(optimizer, NIter, OptArgs,**ExternOptArgs) -> dict:
         - NIter: evaluation number, which is the number of times to 
         applied class.optimize(args).
         - OptArgs: Arguments necessary to perform.
-        - ExternOptArgs(optional): additional arguments.
+        - ExternOptArgs(optional): additional arguments passed to optimizer.
+        - transformer: Function that return a float value. The fuction input is
+            the best individual obtained after an execution.
     ------------------------------------------------------
     """
     f_ = []
@@ -45,8 +47,11 @@ def get_stats(optimizer, NIter, OptArgs,**ExternOptArgs) -> dict:
         start_time = time.time()
         optimizer.optimize(*OptArgs,**ExternOptArgs)
         timeByExecution.append(time.time() - start_time)
-        f_.append(optimizer.logger['best_f'])
         x_.append(optimizer.logger['best_individual'])
+        if(transformer != None):
+            f_.append(transformer(optimizer.logger['best_individual']))
+        else:
+            f_.append(optimizer.logger['best_f'])
         
     IndWorst = np.argmax(f_)
     IndBest = np.argmin(f_)

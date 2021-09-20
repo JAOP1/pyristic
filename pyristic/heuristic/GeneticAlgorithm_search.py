@@ -45,7 +45,7 @@ class Genetic:
         self.logger['population_size'] = None
 
     def __str__(self):
-        printable = "Genetic search: \n f(X) = {} \n X = {} \n ".format(self.logger['best_f'], self.logger['best_individual'])
+        printable = "Genetic search: \n F_a(X) = {} \n X = {} \n ".format(self.logger['best_f'], self.logger['best_individual'])
         first = True
 
         for i in range(len(self.Constraints)):

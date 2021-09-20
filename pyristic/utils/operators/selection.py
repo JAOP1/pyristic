@@ -135,18 +135,18 @@ def tournament_sampling( expectedVals : np.ndarray, chunks : int=2 , prob: float
                                 Survivor selection.
 ---------------------------------------------------------------------------------
 """
-def get_lowest_indices(value: np.ndarray, m: int) -> np.ndarray:
+def get_candidates_by_aptitude(value: np.ndarray, m: int) -> np.ndarray:
     """
     ------------------------------------------------------
     Description:
-        Return m indices with the lowest fitness.
+        Return m indices with the biggest fitness.
     Arguments:
         value: float array.
-        m: int element.
+        m: int number of indices to return with the biggest value.
     ------------------------------------------------------
     """
-    pseudo_sorted_array = np.argpartition(value, m)    
-    return pseudo_sorted_array[:m]
+    pseudo_sorted_array = np.argpartition(value, -1*m)    
+    return pseudo_sorted_array[-1*m:]
 
 
 
@@ -164,60 +164,44 @@ def get_lowest_indices(value: np.ndarray, m: int) -> np.ndarray:
 
 
 class proporcional_sampler:
-    def __init__(self, transform=None):
+    def __init__(self):
         self.__doc__ = "Proporcional sampling"
 
     def __call__(self,population_f: np.ndarray) -> np.ndarray:
         return proporcional_sampling(population_f)
 
 class roulette_sampler:
-    def __init__(self, transform=None):
+    def __init__(self):
         self.__doc__ = "Roulette sampling"
-        self.transform = transform
 
     def __call__(self,population_f: np.ndarray) -> np.ndarray:
-        vals = np.copy(population_f)
-        if self.transform != None:
-            vals = self.transform(vals)
-        
+        vals = np.copy(population_f)        
         return roulette_sampling(vals)
 
 class stochastic_universal_sampler:
-    def __init__(self, transform=None):
+    def __init__(self):
         self.__doc__   = "Stochastic universal sampling"
-        self.transform = transform
 
     def __call__(self,population_f: np.ndarray) -> np.ndarray:
         vals = np.copy(population_f)
-        if self.transform != None:
-            vals = self.transform(vals)
-        
         return stochastic_universal_sampling(vals)
 
 class deterministic_sampler:
-    def __init__(self, transform=None):
+    def __init__(self):
         self.__doc__   = "Deterministic sampling"
-        self.transform = transform
 
     def __call__(self,population_f: np.ndarray) -> np.ndarray:
         vals = np.copy(population_f)
-        if self.transform != None:
-            vals = self.transform(vals)
-        
         return deterministic_sampling(vals)
 
 class tournament_sampler:
-    def __init__(self, transform=None, chunks_ : int=2 , prob_: float=1.0):  
-        self.transform = transform
+    def __init__(self, chunks_ : int=2 , prob_: float=1.0):  
         self.chunks = chunks_
         self.prob = prob_
         self.__doc__ = "Tournament sampling\n\t Arguments:\n\t\t-Chunks: {}\n\t\t-prob: {}".format(self.chunks,self.prob)
 
     def __call__(self,population_f: np.ndarray) -> np.ndarray:
         vals = np.copy(population_f)
-        if self.transform != None:
-            vals = self.transform(vals)
-        
         return tournament_sampling( vals,\
                                     self.chunks,\
                                     self.prob)
@@ -255,7 +239,7 @@ class merge_selector:
         result = {}
 
         tmp_f = np.concatenate((parent_f,offspring_f))
-        indices = get_lowest_indices(tmp_f, len(parent_f))
+        indices = get_candidates_by_aptitude(tmp_f, len(parent_f))
         result['parent_population_f'] = tmp_f[indices]
 
         for feature in features.keys():
@@ -292,7 +276,7 @@ class replacement_selector:
         
         result = {}
         if len(parent_f) < len(offspring_f):
-            indices = get_lowest_indices(offspring_f, len(parent_f))
+            indices = get_candidates_by_aptitude(offspring_f, len(parent_f))
         else:
             indices = range(len(parent_f))
 
