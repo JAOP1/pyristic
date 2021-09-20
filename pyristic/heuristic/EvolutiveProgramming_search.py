@@ -54,7 +54,7 @@ class EvolutionaryProgramming:
         self.logger['offspring_population_f']       = None
 
     def __str__(self):
-        printable = "Evolutive Programming search: \n f(X) = {} \n X = {} \n ".format(self.logger['best_f'], self.logger['best_individual'])
+        printable = "Evolutive Programming search: \n F_a(X) = {} \n X = {} \n ".format(self.logger['best_f'], self.logger['best_individual'])
         first = True
         
         for i in range(len(self.Constraints)):

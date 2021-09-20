@@ -46,7 +46,7 @@ class EvolutionStrategy:
         self.logger['total_iter']      = None
 
     def __str__(self):
-        printable = "Evolution Strategy search: \n f(X) = {} \n X = {} \n ".format(self.logger['best_f'], self.logger['best_individual'])
+        printable = "Evolution Strategy search: \n F_a(X) = {} \n X = {} \n ".format(self.logger['best_f'], self.logger['best_individual'])
         first = True
         
         for i in range(len(self.Constraints)):
