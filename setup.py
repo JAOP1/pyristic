@@ -15,7 +15,7 @@ setup(
   long_description = LONG_DESCRIPTION,\
   long_description_content_type="text/markdown",\
   url = 'https://github.com/JAOP1/',\
-  download_url = 'https://github.com/JAOP1/pyristic/archive/refs/tags/0.1.2.tar.gz',\
+  download_url = 'https://github.com/JAOP1/pyristic/archive/refs/tags/0.1.3.tar.gz',\
   keywords = ['Optimization', 'Metaheuristic', 'Python'],\
   install_requires=[
           'numpy>=1.15.4',
