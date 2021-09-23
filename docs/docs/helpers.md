@@ -43,7 +43,8 @@ Los parámetros son:
 * `optimizer`: Nuestro objeto creado para resolver el problema (metaheurística).
 * `NIter`: Número de ejecuciones de nuestro objeto.
 * `OptArgs`: Una tupla con los parámetros de nuestro algoritmo (al momento de ejecutar el método *optimize*).
-* `ExternOptArgs`: Diccionario con los argumentos incluidos al momento de sobreescribir alguno de los métodos en la metaheurística desarrollada.
+* `ExternOptArgs`: Diccionario con los argumentos incluidos al momento de sobreescribir alguno de los métodos en la metaheurística desarrollada, por defecto es un diccionario vacio.
+* `transformer`: Función que se aplicará a la solución obtenida por cada ejecución de la metaheuristica. En el caso de los algoritmos evolutivos, nos retorna el valor resultante de la función objetivo.
 
 ### Ejemplo utilizando get_stats
 

@@ -507,7 +507,7 @@ import pyristic.utils.operators.selection as pcSelect
  
         Argumentos:
         
-        - `population_f.` Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición $i$ en la función objetivo.
+        - `population_f.` Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición $i$ en la función de aptitud.
         
         Valor de retorno:
         
@@ -526,7 +526,7 @@ import pyristic.utils.operators.selection as pcSelect
  
         Argumentos:
         
-        - `population_f.` Arreglo de numpy con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función objetivo.
+        - `population_f.` Arreglo de numpy con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función de aptitud.
         
         Valor de retorno:
         
@@ -545,7 +545,7 @@ import pyristic.utils.operators.selection as pcSelect
  
         Argumentos:
         
-        - `population_f.` Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función objetivo.
+        - `population_f.` Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función de aptitud.
         
         Valor de retorno:
         
@@ -565,7 +565,7 @@ import pyristic.utils.operators.selection as pcSelect
   
         Argumentos:
         
-        - `population_f.`  Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición $𝑖$ en la función objetivo. 
+        - `population_f.`  Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición $𝑖$ en la función de aptitud. 
         
         Valor de retorno:
             
