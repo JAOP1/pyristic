@@ -660,7 +660,8 @@
 <li><code>optimizer</code>: Nuestro objeto creado para resolver el problema (metaheurística).</li>
 <li><code>NIter</code>: Número de ejecuciones de nuestro objeto.</li>
 <li><code>OptArgs</code>: Una tupla con los parámetros de nuestro algoritmo (al momento de ejecutar el método <em>optimize</em>).</li>
-<li><code>ExternOptArgs</code>: Diccionario con los argumentos incluidos al momento de sobreescribir alguno de los métodos en la metaheurística desarrollada.</li>
+<li><code>ExternOptArgs</code>: Diccionario con los argumentos incluidos al momento de sobreescribir alguno de los métodos en la metaheurística desarrollada, por defecto es un diccionario vacio.</li>
+<li><code>transformer</code>: Función que se aplicará a la solución obtenida por cada ejecución de la metaheuristica. En el caso de los algoritmos evolutivos, nos retorna el valor resultante de la función objetivo.</li>
 </ul>
 <h3 id="ejemplo-utilizando-get_stats">Ejemplo utilizando get_stats</h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>

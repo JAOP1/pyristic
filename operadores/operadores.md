@@ -92,8 +92,8 @@ import pyristic.utils.operators.crossover as pcCross
             \begin{equation}
             H_{1,i}, H_{2,i} =
             \begin{cases}
-            P_{1,i}, P_{2,i} & si & R_i \le p_c \\
-            P_{2,i}, P_{1,i} & si & R_i > p_c \\
+            P_{1,i}, P_{2,i} & \text{Si }  R_i \le p_c \\
+            P_{2,i}, P_{1,i} & \text{Si }  R_i > p_c \\
             \end{cases}
             \end{equation}
 
@@ -148,8 +148,8 @@ import pyristic.utils.operators.crossover as pcCross
             \begin{equation}
             \beta =
             \begin{cases}
-            (2u)^{\frac{1}{n_{c}+1}} & si & u \le 0.5,\\
-            \left(\frac{1}{2(1-u)}\right)^{\frac{1}{n_{c}+1}} & si & u > 0.5 \\
+            (2u)^{\frac{1}{n_{c}+1}} & \text{Si } u \le 0.5,\\
+            \left(\frac{1}{2(1-u)}\right)^{\frac{1}{n_{c}+1}} & \text{Si }  u > 0.5 \\
             \end{cases}
             \end{equation}
             Regularmente, $n_{c}$ es igual con 1 ó 2 y $u \in [0,1]$.
@@ -393,8 +393,8 @@ import pyristic.utils.operators.mutation as pcMut
             \begin{equation}
             \vec{x}'_{i} = 
             \begin{cases}
-            LB & si & R \le 0.5 \\
-            UB & si & R > 0.5 \\
+            LB & \text{Si } R \le 0.5 \\
+            UB & \text{Si }  R > 0.5 \\
             \end{cases}
             \end{equation}
   
@@ -507,7 +507,7 @@ import pyristic.utils.operators.selection as pcSelect
  
         Argumentos:
         
-        - `population_f.` Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición $i$ en la función objetivo.
+        - `population_f.` Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición $i$ en la función de aptitud.
         
         Valor de retorno:
         
@@ -526,7 +526,7 @@ import pyristic.utils.operators.selection as pcSelect
  
         Argumentos:
         
-        - `population_f.` Arreglo de numpy con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función objetivo.
+        - `population_f.` Arreglo de numpy con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función de aptitud.
         
         Valor de retorno:
         
@@ -545,7 +545,7 @@ import pyristic.utils.operators.selection as pcSelect
  
         Argumentos:
         
-        - `population_f.` Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función objetivo.
+        - `population_f.` Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función de aptitud.
         
         Valor de retorno:
         
@@ -565,7 +565,7 @@ import pyristic.utils.operators.selection as pcSelect
   
         Argumentos:
         
-        - `population_f.`  Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición $𝑖$ en la función objetivo. 
+        - `population_f.`  Arreglo de *numpy* con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición $𝑖$ en la función de aptitud. 
         
         Valor de retorno:
             

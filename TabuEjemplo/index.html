@@ -1235,6 +1235,29 @@ all of MD as it is not optimized for dense, information rich UIs.
         
         
         <div class="CodeMirror cm-s-jupyter">
+    <div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1">#library_path is the path where the Optimpy library is located.</span>
+<span class="n">library_path</span> <span class="o">=</span> <span class="s2">&quot;/home/dell/Documentos/Git_proejcts/pyristic/&quot;</span>
+<span class="c1">#library_path = &quot;/Users/adrianamenchacamendez/Documentos/enes_morelia/papime/optimizacion-con-metaheuristicas/&quot;</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">library_path</span><span class="p">))</span>
+</pre></div>
+
+        </div>
+    </div>
+
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+    <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        
+        
+        <div class="CodeMirror cm-s-jupyter">
     <div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">pyristic.heuristic.Tabu_search</span> <span class="kn">import</span> <span class="n">TabuSearch</span>
 <span class="kn">from</span> <span class="nn">pyristic.utils.helpers</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
@@ -1283,7 +1306,7 @@ $x = [1, 1, 0, 0, 1]$ , $f(x) = 42$ y $g_{1}(x) = 15$</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
     <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
@@ -1313,7 +1336,7 @@ $x = [1, 1, 0, 0, 1]$ , $f(x) = 42$ y $g_{1}(x) = 15$</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
     <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
@@ -1460,11 +1483,34 @@ $x = [1, 1, 0, 0, 1]$ , $f(x) = 42$ y $g_{1}(x) = 15$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 30/30 [00:00&lt;00:00, 1586.49it/s]</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Tabu search: 
  f(X) = -42 
  X = [1 1 0 0 1] 
  
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
 </pre>
 </div>
 </div>
@@ -1592,7 +1638,7 @@ $x = [1, 1, 0, 0, 1]$ , $f(x) = 42$ y $g_{1}(x) = 15$</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
     <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
@@ -1619,14 +1665,37 @@ $x = [1, 1, 0, 0, 1]$ , $f(x) = 42$ y $g_{1}(x) = 15$</p>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:00&lt;00:00, 454.23it/s]</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Tabu search: 
- f(X) = -2207 
- X = [0 0 1 0 0 1 0 0 0 1 0 1 1 0 0 0 1 1 1 0 1 1 0 1 1 1 1 1 1 1 1 0 1 0 1 1 1
- 0 0 1 1 0 0 0 1 1 1 0 0 1] 
+ f(X) = -2309 
+ X = [0 0 1 0 0 1 0 0 1 1 0 1 1 1 0 0 1 0 1 0 1 1 0 1 1 1 1 1 1 1 0 0 1 0 1 1 1
+ 0 0 1 1 1 1 0 0 1 1 0 0 1] 
  Constraints: 
- 856 &lt;= 870 
+ 868 &lt;= 870 
 
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
 </pre>
 </div>
 </div>
@@ -1647,10 +1716,10 @@ $x = [1, 1, 0, 0, 1]$ , $f(x) = 42$ y $g_{1}(x) = 15$</p>
 <p>La función <code>get_stats</code> retorna un diccionario con algunas estadísticas de las ejecuciones.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
     <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
@@ -1665,10 +1734,51 @@ $x = [1, 1, 0, 0, 1]$ , $f(x) = 42$ y $g_{1}(x) = 15$</p>
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 913.61it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1378.92it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1339.77it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1345.36it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1261.83it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1315.93it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1378.99it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1356.77it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1348.58it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1255.58it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1341.23it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1379.97it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1380.98it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1358.95it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1250.25it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1340.90it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1377.66it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1376.81it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1363.01it/s]
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 910.14it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:00&lt;00:00, 1082.86it/s]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
     <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
@@ -1694,17 +1804,39 @@ $x = [1, 1, 0, 0, 1]$ , $f(x) = 42$ y $g_{1}(x) = 15$</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>{&#39;Best solution&#39;: {&#39;f&#39;: -2310,
-                   &#39;x&#39;: array([0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1,
-       0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0,
+<pre>{&#39;Best solution&#39;: {&#39;f&#39;: -2309,
+                   &#39;x&#39;: array([0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1,
+       0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0,
+       0, 1, 1, 1, 0, 1])},
+ &#39;Mean&#39;: -2252.7619047619046,
+ &#39;Median&#39;: -2254.0,
+ &#39;Standard deviation&#39;: 38.34418657359848,
+ &#39;Worst solution&#39;: {&#39;f&#39;: -2187,
+                    &#39;x&#39;: array([0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1,
+       0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1,
        0, 1, 1, 0, 0, 1])},
- &#39;Mean&#39;: -2261.714285714286,
- &#39;Median&#39;: -2270.0,
- &#39;Standard deviation&#39;: 37.13186650579367,
- &#39;Worst solution&#39;: {&#39;f&#39;: -2193,
-                    &#39;x&#39;: array([0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1,
-       1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0,
-       0, 1, 1, 0, 0, 1])}}
+ &#39;averageTime&#39;: 0.39534649394807364,
+ &#39;objectiveFunction&#39;: [-2214,
+                       -2279,
+                       -2284,
+                       -2263,
+                       -2305,
+                       -2281,
+                       -2309,
+                       -2187,
+                       -2273,
+                       -2215,
+                       -2222,
+                       -2225,
+                       -2254,
+                       -2302,
+                       -2230,
+                       -2195,
+                       -2307,
+                       -2220,
+                       -2248,
+                       -2211,
+                       -2284]}
 </pre>
 </div>
 </div>

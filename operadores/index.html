@@ -710,8 +710,8 @@ z_{i} = \alpha \cdot x_{i} + (1 - \alpha) \cdot y_{i}
 \begin{equation}
 H_{1,i}, H_{2,i} =
 \begin{cases}
-P_{1,i}, P_{2,i} &amp; si &amp; R_i \le p_c \
-P_{2,i}, P_{1,i} &amp; si &amp; R_i &gt; p_c \
+P_{1,i}, P_{2,i} &amp; \text{Si }  R_i \le p_c \
+P_{2,i}, P_{1,i} &amp; \text{Si }  R_i &gt; p_c \
 \end{cases}
 \end{equation}</p>
 <p>Donde <span class="arithmatex">\(R\)</span> es un vector que indica un número aleatorio entre <span class="arithmatex">\([0,1]\)</span>.</p>
@@ -765,8 +765,8 @@ Donde <span class="arithmatex">\(\beta\)</span> se define como sigue:
 \begin{equation}
 \beta =
 \begin{cases}
-(2u)^{\frac{1}{n_{c}+1}} &amp; si &amp; u \le 0.5,\
-\left(\frac{1}{2(1-u)}\right)^{\frac{1}{n_{c}+1}} &amp; si &amp; u &gt; 0.5 \
+(2u)^{\frac{1}{n_{c}+1}} &amp; \text{Si } u \le 0.5,\
+\left(\frac{1}{2(1-u)}\right)^{\frac{1}{n_{c}+1}} &amp; \text{Si }  u &gt; 0.5 \
 \end{cases}
 \end{equation}
 Regularmente, <span class="arithmatex">\(n_{c}\)</span> es igual con 1 ó 2 y <span class="arithmatex">\(u \in [0,1]\)</span>.</p>
@@ -1019,8 +1019,8 @@ x'_j = x_j + \sigma'_j \cdot N(0,1)
 \begin{equation}
 \vec{x}'_{i} = 
 \begin{cases}
-LB &amp; si &amp; R \le 0.5 \
-UB &amp; si &amp; R &gt; 0.5 \
+LB &amp; \text{Si } R \le 0.5 \
+UB &amp; \text{Si }  R &gt; 0.5 \
 \end{cases}
 \end{equation}</p>
 <p>Constructor:</p>
@@ -1139,7 +1139,7 @@ UB &amp; si &amp; R &gt; 0.5 \
 </ul>
 <p>Argumentos:</p>
 <ul>
-<li><code>population_f.</code> Arreglo de <em>numpy</em> con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición <span class="arithmatex">\(i\)</span> en la función objetivo.</li>
+<li><code>population_f.</code> Arreglo de <em>numpy</em> con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición <span class="arithmatex">\(i\)</span> en la función de aptitud.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
@@ -1158,7 +1158,7 @@ UB &amp; si &amp; R &gt; 0.5 \
 </ul>
 <p>Argumentos:</p>
 <ul>
-<li><code>population_f.</code> Arreglo de numpy con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función objetivo.</li>
+<li><code>population_f.</code> Arreglo de numpy con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función de aptitud.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
@@ -1177,7 +1177,7 @@ UB &amp; si &amp; R &gt; 0.5 \
 </ul>
 <p>Argumentos:</p>
 <ul>
-<li><code>population_f.</code> Arreglo de <em>numpy</em> con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función objetivo.</li>
+<li><code>population_f.</code> Arreglo de <em>numpy</em> con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición 𝑖 en la función de aptitud.</li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
@@ -1197,7 +1197,7 @@ UB &amp; si &amp; R &gt; 0.5 \
 </ul>
 <p>Argumentos:</p>
 <ul>
-<li><code>population_f.</code>  Arreglo de <em>numpy</em> con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición <span class="arithmatex">\(𝑖\)</span> en la función objetivo. </li>
+<li><code>population_f.</code>  Arreglo de <em>numpy</em> con valores numéricos que representan los valores obtenidos al evaluar el individuo en la posición <span class="arithmatex">\(𝑖\)</span> en la función de aptitud. </li>
 </ul>
 <p>Valor de retorno:</p>
 <ul>
