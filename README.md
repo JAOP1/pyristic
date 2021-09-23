@@ -35,7 +35,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
 from pyristic.utils.test_function import beale_
 """
 Instancia de la clase EvolutionStrategy: 
-- Función objetivo
+- Función objetivo (recibe la funci
 - Lista de restricciones
 - Límite inferior y superior de las variables de decisión
 - Número de variables de decisión
