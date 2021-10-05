@@ -72,4 +72,5 @@ nav:
     - Programación evolutiva: PEEjemplo.ipynb
     - Estrategias evolutivas: EEEjemplo.ipynb
     - Algoritmos genéticos: AGEjemplo.ipynb
+  - PyristicLab: pyristicLab.md
     
