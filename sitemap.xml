@@ -76,6 +76,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://pyristic.com/pyristicLab/</loc>
+         <lastmod>2021-10-05</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://pyristic.com/tabu/</loc>
          <lastmod>2021-10-05</lastmod>
          <changefreq>daily</changefreq>
