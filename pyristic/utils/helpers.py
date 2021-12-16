@@ -20,7 +20,7 @@ def checkargs(function):
     return _f
 
 
-def get_stats(optimizer, NIter, OptArgs, ExternOptArgs={}, transformer=None) -> dict:
+def get_stats(optimizer, NIter, OptArgs, ExternOptArgs={}, transformer=None, showAll = True) -> dict:
     """
     ------------------------------------------------------
     Description:
@@ -38,6 +38,7 @@ def get_stats(optimizer, NIter, OptArgs, ExternOptArgs={}, transformer=None) -> 
         - ExternOptArgs(optional): additional arguments passed to optimizer.
         - transformer: Function that return a float value. The fuction input is
             the best individual obtained after an execution.
+        - showAll: display every solution and objective function.
     ------------------------------------------------------
     """
     f_ = []
@@ -62,12 +63,14 @@ def get_stats(optimizer, NIter, OptArgs, ExternOptArgs={}, transformer=None) -> 
     
     stats_["Worst solution"]["f"] = f_[IndWorst]
     stats_["Best solution"]["f"] = f_[IndBest]
-
-    stats_["objectiveFunction"] = f_
     stats_["Mean"] = np.mean(f_)
-    stats_["averageTime"] = np.mean(timeByExecution)
     stats_["Standard deviation"] = np.std(f_)
     stats_['Median'] = np.median(f_)
+
+    if showAll:
+        stats_["averageTime"] = np.mean(timeByExecution)
+        stats_["objectiveFunction"] = f_
+        stats_["solutions"] = x_
 
     return stats_
 
