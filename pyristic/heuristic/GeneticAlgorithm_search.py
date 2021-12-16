@@ -65,6 +65,7 @@ class Genetic:
     #-----------------------------------------------------
     def optimize(self,  generations:int ,\
                         size_population: int,\
+                        cross_percentage: float = 1.0,\
                         verbose:bool=True,\
                         **kwargs) -> None:
         """
@@ -76,6 +77,7 @@ class Genetic:
             -population: Number of new solutions.
         ------------------------------------------------------
         """
+        assert 0 <= cross_percentage <= 1.0
         #Reset global solution.
         self.logger['current_iter']    = 0
         self.logger['total_iter']      = generations
@@ -92,11 +94,18 @@ class Genetic:
                 #Parent selection.
                 parent_ind = self.parent_selection(**kwargs)
                 first_parent_indices, second_parent_indices = self.get_pairs(parent_ind)
-                
+                crossLenght = int(len(first_parent_indices) * cross_percentage)
+                first_parent_cross, second_parent_cross =first_parent_indices[:crossLenght], second_parent_indices[:crossLenght]
+                first_parent_without_cross, second_parent_without_cross = first_parent_indices[crossLenght:], second_parent_indices[crossLenght:]
                 #Crossover.
-                self.logger['offspring_population_x'] = self.crossover_operator(first_parent_indices,\
-                                                                                second_parent_indices,\
+                self.logger['offspring_population_x'] = self.crossover_operator(first_parent_cross,\
+                                                                                second_parent_cross,\
                                                                                 **kwargs)
+                if len(first_parent_without_cross) != 0:
+                    parent_indices = np.concatenate((first_parent_without_cross,second_parent_without_cross))
+                    parents = self.logger['parent_population_x'][parent_indices]
+                    self.logger['offspring_population_x'] = np.concatenate((self.logger['offspring_population_x'], parents), axis = 0)
+
                 #mutate.
                 self.logger['offspring_population_x'] = self.mutation_operator(**kwargs)
 

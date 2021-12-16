@@ -4,11 +4,11 @@ from numba.typed import List
 import numba
 
 __all__ = ['insertion_mutator','exchange_mutator','boundary_mutator','uniform_mutator',\
-           'non_uniform_mutator','none_mutator','sigma_mutator','mult_sigma_adaptive_mutator',\
+           'non_uniform_mutator','binary_mutator','none_mutator','sigma_mutator','mult_sigma_adaptive_mutator',\
            'single_sigma_adaptive_mutator','sigma_ep_adaptive_mutator', 'sigma_ep_adaptive',\
             'single_sigma_adaptive', 'mult_sigma_adaptive', 'mutation_by_sigma', 'insertion_mutation',\
             'insertion_mutation', 'exchange_mutation', 'boundary_mutation', 'uniform_mutation',\
-            'non_uniform_mutation']
+            'non_uniform_mutation', 'binary_mutation']
 
 
 """
@@ -142,7 +142,18 @@ def exchange_mutation(X : np.ndarray) -> np.ndarray:
 
     return X
 
+
 #Continuos mutation.
+@jit(nopython=True, parallel=True)
+def binary_mutation(X: np.ndarray, pm: float) -> np.ndarray:
+    num_individuals = len(X)
+    decision_variables = len(X[0])
+    for i_individual in range(num_individuals):
+        for i_variable in prange(decision_variables):
+            if np.random.rand() < pm:
+                X[i_individual][i_variable] ^=1
+    return X
+
 @jit(nopython=True, parallel=True)
 def boundary_mutationArray(X: np.ndarray, lower_bound:list,\
                       upper_bound:list) -> np.ndarray:
@@ -262,6 +273,13 @@ class none_mutator:
 
     def __call__(self, X: np.ndarray) -> np.ndarray:
         return X
+
+class binary_mutator:
+    def __init__(self, pm: float = 0.2):
+        self.__doc__ = f"Binary mutation \n\t Arguments:\n\t\t - probability to flip: {pm}"
+        self.pm = pm
+    def __call__(self, X:np.ndarray) -> np.ndarray:
+        return binary_mutation(X, self.pm)
 
 #Mutatio operator for EP.
 class sigma_ep_adaptive_mutator:
