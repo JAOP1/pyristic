@@ -117,9 +117,9 @@ class TabuSearch:
         self.logger['best_f']   = None
         
         
-        if type(Init) == function_type:
+        try:
             best_candidate = Init()
-        else:
+        except:
             best_candidate = copy.deepcopy(Init)
         
         f_candidate =self.f(best_candidate)

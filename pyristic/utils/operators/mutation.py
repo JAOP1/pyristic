@@ -144,14 +144,18 @@ def exchange_mutation(X : np.ndarray) -> np.ndarray:
 
 
 #Continuos mutation.
-@jit(nopython=True, parallel=True)
+@jit( parallel=True)
 def binary_mutation(X: np.ndarray, pm: float) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
     for i_individual in range(num_individuals):
         for i_variable in prange(decision_variables):
             if np.random.rand() < pm:
-                X[i_individual][i_variable] ^=1
+                num = 0
+                if X[i_individual][i_variable] == 0:
+                    num = 1
+                X[i_individual][i_variable] = num
+            
     return X
 
 @jit(nopython=True, parallel=True)
