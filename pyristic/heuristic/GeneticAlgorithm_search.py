@@ -66,6 +66,7 @@ class Genetic:
     def optimize(self,  generations:int ,\
                         size_population: int,\
                         cross_percentage: float = 1.0,\
+                        mutation_percentage: float = 1.0,\
                         verbose:bool=True,\
                         **kwargs) -> None:
         """
@@ -78,36 +79,29 @@ class Genetic:
         ------------------------------------------------------
         """
         assert 0 <= cross_percentage <= 1.0
-        #Reset global solution.
-        self.logger['current_iter']    = 0
-        self.logger['total_iter']      = generations
-        self.logger['population_size'] = size_population
-        self.logger['best_f']        = None
+        assert 0 <= mutation_percentage <= 1.0
+        #Reset global information.
+        self.logger['current_iter']         = 0
+        self.logger['total_iter']           = generations
+        self.logger['population_size']      = size_population
+        self.logger['cross_percentage']     = cross_percentage
+        self.logger['mutation_percentage']  = mutation_percentage
+        self.logger['best_f']               = None
         self.logger['best_individual']      = None
 
         #Initial population.
-        self.logger['parent_population_x']       = self.initialize_population(**kwargs)
-        self.logger['parent_population_f'] = np.apply_along_axis(self.f , 1, self.logger['parent_population_x'])
+        self.logger['parent_population_x']  = self.initialize_population(**kwargs)
+        self.logger['parent_population_f']  = np.apply_along_axis(self.f , 1, self.logger['parent_population_x'])
         
         try:
             for g in tqdm(range(generations), disable = not verbose):
                 #Parent selection.
                 parent_ind = self.parent_selection(**kwargs)
-                first_parent_indices, second_parent_indices = self.get_pairs(parent_ind)
-                crossLenght = int(len(first_parent_indices) * cross_percentage)
-                first_parent_cross, second_parent_cross =first_parent_indices[:crossLenght], second_parent_indices[:crossLenght]
-                first_parent_without_cross, second_parent_without_cross = first_parent_indices[crossLenght:], second_parent_indices[crossLenght:]
-                #Crossover.
-                self.logger['offspring_population_x'] = self.crossover_operator(first_parent_cross,\
-                                                                                second_parent_cross,\
-                                                                                **kwargs)
-                if len(first_parent_without_cross) != 0:
-                    parent_indices = np.concatenate((first_parent_without_cross,second_parent_without_cross))
-                    parents = self.logger['parent_population_x'][parent_indices]
-                    self.logger['offspring_population_x'] = np.concatenate((self.logger['offspring_population_x'], parents), axis = 0)
-
+                first_parent_indices, second_parent_indices = self.__get_pairs(parent_ind)
+                #Cross.
+                self.__cross_individuals(first_parent_indices, second_parent_indices)
                 #mutate.
-                self.logger['offspring_population_x'] = self.mutation_operator(**kwargs)
+                self.__mutate_individuals()
 
                 #Fixing solutions and getting aptitude.
                 f_offspring = []
@@ -162,25 +156,19 @@ class Genetic:
             raise NotImplementedError
         return self._fixer(self.logger['offspring_population_x'], ind)
 
-    def mutation_operator(self, **kwargs):
+    def mutation_operator(self, indices,**kwargs):
         """
         ------------------------------------------------------
         Description:
-            The current population is updated by specific change
-            using step_size.
-            This function should change the population and current step size
-            for the next generation.
+            Apply the mutation operator selected by the configuration.
         Arguments:
-            -Population: Matrix with size m x n, where m is the current size of
-            population and n is the problem variables. Every row is an element.
-            - step_size: Matrix with size m x n, where m is the current size of
-            population and n is the poblem variables. Every row is an step for
-            every element.
+            - Indices: the indices (or boolean array) of individuals in offspring_population_x 
+            to mutate.
         ------------------------------------------------------
         """
         if self._mutation_operator == None:
             raise NotImplementedError
-        return self._mutation_operator(self.logger['offspring_population_x'])
+        return self._mutation_operator(self.logger['offspring_population_x'][indices])
 
     def crossover_operator(self,parent_ind1: np.ndarray,\
                                 parent_ind2: np.ndarray,\
@@ -220,7 +208,7 @@ class Genetic:
                 return True
         return False
 
-    def get_pairs(self,parent_ind : np.ndarray):
+    def __get_pairs(self,parent_ind : np.ndarray):
         parent_ind1=[]
         parent_ind2=[]
         size_ = len(parent_ind)//2
@@ -230,3 +218,21 @@ class Genetic:
             parent_ind2.append(parent_ind[b])
 
         return parent_ind1,parent_ind2
+
+    def __cross_individuals(self, first_parents: np.ndarray, second_parents: np.ndarray) -> None:
+
+        offspring = []
+        for i in range(len(first_parents)):
+            H1 = self.logger['parent_population_x'][first_parents[i]] 
+            H2 = self.logger['parent_population_x'][second_parents[i]]
+            if(np.random.rand() <= self.logger['cross_percentage']):
+                H1,H2= self.crossover_operator([first_parents[i]], [second_parents[i]])
+            offspring += [H1,H2]
+
+        self.logger['offspring_population_x'] = np.array(offspring)
+
+
+    def __mutate_individuals(self):
+        individuals, variables = self.logger['offspring_population_x'].shape
+        individuals_to_mutate = [np.random.rand() <= self.logger['mutation_percentage'] for i in range(individuals)]
+        self.logger['offspring_population_x'][individuals_to_mutate] = self.mutation_operator(individuals_to_mutate)
