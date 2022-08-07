@@ -25,8 +25,12 @@ def constraint1_beale(X: np.ndarray) -> bool:
 beale_constraints = [constraint1_beale]
 beale_bounds = [-4.5,4.5]
 
-beale_ = {'function':beale_function, 'constraints': beale_constraints,\
-          'bounds': beale_bounds,'decision_variables':2}
+beale_ = {
+    'function':beale_function, 
+    'constraints': beale_constraints,\
+    'bounds': beale_bounds,
+    'decision_variables':2
+    }
 
 """
 --------------------------------------------------------------------------
@@ -55,8 +59,12 @@ def constraint1_ackley(X : np.ndarray) -> bool:
 ackley_constraints = [constraint1_ackley]
 ackley_bounds = [-30.0,30.0]
 
-ackley_ = {'function': ackley_function, 'constraints': ackley_constraints,\
-           'bounds': ackley_bounds, 'decision_variables': 10}
+ackley_ = {
+    'function': ackley_function, 
+    'constraints': ackley_constraints,\
+    'bounds': ackley_bounds, 
+    'decision_variables': 10
+    }
 
 """
 --------------------------------------------------------------------------
@@ -73,7 +81,7 @@ def constraint1_bukin(X : np.ndarray) -> bool:
     str_ = ""
     str_+= "x{}: -15 <= {:.2f} <= -5 \n ".format(1, X[0])    
     str_+= "x{}: -3 <= {:.2f} <= 3 \n ".format(2, X[1])
-    constraint1_bukin.__doc__= str
+    constraint1_bukin.__doc__= str_
     if -15>X[0] or X[0] > -5:
         return False
     if -3 > X[1] or X[1] > 3:
@@ -83,8 +91,12 @@ def constraint1_bukin(X : np.ndarray) -> bool:
 bukin_constraints = [constraint1_bukin]
 bukin_bounds = [[-15,-3],[-5,3]] # [[Lower bounds] , [Upper bounds]]
 
-bukin_ = {'function': bukin_function, 'constraints': bukin_constraints,\
-           'bounds': bukin_bounds, 'decision_variables': 2}
+bukin_ = {
+    'function': bukin_function, 
+    'constraints': bukin_constraints,\
+    'bounds': bukin_bounds, 
+    'decision_variables': 2
+    }
 
 """
 --------------------------------------------------------------------------
@@ -93,7 +105,7 @@ bukin_ = {'function': bukin_function, 'constraints': bukin_constraints,\
 """
 
 
-def Himmelblau_function(X: np.ndarray) -> float:
+def himmelblau_function(X: np.ndarray) -> float:
     A = (X[0]**2 + X[1] - 11)**2
     B = (X[0] + X[1]**2 - 7)**2
     return A+B
@@ -107,11 +119,15 @@ def constraint1_Himmelblau(X : np.ndarray) -> bool:
         str_+= "x{}: -5 <= {:.2f} <= 5 \n ".format(i+1, X[i])
     
     #Important if you want to see the result.    
-    constraint1_ackley.__doc__= str_
+    constraint1_Himmelblau.__doc__= str_
     return valid
 
 Himmelblau_constraints = [constraint1_Himmelblau]
 Himmelblau_bounds = [-5,5]
 
-Himmelblau_ = {'function': Himmelblau_function, 'constraints': Himmelblau_constraints,\
-           'bounds': Himmelblau_bounds, 'decision_variables': 2}
+Himmelblau_ = {
+    'function': himmelblau_function, 
+    'constraints': Himmelblau_constraints,\
+    'bounds': Himmelblau_bounds, 
+    'decision_variables': 2
+    }
