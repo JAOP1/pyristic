@@ -1,6 +1,6 @@
 import numpy as np 
 
-__all__ = ['intermediate_crossover','n_point_crossover',\
+__all__ = ['discrete_crossover','intermediate_crossover','n_point_crossover',\
            'uniform_crossover','permutation_order_crossover','simulated_binary_crossover',\
             'discrete_cross', 'intermediate_cross', 'n_point_cross', 'uniform_cross', 'permutation_order_cross',\
             'simulated_binary_cross']
@@ -161,28 +161,25 @@ def permutation_order_cross(X : np.ndarray , parent_ind1:np.ndarray,\
         Matriz with size 2m x n.
     ------------------------------------------------------
     """
+    num_individuals = len(parent_ind1)
+    decision_variables = len(X[0])
+    new_population = np.ones((num_individuals*2,decision_variables))
 
     def create_child(parent1: np.ndarray , parent2: np.ndarray) -> np.ndarray:
 
-        decision_variables = len(parent1)
         interval = np.random.choice(decision_variables+1,2,replace=False)
         interval.sort()
 
         individual = np.full(decision_variables,np.inf)
         segment = parent1[interval[0]:interval[1]]
         individual[interval[0]:interval[1]] = segment
-
         remainder = []
         for x in parent2:
-            if not x in segment:
+            if x not in segment:
                 remainder.append(x)
 
         individual[individual == np.inf] = remainder
         return individual
-
-    num_individuals = len(parent_ind1)
-    decision_variables = len(X[0])
-    new_population = np.ones((num_individuals*2,decision_variables))
 
     for i in range(num_individuals):
         new_population[2*i]  = create_child(X[parent_ind1[i]], X[parent_ind2[i]])
