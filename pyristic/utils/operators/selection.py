@@ -1,5 +1,4 @@
 import numpy as np 
-from numba import jit,prange
 from copy import deepcopy
 
 __all__ = ['proporcional_sampler', 'roulette_sampler', 'stochastic_universal_sampler',\
@@ -7,7 +6,6 @@ __all__ = ['proporcional_sampler', 'roulette_sampler', 'stochastic_universal_sam
             'proporcional_sampling', 'roulette_sampling', 'stochastic_universal_sampling',\
             'deterministic_sampling', 'tournament_sampling']
 
-@jit(nopython=True, parallel=True)
 def get_expected_values(aptitude: np.array) -> np.array:
     averageAptitude = np.sum(aptitude)
     N = len(aptitude)
@@ -25,11 +23,9 @@ def get_expected_values(aptitude: np.array) -> np.array:
                                 Parent selection.
 ---------------------------------------------------------------------------------
 """
-@jit(nopython=True,parallel=False)
 def proporcional_sampling(expectedVals: np.ndarray) -> np.ndarray:
     return np.arange(len(expectedVals))
 
-@jit(nopython=True,parallel=True)
 def roulette_sampling(expectedVals : np.ndarray) -> np.ndarray:
     """
     ------------------------------------------------------
@@ -51,7 +47,6 @@ def roulette_sampling(expectedVals : np.ndarray) -> np.ndarray:
     r = np.random.uniform(0.0,expectedCumulative[-1], N)
     return np.searchsorted(expectedCumulative, r) #sample
     
-@jit(nopython=False, parallel=False)   
 def stochastic_universal_sampling(expectedVals : np.ndarray) -> np.ndarray:
     """
     ------------------------------------------------------ 
@@ -66,7 +61,6 @@ def stochastic_universal_sampling(expectedVals : np.ndarray) -> np.ndarray:
     expectedVals = get_expected_values(expectedVals)
 
     N = len(expectedVals)
-    # expectedVals_ =np.copy(expectedVals)
 
     r = np.random.uniform(0,1)
     currentSum = 0
@@ -120,7 +114,7 @@ def tournament_sampling( expectedVals : np.ndarray, chunks : int=2 , prob: float
     ind = -1
     for tournament in range(chunks):
         groups = np.array_split(np.random.permutation(indices), chunks_)
-        for i in prange(len(groups)):
+        for i in range(len(groups)):
             if prob >= np.random.rand():
                 ind = np.argmax(expectedVals[groups[i]])
             else:

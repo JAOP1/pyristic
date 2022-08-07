@@ -1,4 +1,3 @@
-from numba import jit,prange
 import numpy as np 
 import math 
 
@@ -8,7 +7,6 @@ import math
                             Beale function.
 --------------------------------------------------------------------------
 """
-@jit(nopython=True, parallel=False)
 def beale_function(X : np.ndarray) -> float:
     a = (1.5 - X[0] + X[0]*X[1])**2
     b = (2.25 - X[0] + X[0]*X[1]**2)**2
@@ -35,7 +33,6 @@ beale_ = {'function':beale_function, 'constraints': beale_constraints,\
                             Ackley function.
 --------------------------------------------------------------------------
 """
-@jit(nopython=True,parallel=False)
 def ackley_function(X : np.ndarray) -> float:
     n = len(X)
     square_sum = (1/n)*np.sum(X * X)
@@ -67,7 +64,6 @@ ackley_ = {'function': ackley_function, 'constraints': ackley_constraints,\
 --------------------------------------------------------------------------
 """
 
-@jit(nopython=True, parallel=True)
 def bukin_function(X: np.ndarray) -> float:
     A = np.sqrt( np.abs(X[1] - 0.01* X[0]**2) ) 
     B = np.abs(X[0] + 10)
@@ -97,7 +93,6 @@ bukin_ = {'function': bukin_function, 'constraints': bukin_constraints,\
 """
 
 
-@jit(nopython=True, parallel=True)
 def Himmelblau_function(X: np.ndarray) -> float:
     A = (X[0]**2 + X[1] - 11)**2
     B = (X[0] + X[1]**2 - 7)**2

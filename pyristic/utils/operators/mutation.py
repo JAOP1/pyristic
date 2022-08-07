@@ -1,7 +1,4 @@
 import numpy as np 
-from numba import jit,prange
-from numba.typed import List
-import numba
 
 __all__ = ['insertion_mutator','exchange_mutator','boundary_mutator','uniform_mutator',\
            'non_uniform_mutator','binary_mutator','none_mutator','sigma_mutator','mult_sigma_adaptive_mutator',\
@@ -17,11 +14,9 @@ __all__ = ['insertion_mutator','exchange_mutator','boundary_mutator','uniform_mu
 ---------------------------------------------------------------------------------
 """
 #Mutation operators.
-@jit(nopython=True, parallel=True)
 def sigma_ep_adaptive(X: np.ndarray, alpha:float) -> np.ndarray:
     return X * (1.0 + alpha * np.random.normal(0,1,size=X.shape))
 
-@jit(nopython=True,parallel=True)
 def single_sigma_adaptive(X: np.ndarray,gamma:float) -> np.ndarray:
     """
     ------------------------------------------------------
@@ -36,15 +31,11 @@ def single_sigma_adaptive(X: np.ndarray,gamma:float) -> np.ndarray:
           M columns that are the decision variables.
         - gamma: Float value, additional parameter. 
 
-        About:
-            If you want more information, check:
-            ¡INCLUIR ARTICULO SOBRE ESTO!
     ------------------------------------------------------ 
     """
     exponent = np.random.normal(0,1) * gamma
     return np.exp(exponent) * X
 
-@jit(nopython=True, parallel=True)
 def mult_sigma_adaptive(X: np.ndarray, gamma: float, gamma_prime: float) -> np.ndarray:
     """
     ------------------------------------------------------
@@ -59,10 +50,6 @@ def mult_sigma_adaptive(X: np.ndarray, gamma: float, gamma_prime: float) -> np.n
           M columns that are the decision variables.
         - gamma: Float value, additional parameter. 
         - gamma_prime: Float value, additional parameter.
-
-    About: 
-        If you want more information, check:
-        ¡INCLUIR ARTICULO SOBRE ESTO!
     ------------------------------------------------------ 
     """
     firts_ = np.random.normal(0,1) * gamma_prime 
@@ -71,8 +58,6 @@ def mult_sigma_adaptive(X: np.ndarray, gamma: float, gamma_prime: float) -> np.n
     exponent = firts_ + second_
     return X* np.exp(exponent)   
 
-
-@jit(nopython=True,parallel=False)
 def mutation_by_sigma(X: np.ndarray, sigma: np.ndarray) -> np.ndarray:
     """
     ------------------------------------------------------
@@ -98,14 +83,13 @@ def mutation_by_sigma(X: np.ndarray, sigma: np.ndarray) -> np.ndarray:
 """
 
 #Discrete mutation.
-@jit(nopython=True, parallel=True)
 def insertion_mutation(X : np.ndarray, n_elements: int=1) -> np.ndarray:
     num_individuals    = len(X)
     decision_variables = len(X[0])
 
     X_mutated = np.ones((num_individuals,decision_variables))
 
-    for ind in prange(num_individuals):
+    for ind in range(num_individuals):
         individual = np.full(decision_variables,np.inf)
         indices_elements = np.random.choice(decision_variables,n_elements, replace=False)
         elements = X[ind][indices_elements]
@@ -126,12 +110,11 @@ def insertion_mutation(X : np.ndarray, n_elements: int=1) -> np.ndarray:
 
     return X_mutated
 
-@jit(nopython=True, parallel=True)
 def exchange_mutation(X : np.ndarray) -> np.ndarray:
     num_individuals    = len(X)
     decision_variables = len(X[0])
 
-    for ind in prange(num_individuals):
+    for ind in range(num_individuals):
         exchange_points = np.random.choice(decision_variables,2,replace=False)
         x1 = exchange_points[0]
         x2 = exchange_points[1]
@@ -144,12 +127,11 @@ def exchange_mutation(X : np.ndarray) -> np.ndarray:
 
 
 #Continuos mutation.
-@jit( parallel=True)
 def binary_mutation(X: np.ndarray, pm: float) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
     for i_individual in range(num_individuals):
-        for i_variable in prange(decision_variables):
+        for i_variable in range(decision_variables):
             if np.random.rand() < pm:
                 num = 0
                 if X[i_individual][i_variable] == 0:
@@ -158,13 +140,12 @@ def binary_mutation(X: np.ndarray, pm: float) -> np.ndarray:
             
     return X
 
-@jit(nopython=True, parallel=True)
 def boundary_mutationArray(X: np.ndarray, lower_bound:list,\
                       upper_bound:list) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
 
-    for ind in prange(num_individuals):
+    for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)
         LB = lower_bound[variable]
         UB = upper_bound[variable]
@@ -173,51 +154,47 @@ def boundary_mutationArray(X: np.ndarray, lower_bound:list,\
             X[ind][variable] = UB
     return X
 
-@jit(nopython=True, parallel=True)
 def boundary_mutation(X: np.ndarray, lower_bound,\
                       upper_bound) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
     LB,UB = lower_bound, upper_bound
-    for ind in prange(num_individuals):
+    for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)
         X[ind][variable] = LB
         if np.random.rand()>0.5:
             X[ind][variable] = UB
     return X
 
-@jit(nopython=True, parallel=True)
 def uniform_mutationArray(X: np.ndarray, lower_bound: list,\
                      upper_bound: list) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
 
-    for ind in prange(num_individuals):
+    for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)
         LB = lower_bound[variable]
         UB = upper_bound[variable]    
         X[ind][variable] = np.random.uniform(LB, UB)
     return X
 
-@jit(nopython=True, parallel=True)
 def uniform_mutation(X: np.ndarray, lower_bound,\
                      upper_bound) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
 
     LB,UB = lower_bound, upper_bound
-    for ind in prange(num_individuals):
+    for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)   
         X[ind][variable] = np.random.uniform(LB, UB)
     return X
 
-@jit(nopython=False, parallel=True)
 def non_uniform_mutation(X:np.ndarray, sigma: float=1.0) -> np.ndarray:
 
     num_individuals    = len(X)
     decision_variables = len(X[0])
 
-    for ind in prange(num_individuals):
+    for ind in range(num_individuals):
         noise = np.random.normal(0,sigma, size= decision_variables)
         X[ind] *= noise
 
@@ -246,9 +223,9 @@ class boundary_mutator:
 
     def __call__(self, X:np.ndarray) -> np.ndarray:
         if self.typeBound != list:
-            return boundary_mutation(List(X), self.Bounds[0], self.Bounds[1])
+            return boundary_mutation(X, self.Bounds[0], self.Bounds[1])
 
-        return boundary_mutationArray(List(X), List(self.Bounds[0]), List(self.Bounds[1]))
+        return boundary_mutationArray(X, self.Bounds[0], self.Bounds[1])
 
 class uniform_mutator:
     def __init__(self, bounds: list):
@@ -259,9 +236,9 @@ class uniform_mutator:
     def __call__(self, X:np.ndarray) -> np.ndarray:
         
         if self.typeBound != list:
-            return uniform_mutation(List(X), self.Bounds[0], self.Bounds[1])
+            return uniform_mutation(X, self.Bounds[0], self.Bounds[1])
 
-        return uniform_mutationArray(List(X), List(self.Bounds[0]), List(self.Bounds[1]))
+        return uniform_mutationArray(X, self.Bounds[0], self.Bounds[1])
 
 class non_uniform_mutator:
     def __init__(self, sigma: float=1.0):
