@@ -1,3 +1,5 @@
+from importlib.resources import path
+from pickle import POP
 import unittest
 from unittest.mock import patch
 import numpy
@@ -185,6 +187,300 @@ class TestSingleSigmaAdaptiveMutation(unittest.TestCase):
 
         #It should save the method type in the doc string.
         self.assertEqual(method.__doc__, "Single Sigma")
+
+class TestMultSigmaAdaptiveMutation(unittest.TestCase):
+    
+    @patch('numpy.random.normal')
+    def test_mutation_function(self, random_segment):
+        random_segment.side_effect = [
+            0.786, 
+            numpy.array([
+                [0.55,0.23,0.78],
+                [0.34, 0.67, 0.97],
+                [0.51,0.28,0.33]
+            ])]
+        
+        result = mult_sigma_adaptive(
+            POPULATION,
+            gamma=0.35,
+            gamma_prime=0.54
+        )
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 3)
+        self.assertEqual(cols, 3)
+
+        #It should return this result.
+        valid_result = [
+            [ 1.85324842,  3.31377221,  6.02581228],
+            [ 6.88768036,  9.66371271, 12.88030588],
+            [12.79238599, 13.48909447, 15.44313514]
+            ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+   
+    @patch('numpy.random.normal')
+    def test_mutation_class_method(self, random_segment):
+        random_segment.side_effect = [
+            0.786, 
+            numpy.array([
+                [0.55,0.23,0.78],
+                [0.34, 0.67, 0.97],
+                [0.51,0.28,0.33]
+            ])]
+        method = MultSigmaAdaptiveMutator(decision_variables=3)
+        result = method(POPULATION)
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 3)
+        self.assertEqual(cols, 3)
+
+        #It should return this result.
+        valid_result = [
+            [ 1.8522292 ,  3.11929146,  6.28758918],
+            [ 6.61840501,  9.87792032, 13.92671645],
+            [12.68992838, 12.81689841, 14.81161651]
+            ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+
+        #It should save the method type in the doc string.
+        self.assertEqual(method.__doc__, "Sigma mult")
+
+class TestMutationBySigmaMutation(unittest.TestCase):
+
+    @patch('numpy.random.normal')
+    def test_mutation_function(self, random_segment):
+        random_segment.return_value =  0.786
+
+        result = mutation_by_sigma(
+            POPULATION,
+            0.43
+        )
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 3)
+        self.assertEqual(cols, 3)
+
+        #It should return this result.
+        valid_result = [
+            [1.33798, 2.33798, 3.33798],
+            [4.33798, 5.33798, 6.33798],
+            [7.33798, 8.33798, 9.33798]
+            ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+
+class TestBinaryMutation(unittest.TestCase):
+
+    @patch('numpy.random.rand')
+    def test_mutation_function(self, random_numbers):
+        random_numbers.side_effect=[0.23,0.54,0.34,0.76]
+        result = binary_mutation(
+            numpy.array([
+                [0,0],
+                [1,1]
+            ]),
+            pm=0.5
+        )
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 2)
+        self.assertEqual(cols, 2)
+
+        #It should return this result.
+        valid_result = [
+            [1,0],
+            [0,1]
+            ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+   
+    @patch('numpy.random.rand')
+    def test_mutation_class_method(self, random_numbers):
+        random_numbers.side_effect=[0.23,0.54,0.34,0.76]
+        method = BinaryMutator(pm=0.5)
+        result = method(
+            numpy.array([
+                [0,0],
+                [1,1]
+            ]))
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 2)
+        self.assertEqual(cols, 2)
+
+        #It should return this result.
+        valid_result = [
+            [1,0],
+            [0,1]
+            ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+
+        #It should save the method type in the doc string.
+        self.assertEqual(method.__doc__, "Binary mutation \n\t Arguments:\n\t\t - probability to flip: 0.5")
+
+class TestExchangeMutation(unittest.TestCase):
+    @patch('numpy.random.choice')
+    def test_mutation_function(self, random_segment):
+        random_segment.side_effect = [
+            numpy.array([2,1]),
+            numpy.array([0,2]),
+            numpy.array([1,0])
+        ]
+
+        result = exchange_mutation(
+            POPULATION
+        )
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 3)
+        self.assertEqual(cols, 3)
+
+        #It should return this result.
+        valid_result = [
+            [1, 3, 2],
+            [6, 5, 4],
+            [8, 7, 9]
+        ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+
+class TestBoundaryMutation(unittest.TestCase):
+
+    @patch('numpy.random.randint')
+    @patch('numpy.random.rand')
+    def test_mutation_function_array_bound(self, random_float_number, random_int_number):
+        random_float_number.side_effect = [0.67,0.23,0.51]
+        random_int_number.side_effect = [0,2,1]
+        result = boundary_mutationArray(
+            POPULATION,
+            [-3,-5,-1],
+            [3,5,1]
+        )
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 3)
+        self.assertEqual(cols, 3)
+
+        #It should return this result.
+        valid_result = [
+            [ 3,  2,  3],
+            [ 4,  5, -5],
+            [ 7,  1,  9]
+        ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+
+    @patch('numpy.random.randint')
+    @patch('numpy.random.rand')
+    def test_mutation_function_number_bound(self, random_float_number, random_int_number):
+        random_float_number.side_effect = [0.67,0.23,0.51]
+        random_int_number.side_effect = [0,2,1]
+        result = boundary_mutation(
+            POPULATION,
+            -3,
+            3
+        )
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 3)
+        self.assertEqual(cols, 3)
+
+        #It should return this result.
+        valid_result = [
+            [ 3,  2,  3],
+            [ 4,  5, -3],
+            [ 7,  3,  9]
+        ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+
+    @patch('numpy.random.randint')
+    @patch('numpy.random.rand')
+    def test_mutation_class_method_number(self,  random_float_number, random_int_number):
+        random_float_number.side_effect = [0.67,0.23,0.51]
+        random_int_number.side_effect = [0,2,1]  
+
+        #It should return a matrix with individuals mutated when the bound is a list.      
+        method = BoundaryMutator([-3,3])
+        result = method(POPULATION)
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 3)
+        self.assertEqual(cols, 3)
+
+        #It should return this result.
+        valid_result = [
+            [ 3,  2,  3],
+            [ 4,  5, -3],
+            [ 7,  3,  9]
+        ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+
+        #It should save the method type in the doc string.
+        self.assertEqual(method.__doc__, "Boundary\n\t Arguments:\n\t\t -Lower bound: -3\n\t\t -Upper bound: 3")
+
+    @patch('numpy.random.randint')
+    @patch('numpy.random.rand')
+    def test_mutation_class_method_array(self,  random_float_number, random_int_number):
+        random_float_number.side_effect = [0.67,0.23,0.51]
+        random_int_number.side_effect = [0,2,1]  
+
+        #It should return a matrix with individuals mutated when the bound is a list.      
+        method = BoundaryMutator(
+            [[-3,-5,-1],
+            [3,5,1]]
+        )
+        result = method(POPULATION)
+        #It should return a numpy array.
+        self.assertEqual(type(result).__module__, 'numpy')
+
+        #It should be the same size as the original population.
+        rows,cols = result.shape
+        self.assertEqual(rows, 3)
+        self.assertEqual(cols, 3)
+
+        #It should return this result.
+        valid_result = [
+            [ 3,  2,  3],
+            [ 4,  5, -5],
+            [ 7,  1,  9]
+        ]
+        for i in range(rows):
+            self.assertListEqual(transform(list(result[i])), transform(valid_result[i]))
+
+        #It should save the method type in the doc string.
+        self.assertEqual(method.__doc__, "Boundary\n\t Arguments:\n\t\t -Lower bound: [-3, -5, -1]\n\t\t -Upper bound: [3, 5, 1]")
 
 if __name__ == '__main__':
     unittest.main(verbosity=3)

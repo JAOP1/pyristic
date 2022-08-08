@@ -11,7 +11,8 @@ __all__ = [
     'mutation_by_sigma', 'insertion_mutation',\
     'insertion_mutation', 'exchange_mutation',\
     'boundary_mutation', 'uniform_mutation',\
-    'none_uniform_mutation', 'binary_mutation'
+    'none_uniform_mutation', 'binary_mutation',\
+    'boundary_mutationArray'
 ]
 
 
@@ -126,17 +127,17 @@ def insertion_mutation(X : np.ndarray, n_elements: int=1) -> np.ndarray:
 def exchange_mutation(X : np.ndarray) -> np.ndarray:
     num_individuals    = len(X)
     decision_variables = len(X[0])
-
+    tmp_x = np.copy(X)
     for ind in range(num_individuals):
         exchange_points = np.random.choice(decision_variables,2,replace=False)
         x1 = exchange_points[0]
         x2 = exchange_points[1]
 
-        tmp_point= X[ind][x1]
-        X[ind][x1] = X[ind][x2]
-        X[ind][x2] = tmp_point
+        tmp_point= tmp_x[ind][x1]
+        tmp_x[ind][x1] = tmp_x[ind][x2]
+        tmp_x[ind][x2] = tmp_point
 
-    return X
+    return tmp_x
 
 
 #Continuos mutation.
@@ -157,27 +158,28 @@ def boundary_mutationArray(X: np.ndarray, lower_bound:list,\
                       upper_bound:list) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
-
+    mutated_x = np.copy(X)
     for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)
-        LB = lower_bound[variable]
-        UB = upper_bound[variable]
-        X[ind][variable] = LB
+        LB = lower_bound[ind]
+        UB = upper_bound[ind]
+        mutated_x[ind][variable] = LB
         if np.random.rand()>0.5:
-            X[ind][variable] = UB
-    return X
+            mutated_x[ind][variable] = UB
+    return mutated_x
 
-def boundary_mutation(X: np.ndarray, lower_bound,\
-                      upper_bound) -> np.ndarray:
+def boundary_mutation(X: np.ndarray, lower_bound: float,\
+                      upper_bound: float) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
+    mutated_x = np.copy(X)
     LB,UB = lower_bound, upper_bound
     for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)
-        X[ind][variable] = LB
+        mutated_x[ind][variable] = LB
         if np.random.rand()>0.5:
-            X[ind][variable] = UB
-    return X
+            mutated_x[ind][variable] = UB
+    return mutated_x
 
 def uniform_mutationArray(X: np.ndarray, lower_bound: list,\
                      upper_bound: list) -> np.ndarray:
