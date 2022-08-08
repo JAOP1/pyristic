@@ -1,11 +1,18 @@
-import numpy as np 
+import numpy as np
 
-__all__ = ['insertion_mutator','exchange_mutator','boundary_mutator','uniform_mutator',\
-           'non_uniform_mutator','binary_mutator','none_mutator','sigma_mutator','mult_sigma_adaptive_mutator',\
-           'single_sigma_adaptive_mutator','sigma_ep_adaptive_mutator', 'sigma_ep_adaptive',\
-            'single_sigma_adaptive', 'mult_sigma_adaptive', 'mutation_by_sigma', 'insertion_mutation',\
-            'insertion_mutation', 'exchange_mutation', 'boundary_mutation', 'uniform_mutation',\
-            'non_uniform_mutation', 'binary_mutation']
+__all__ = [
+    'InsertionMutator','ExchangeMutator',\
+    'BoundaryMutator','UniformMutator',\
+    'NoneUniformMutator','BinaryMutator',\
+    'NoneMutator','SigmaMutator',\
+    'MultSigmaAdaptiveMutator','SingleSigmaAdaptiveMutator',\
+    'SigmaEpAdaptiveMutator', 'sigma_ep_adaptive',\
+    'single_sigma_adaptive', 'mult_sigma_adaptive',\
+    'mutation_by_sigma', 'insertion_mutation',\
+    'insertion_mutation', 'exchange_mutation',\
+    'boundary_mutation', 'uniform_mutation',\
+    'none_uniform_mutation', 'binary_mutation'
+]
 
 
 """
@@ -15,23 +22,29 @@ __all__ = ['insertion_mutator','exchange_mutator','boundary_mutator','uniform_mu
 """
 #Mutation operators.
 def sigma_ep_adaptive(X: np.ndarray, alpha:float) -> np.ndarray:
+    """
+    ------------------------------------------------------
+    Description:
+        Mutation operator for Evolutionary programming.
+    ------------------------------------------------------ 
+    """
     return X * (1.0 + alpha * np.random.normal(0,1,size=X.shape))
 
 def single_sigma_adaptive(X: np.ndarray,gamma:float) -> np.ndarray:
     """
     ------------------------------------------------------
     Description:
-        Every individual has a sigma parameter which helps you to 
+        Every individual has a sigma parameter which helps you to
         update in a fixed portion the individual.
-        
-        Note:
-            This function is for Evolution Strategy search. 
-    Arguments: 
-        - X: Numpy array where every N-th row is an individual and 
-          M columns that are the decision variables.
-        - gamma: Float value, additional parameter. 
 
-    ------------------------------------------------------ 
+        Note:
+            This function is for Evolution Strategy search.
+    Arguments:
+        - X: Numpy array where every N-th row is an individual and
+          M columns that are the decision variables.
+        - gamma: Float value, additional parameter.
+
+    ------------------------------------------------------
     """
     exponent = np.random.normal(0,1) * gamma
     return np.exp(exponent) * X
@@ -40,23 +53,23 @@ def mult_sigma_adaptive(X: np.ndarray, gamma: float, gamma_prime: float) -> np.n
     """
     ------------------------------------------------------
     Description:
-        Every individual has a sigma for every decision variable which helps you to 
+        Every individual has a sigma for every decision variable which helps you to
         update in a fixed portion the individual.
 
-        Note: 
+        Note:
             This function is for Evolution Strategy search.
-    Arguments: 
-        - X: Numpy array where every N-th row is an individual and 
+    Arguments:
+        - X: Numpy array where every N-th row is an individual and
           M columns that are the decision variables.
-        - gamma: Float value, additional parameter. 
+        - gamma: Float value, additional parameter.
         - gamma_prime: Float value, additional parameter.
-    ------------------------------------------------------ 
+    ------------------------------------------------------
     """
-    firts_ = np.random.normal(0,1) * gamma_prime 
+    firts_ = np.random.normal(0,1) * gamma_prime
     second_ = np.random.normal(0,1,size=X.shape) * gamma
 
     exponent = firts_ + second_
-    return X* np.exp(exponent)   
+    return X* np.exp(exponent)
 
 def mutation_by_sigma(X: np.ndarray, sigma: np.ndarray) -> np.ndarray:
     """
@@ -64,17 +77,17 @@ def mutation_by_sigma(X: np.ndarray, sigma: np.ndarray) -> np.ndarray:
     Description:
         Update function in the decision variables of every individual.
 
-        Note: 
+        Note:
             This function is for Evolution Strategy search.
-    Arguments: 
-        - X: Numpy Matrix, where every N-th row is an individual and 
+    Arguments:
+        - X: Numpy Matrix, where every N-th row is an individual and
           M columns that are the decision variables.
         - sigma: Numpy Array with N rows which means every row is a individual, M columns differ in
         what kind of sigma has chosen (single or multiple).
-    ------------------------------------------------------ 
+    ------------------------------------------------------
     """
-    NormalValue = np.random.normal(0,1)
-    return  X +   sigma * NormalValue
+    normal_value = np.random.normal(0,1)
+    return  X +   sigma * normal_value
 
 """
 ---------------------------------------------------------------------------------
@@ -189,7 +202,7 @@ def uniform_mutation(X: np.ndarray, lower_bound,\
         X[ind][variable] = np.random.uniform(LB, UB)
     return X
 
-def non_uniform_mutation(X:np.ndarray, sigma: float=1.0) -> np.ndarray:
+def none_uniform_mutation(X:np.ndarray, sigma: float=1.0) -> np.ndarray:
 
     num_individuals    = len(X)
     decision_variables = len(X[0])
@@ -200,22 +213,40 @@ def non_uniform_mutation(X:np.ndarray, sigma: float=1.0) -> np.ndarray:
 
     return X
 
-class insertion_mutator:
+class InsertionMutator:
+    """
+    Description:
+      Class mutation operator based on insertion_mutation.
+    Arguments:
+        - n_elements:
+    """
     def __init__(self, n_elements: int=1):
         self.n_elements = n_elements
-        self.__doc__ = "Insertion \n\t Arguments:\n\t\t -n_elements: {}".format(n_elements)
+        self.__doc__ = f"Insertion \n\t Arguments:\n\t\t -n_elements: {n_elements}"
 
     def __call__(self, X: np.ndarray) -> np.ndarray:
         return insertion_mutation(X, self.n_elements)
 
-class exchange_mutator:
+class ExchangeMutator:
+    """
+    Description:
+      Class mutation operator based on exchange_mutation.
+    Arguments:
+        This method doesn't need arguments.
+    """
     def __init__(self):
         self.__doc__ = "Exchange"
 
     def __call__(self, X: np.ndarray) -> np.ndarray:
         return exchange_mutation(X)
 
-class boundary_mutator:
+class BoundaryMutator:
+    """
+    Description:
+      Class mutation operator based on boundary_mutation.
+    Arguments:
+        - bounds:
+    """
     def __init__(self, bounds:list):
         self.Bounds = bounds
         self.typeBound =(list if type(self.Bounds[0]) == list else float)
@@ -227,7 +258,13 @@ class boundary_mutator:
 
         return boundary_mutationArray(X, self.Bounds[0], self.Bounds[1])
 
-class uniform_mutator:
+class UniformMutator:
+    """
+    Description:
+      Class mutation operator based on unfirom_mutation.
+    Arguments:
+        - bounds:
+    """
     def __init__(self, bounds: list):
         self.Bounds = bounds
         self.typeBound =(list if type(self.Bounds[0]) == list else float)
@@ -240,22 +277,40 @@ class uniform_mutator:
 
         return uniform_mutationArray(X, self.Bounds[0], self.Bounds[1])
 
-class non_uniform_mutator:
+class NoneUniformMutator:
+    """
+    Description:
+      Class mutation operator based on none_uniform_mutation.
+    Arguments:
+        - sigma:
+    """
     def __init__(self, sigma: float=1.0):
         self.sigma = sigma
         self.__doc__ = "Non Uniform\n\t Arguments:\n\t\t -Sigma: {}".format(self.sigma)
 
     def __call__(self, X: np.ndarray) -> np.ndarray:
-        return non_uniform_mutation(X,self.sigma)
+        return none_uniform_mutation(X,self.sigma)
 
-class none_mutator:
+class NoneMutator:
+    """
+    Description:
+      Class mutation operator based on none_mutation.
+    Arguments:
+        This methos doesn't need arguments.
+    """
     def __init__(self):
         self.__doc__ = "None"
 
     def __call__(self, X: np.ndarray) -> np.ndarray:
         return X
 
-class binary_mutator:
+class BinaryMutator:
+    """
+    Description:
+      Class mutation operator based on insertion_mutation.
+    Arguments:
+        - n_elements:
+    """
     def __init__(self, pm: float = 0.2):
         self.__doc__ = f"Binary mutation \n\t Arguments:\n\t\t - probability to flip: {pm}"
         self.pm = pm
@@ -263,7 +318,7 @@ class binary_mutator:
         return binary_mutation(X, self.pm)
 
 #Mutatio operator for EP.
-class sigma_ep_adaptive_mutator:
+class SigmaEpAdaptiveMutator:
     def __init__(self,decision_variables:int ,alpha: float):
         self._alpha = alpha
         self._length = decision_variables
@@ -277,14 +332,14 @@ class sigma_ep_adaptive_mutator:
         return sigma_ep_adaptive(X,self._alpha)
 
 #Mutation operator for ES.
-class sigma_mutator:
+class SigmaMutator:
     def __init__(self):
         self.__doc__ = "Sigma"
 
     def __call__(self, X: np.ndarray, Sigma: np.ndarray) -> np.ndarray:
         return mutation_by_sigma(X,Sigma)
 
-class mult_sigma_adaptive_mutator:
+class MultSigmaAdaptiveMutator:
     def __init__(self, decision_variables):
         self.__doc__ = "Sigma mult"
         self._length = decision_variables
@@ -298,7 +353,7 @@ class mult_sigma_adaptive_mutator:
     def __call__(self, sigma: np.ndarray) -> np.ndarray:
         return mult_sigma_adaptive(sigma,self._gamma, self._gamma_prime)
 
-class single_sigma_adaptive_mutator:
+class SingleSigmaAdaptiveMutator:
     def __init__(self, decision_variables):
         self.__doc__ = "Single Sigma"
         self._length = 1
