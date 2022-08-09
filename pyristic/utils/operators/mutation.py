@@ -12,7 +12,7 @@ __all__ = [
     'insertion_mutation', 'exchange_mutation',\
     'boundary_mutation', 'uniform_mutation',\
     'none_uniform_mutation', 'binary_mutation',\
-    'boundary_mutationArray'
+    'boundary_mutationArray', 'uniform_mutationArray',\
 ]
 
 
@@ -185,35 +185,35 @@ def uniform_mutationArray(X: np.ndarray, lower_bound: list,\
                      upper_bound: list) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
-
+    mutated_x = np.copy(X)
     for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)
-        LB = lower_bound[variable]
-        UB = upper_bound[variable]    
-        X[ind][variable] = np.random.uniform(LB, UB)
-    return X
+        LB = lower_bound[ind]
+        UB = upper_bound[ind]    
+        mutated_x[ind][variable] = np.random.uniform(LB, UB)
+    return mutated_x
 
 def uniform_mutation(X: np.ndarray, lower_bound,\
                      upper_bound) -> np.ndarray:
     num_individuals = len(X)
     decision_variables = len(X[0])
-
+    mutated_x = np.copy(X)
     LB,UB = lower_bound, upper_bound
     for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)   
-        X[ind][variable] = np.random.uniform(LB, UB)
-    return X
+        mutated_x[ind][variable] = np.random.uniform(LB, UB)
+    return mutated_x
 
 def none_uniform_mutation(X:np.ndarray, sigma: float=1.0) -> np.ndarray:
 
     num_individuals    = len(X)
     decision_variables = len(X[0])
-
+    mutated_x = np.copy(X)
     for ind in range(num_individuals):
         noise = np.random.normal(0,sigma, size= decision_variables)
-        X[ind] *= noise
+        mutated_x[ind] *= noise
 
-    return X
+    return mutated_x
 
 class InsertionMutator:
     """
