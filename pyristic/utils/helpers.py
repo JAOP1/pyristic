@@ -1,23 +1,9 @@
-import inspect
 import numpy as np
 import time
 
 def f(x):
     pass
 function_type = type(f)
-
-def checkargs(function):
-    def _f(*arguments):
-        for index, argument in enumerate(inspect.getfullargspec(function)[0]):
-            
-            if argument == 'self':
-                continue
-
-            if not isinstance(arguments[index], function.__annotations__[argument]):
-                raise TypeError("{} is not of type {}".format(arguments[index], function.__annotations__[argument]))
-        return function(*arguments)
-    _f.__doc__ = function.__doc__
-    return _f
 
 
 def get_stats(optimizer, NIter, OptArgs, ExternOptArgs={}, transformer=None, showAll = True) -> dict:
