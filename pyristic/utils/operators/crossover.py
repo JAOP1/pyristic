@@ -41,7 +41,8 @@ def discrete_crossover(population : np.ndarray, parent_ind1: np.ndarray ,\
             else:
                 components_selected_second_parent[i_row,j_col] = 1
 
-    return population[parent_ind1] * components_selected_fist_parent + population[parent_ind2] * components_selected_second_parent
+    return population[parent_ind1] * components_selected_fist_parent \
+            + population[parent_ind2] * components_selected_second_parent
 
 def intermediate_crossover(population: np.ndarray, parent_ind1: np.ndarray,\
                        parent_ind2: np.ndarray, alpha: float=0.5) -> np.ndarray:
