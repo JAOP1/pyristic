@@ -31,12 +31,18 @@ class EvolutionStrategy:
         self.Decision_variables = decision_variables
         
         #Configuration.
-        self._mutation_operator           = config.mutation_op  if config.mutation_op != None else mutation.sigma_mutator()
-        self._crossover_operator          = config.cross_op if config.cross_op != None else crossover.discrete_crossover()
-        self._survivor_selector           = config.survivor_selector if config.survivor_selector != None else selection.merge_selector()
-        self._fixer                       = config.fixer if config.fixer != None else  ContinuosFixer(self.Bounds)
-        self._adaptive_crossover_operator = config.adaptive_crossover_op if config.adaptive_crossover_op != None else crossover.intermediate_crossover()
-        self._adaptive_mutation_operator  = config.adaptive_mutation_op  if config.adaptive_mutation_op != None else mutation.mult_sigma_adaptive_mutator(self.Decision_variables)
+        self._mutation_operator           =\
+            config.mutation_op  if config.mutation_op is not None else mutation.SigmaMutator()
+        self._crossover_operator          =\
+            config.cross_op if config.cross_op is not None else crossover.DiscreteCrossover()
+        self._survivor_selector           =\
+            config.survivor_selector if config.survivor_selector is not None else selection.MergeSelector()
+        self._fixer                       =\
+            config.fixer if config.fixer is not None else  ContinuosFixer(self.Bounds)
+        self._adaptive_crossover_operator =\
+            config.adaptive_crossover_op if config.adaptive_crossover_op is not None else crossover.IntermediateCrossover()
+        self._adaptive_mutation_operator  =\
+            config.adaptive_mutation_op  if config.adaptive_mutation_op is not None else mutation.MultSigmaAdaptiveMutator(self.Decision_variables)
 
         #Search information.
         self.logger = {}
