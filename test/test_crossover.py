@@ -306,7 +306,7 @@ class TestPermutationOrderCrossover(unittest.TestCase):
             numpy.array([0,2])
         ]
         result = permutation_order_crossover(
-            permutations, 
+            permutations,
             [0],
             [1],
         )

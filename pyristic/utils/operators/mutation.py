@@ -12,26 +12,19 @@ __all__ = [
     'insertion_mutation', 'exchange_mutation',\
     'boundary_mutation', 'uniform_mutation',\
     'none_uniform_mutation', 'binary_mutation',\
-    'boundary_mutationArray', 'uniform_mutationArray',\
+    'boundary_mutation_array', 'uniform_mutation_array',\
 ]
 
-
-"""
----------------------------------------------------------------------------------
-                                Evolution Strategy.
----------------------------------------------------------------------------------
-"""
-#Mutation operators.
-def sigma_ep_adaptive(X: np.ndarray, alpha:float) -> np.ndarray:
+def sigma_ep_adaptive(population: np.ndarray, alpha:float) -> np.ndarray:
     """
     ------------------------------------------------------
     Description:
         Mutation operator for Evolutionary programming.
-    ------------------------------------------------------ 
+    ------------------------------------------------------
     """
-    return X * (1.0 + alpha * np.random.normal(0,1,size=X.shape))
+    return population * (1.0 + alpha * np.random.normal(0,1,size=population.shape))
 
-def single_sigma_adaptive(X: np.ndarray,gamma:float) -> np.ndarray:
+def single_sigma_adaptive(population: np.ndarray, gamma:float) -> np.ndarray:
     """
     ------------------------------------------------------
     Description:
@@ -48,9 +41,9 @@ def single_sigma_adaptive(X: np.ndarray,gamma:float) -> np.ndarray:
     ------------------------------------------------------
     """
     exponent = np.random.normal(0,1) * gamma
-    return np.exp(exponent) * X
+    return np.exp(exponent) * population
 
-def mult_sigma_adaptive(X: np.ndarray, gamma: float, gamma_prime: float) -> np.ndarray:
+def mult_sigma_adaptive(population: np.ndarray, gamma: float, gamma_prime: float) -> np.ndarray:
     """
     ------------------------------------------------------
     Description:
@@ -67,12 +60,12 @@ def mult_sigma_adaptive(X: np.ndarray, gamma: float, gamma_prime: float) -> np.n
     ------------------------------------------------------
     """
     firts_ = np.random.normal(0,1) * gamma_prime
-    second_ = np.random.normal(0,1,size=X.shape) * gamma
+    second_ = np.random.normal(0,1,size=population.shape) * gamma
 
     exponent = firts_ + second_
-    return X* np.exp(exponent)
+    return population * np.exp(exponent)
 
-def mutation_by_sigma(X: np.ndarray, sigma: np.ndarray) -> np.ndarray:
+def mutation_by_sigma(population: np.ndarray, sigma: np.ndarray) -> np.ndarray:
     """
     ------------------------------------------------------
     Description:
@@ -88,127 +81,233 @@ def mutation_by_sigma(X: np.ndarray, sigma: np.ndarray) -> np.ndarray:
     ------------------------------------------------------
     """
     normal_value = np.random.normal(0,1)
-    return  X +   sigma * normal_value
+    return  population +   sigma * normal_value
 
-"""
----------------------------------------------------------------------------------
-                                Genetic Algortihms.
----------------------------------------------------------------------------------
-"""
+def insertion_mutation(population: np.ndarray, n_elements: int=1) -> np.ndarray:
+    """
+    ------------------------------------------------------
+    Description:
+        Discrete mutation operator. It takes a segment and the remaining elements
+        are introduced.
 
-#Discrete mutation.
-def insertion_mutation(X : np.ndarray, n_elements: int=1) -> np.ndarray:
-    num_individuals    = len(X)
-    decision_variables = len(X[0])
-
-    X_mutated = np.ones((num_individuals,decision_variables))
+    Arguments:
+        - population: Numpy Matrix, where every N-th row is an individual and
+          M columns that are the decision variables.
+        - n_elements: Integer number (default 1). It indicates the number of
+          elements in the segment.
+    ------------------------------------------------------
+    """
+    num_individuals, decision_variables = population.shape
+    x_mutated = np.ones((num_individuals,decision_variables))
 
     for ind in range(num_individuals):
         individual = np.full(decision_variables,np.inf)
         indices_elements = np.random.choice(decision_variables,n_elements, replace=False)
-        elements = X[ind][indices_elements]
+        elements = population[ind][indices_elements]
         indices_position = np.random.choice(decision_variables,n_elements, replace= False)
         individual[indices_position] = elements
 
         indices_elements.sort()
         remaining = []
         start_ = 0
-        for e in range(decision_variables):
-            if start_ < len(indices_elements) and e == indices_elements[start_]:
+        for decision_var in range(decision_variables):
+            if start_ < len(indices_elements) and decision_var == indices_elements[start_]:
                 start_+=1
                 continue
-            remaining.append(X[ind][e])
+            remaining.append(population[ind][decision_var])
 
         individual[individual == np.inf] = remaining
-        X_mutated[ind] = individual
+        x_mutated[ind] = individual
 
-    return X_mutated
+    return x_mutated
 
-def exchange_mutation(X : np.ndarray) -> np.ndarray:
-    num_individuals    = len(X)
-    decision_variables = len(X[0])
-    tmp_x = np.copy(X)
+def exchange_mutation( population: np.ndarray) -> np.ndarray:
+    """
+    ------------------------------------------------------
+    Description:
+        Discrete mutation operator. It takes two random positions
+        and swap the values.
+
+    Arguments:
+        - population: Numpy Matrix, where every N-th row is an individual and
+          M columns that are the decision variables.
+    ------------------------------------------------------
+    """
+    num_individuals, decision_variables = population.shape
+    tmp_x = np.copy(population)
     for ind in range(num_individuals):
         exchange_points = np.random.choice(decision_variables,2,replace=False)
-        x1 = exchange_points[0]
-        x2 = exchange_points[1]
+        first_decision_var = exchange_points[0]
+        second_decision_var = exchange_points[1]
 
-        tmp_point= tmp_x[ind][x1]
-        tmp_x[ind][x1] = tmp_x[ind][x2]
-        tmp_x[ind][x2] = tmp_point
+        tmp_point= tmp_x[ind][first_decision_var]
+        tmp_x[ind][first_decision_var] = tmp_x[ind][second_decision_var]
+        tmp_x[ind][second_decision_var] = tmp_point
 
     return tmp_x
 
+def binary_mutation(population: np.ndarray, prob_mutation: float) -> np.ndarray:
+    """
+    ------------------------------------------------------
+    Description:
+        Binary mutation operator. This operator flip every position
+        to 0 when the value is 1 or viceversa with a probability.
 
-#Continuos mutation.
-def binary_mutation(X: np.ndarray, pm: float) -> np.ndarray:
-    num_individuals = len(X)
-    decision_variables = len(X[0])
+    Arguments:
+        - population: Numpy Matrix, where every N-th row is an individual and
+          M columns that are the decision variables.
+        - prob_mutation: float number. It indicates the probability of flip.
+    ------------------------------------------------------
+    """
+    assert 0 <= prob_mutation <= 1.0
+    num_individuals, decision_variables = population.shape
+    mutated_x = np.copy(population)
     for i_individual in range(num_individuals):
         for i_variable in range(decision_variables):
-            if np.random.rand() < pm:
+            if np.random.rand() < prob_mutation:
                 num = 0
-                if X[i_individual][i_variable] == 0:
+                if mutated_x[i_individual][i_variable] == 0:
                     num = 1
-                X[i_individual][i_variable] = num
-            
-    return X
+                mutated_x[i_individual][i_variable] = num
 
-def boundary_mutationArray(X: np.ndarray, lower_bound:list,\
-                      upper_bound:list) -> np.ndarray:
-    num_individuals = len(X)
-    decision_variables = len(X[0])
-    mutated_x = np.copy(X)
-    for ind in range(num_individuals):
-        variable = np.random.randint(0,decision_variables)
-        LB = lower_bound[ind]
-        UB = upper_bound[ind]
-        mutated_x[ind][variable] = LB
-        if np.random.rand()>0.5:
-            mutated_x[ind][variable] = UB
     return mutated_x
 
-def boundary_mutation(X: np.ndarray, lower_bound: float,\
+def boundary_mutation_array( population: np.ndarray, lower_bounds:list,\
+                      upper_bounds:list) -> np.ndarray:
+    """
+    ------------------------------------------------------
+    Description:
+        continuous mutation operator. This operator select a
+        random position of the individual and change the value to
+        one of the boundaries.
+
+        Note: this function is when every decision variable  has
+        a different search space.
+    Arguments:
+        - population: Numpy Matrix, where every N-th row is an individual and
+          M columns that are the decision variables.
+        - lower_bounds: list of float numbers. The lower bound for the i-th
+            decision variable.
+        - upper_bounds: list of float numbers. The upper bound for the i-th
+            decision variable.
+    ------------------------------------------------------
+    """
+    num_individuals, decision_variables = population.shape
+    mutated_x = np.copy(population)
+    for ind in range(num_individuals):
+        variable = np.random.randint(0,decision_variables)
+        lower_bound = lower_bounds[ind]
+        upper_bound = upper_bounds[ind]
+        mutated_x[ind][variable] = lower_bound
+        if np.random.rand()>0.5:
+            mutated_x[ind][variable] = upper_bound
+    return mutated_x
+
+def boundary_mutation(population: np.ndarray, lower_bound: float,\
                       upper_bound: float) -> np.ndarray:
-    num_individuals = len(X)
-    decision_variables = len(X[0])
-    mutated_x = np.copy(X)
-    LB,UB = lower_bound, upper_bound
+    """
+    ------------------------------------------------------
+    Description:
+        continuous mutation operator. This operator select a
+        random position of the individual and change the value to
+        one of the boundaries.
+
+        Note: this function is when every decision variable  has
+        the same search space.
+    Arguments:
+        - population: Numpy Matrix, where every N-th row is an individual and
+          M columns that are the decision variables.
+        - lower_bound: float number. The lower bound for the i-th
+            decision variable.
+        - upper_bound: float number. The upper bound for the i-th
+            decision variable.
+    ------------------------------------------------------
+    """
+    num_individuals, decision_variables = population.shape
+    mutated_x = np.copy(population)
     for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)
-        mutated_x[ind][variable] = LB
+        mutated_x[ind][variable] = lower_bound
         if np.random.rand()>0.5:
-            mutated_x[ind][variable] = UB
+            mutated_x[ind][variable] = upper_bound
     return mutated_x
 
-def uniform_mutationArray(X: np.ndarray, lower_bound: list,\
-                     upper_bound: list) -> np.ndarray:
-    num_individuals = len(X)
-    decision_variables = len(X[0])
-    mutated_x = np.copy(X)
+def uniform_mutation_array( population: np.ndarray, lower_bounds: list,\
+                     upper_bounds: list) -> np.ndarray:
+    """
+    ------------------------------------------------------
+    Description:
+        continuous mutation operator. This operator select a
+        random position of the individual and change the value by
+        a random value between the boundaries for that i-th position.
+
+        Note: this function is when every decision variable  has
+        different search space.
+    Arguments:
+        - population: Numpy Matrix, where every N-th row is an individual and
+          M columns that are the decision variables.
+        - lower_bounds: array of float numbers. The lower bound for the i-th
+            decision variable.
+        - upper_bounds: array of float numbers. The upper bound for the i-th
+            decision variable.
+    ------------------------------------------------------
+    """
+    num_individuals, decision_variables = population.shape
+    mutated_x = np.copy(population)
     for ind in range(num_individuals):
         variable = np.random.randint(0,decision_variables)
-        LB = lower_bound[ind]
-        UB = upper_bound[ind]    
-        mutated_x[ind][variable] = np.random.uniform(LB, UB)
+        lower_bound = lower_bounds[ind]
+        upper_bound = upper_bounds[ind]
+        mutated_x[ind][variable] = np.random.uniform(
+            lower_bound, upper_bound
+            )
     return mutated_x
 
-def uniform_mutation(X: np.ndarray, lower_bound,\
+def uniform_mutation(population: np.ndarray, lower_bound,\
                      upper_bound) -> np.ndarray:
-    num_individuals = len(X)
-    decision_variables = len(X[0])
-    mutated_x = np.copy(X)
-    LB,UB = lower_bound, upper_bound
+    """
+    ------------------------------------------------------
+    Description:
+        continuous mutation operator. This operator select a
+        random position of the individual and change the value by
+        a random value between the boundaries for that i-th position.
+
+        Note: this function is when every decision variable  has
+        the same search space.
+    Arguments:
+        - population: Numpy Matrix, where every N-th row is an individual and
+          M columns that are the decision variables.
+        - lower_bound: float number. The lower bound for the i-th
+            decision variable.
+        - upper_bound: float number. The upper bound for the i-th
+            decision variable.
+    ------------------------------------------------------
+    """
+    num_individuals, decision_variables = population.shape
+    mutated_x = np.copy(population)
     for ind in range(num_individuals):
-        variable = np.random.randint(0,decision_variables)   
-        mutated_x[ind][variable] = np.random.uniform(LB, UB)
+        variable = np.random.randint(0,decision_variables)
+        mutated_x[ind][variable] =\
+            np.random.uniform(lower_bound, upper_bound)
     return mutated_x
 
-def none_uniform_mutation(X:np.ndarray, sigma: float=1.0) -> np.ndarray:
+def none_uniform_mutation( population:np.ndarray, sigma: float=1.0) -> np.ndarray:
+    """
+    ------------------------------------------------------
+    Description:
+        continuous mutation operator. This operator applies
+        a random noise with a normal distribution between 0
+        up to sigma for every decision variable.
 
-    num_individuals    = len(X)
-    decision_variables = len(X[0])
-    mutated_x = np.copy(X)
+    Arguments:
+        - population: Numpy Matrix, where every N-th row is an individual and
+          M columns that are the decision variables.
+        - sigma: float number. it is the size of numbers acepted as
+            noise.
+    ------------------------------------------------------
+    """
+    num_individuals, decision_variables = population.shape
+    mutated_x = np.copy(population)
     for ind in range(num_individuals):
         noise = np.random.normal(0,sigma, size= decision_variables)
         mutated_x[ind] *= noise
@@ -226,8 +325,8 @@ class InsertionMutator:
         self.n_elements = n_elements
         self.__doc__ = f"Insertion \n\t Arguments:\n\t\t -n_elements: {n_elements}"
 
-    def __call__(self, X: np.ndarray) -> np.ndarray:
-        return insertion_mutation(X, self.n_elements)
+    def __call__(self, population: np.ndarray) -> np.ndarray:
+        return insertion_mutation(population, self.n_elements)
 
 class ExchangeMutator:
     """
@@ -239,8 +338,8 @@ class ExchangeMutator:
     def __init__(self):
         self.__doc__ = "Exchange"
 
-    def __call__(self, X: np.ndarray) -> np.ndarray:
-        return exchange_mutation(X)
+    def __call__(self, population: np.ndarray) -> np.ndarray:
+        return exchange_mutation(population)
 
 class BoundaryMutator:
     """
@@ -250,15 +349,17 @@ class BoundaryMutator:
         - bounds:
     """
     def __init__(self, bounds:list):
-        self.Bounds = bounds
-        self.typeBound =(list if type(self.Bounds[0]) == list else float)
-        self.__doc__="Boundary\n\t Arguments:\n\t\t -Lower bound: {}\n\t\t -Upper bound: {}".format(self.Bounds[0],self.Bounds[1])
+        self.bounds = bounds
+        self.type_bound =(list if isinstance(self.bounds[0],list) else float)
+        self.__doc__=\
+            ("Boundary\n\t Arguments:\n\t\t" 
+            f" -Lower bound: {self.bounds[0]}\n\t\t -Upper bound: {self.bounds[1]}")
 
-    def __call__(self, X:np.ndarray) -> np.ndarray:
-        if self.typeBound != list:
-            return boundary_mutation(X, self.Bounds[0], self.Bounds[1])
+    def __call__(self, population:np.ndarray) -> np.ndarray:
+        if self.type_bound != list:
+            return boundary_mutation(population, self.bounds[0], self.bounds[1])
 
-        return boundary_mutationArray(X, self.Bounds[0], self.Bounds[1])
+        return boundary_mutation_array(population, self.bounds[0], self.bounds[1])
 
 class UniformMutator:
     """
@@ -268,16 +369,17 @@ class UniformMutator:
         - bounds:
     """
     def __init__(self, bounds: list):
-        self.Bounds = bounds
-        self.typeBound =(list if type(self.Bounds[0]) == list else float)
-        self.__doc__ = "Uniform\n\t Arguments:\n\t\t -Lower bound: {}\n\t\t -Upper bound: {}".format(self.Bounds[0],self.Bounds[1])
+        self.bounds = bounds
+        self.type_bound =(list if isinstance(self.bounds[0],list) else float)
+        self.__doc__ = ("Uniform\n\t Arguments:\n\t\t"
+        f" -Lower bound: {self.bounds[0]}\n\t\t -Upper bound: {self.bounds[1]}")
 
-    def __call__(self, X:np.ndarray) -> np.ndarray:
-        
-        if self.typeBound != list:
-            return uniform_mutation(X, self.Bounds[0], self.Bounds[1])
+    def __call__(self, population:np.ndarray) -> np.ndarray:
 
-        return uniform_mutationArray(X, self.Bounds[0], self.Bounds[1])
+        if self.type_bound != list:
+            return uniform_mutation(population, self.bounds[0], self.bounds[1])
+
+        return uniform_mutation_array(population, self.bounds[0], self.bounds[1])
 
 class NoneUniformMutator:
     """
@@ -288,10 +390,10 @@ class NoneUniformMutator:
     """
     def __init__(self, sigma: float=1.0):
         self.sigma = sigma
-        self.__doc__ = "Non Uniform\n\t Arguments:\n\t\t -Sigma: {}".format(self.sigma)
+        self.__doc__ = f"Non Uniform\n\t Arguments:\n\t\t -Sigma: {self.sigma}"
 
-    def __call__(self, X: np.ndarray) -> np.ndarray:
-        return none_uniform_mutation(X,self.sigma)
+    def __call__(self, population: np.ndarray) -> np.ndarray:
+        return none_uniform_mutation(population,self.sigma)
 
 class NoneMutator:
     """
@@ -303,45 +405,70 @@ class NoneMutator:
     def __init__(self):
         self.__doc__ = "None"
 
-    def __call__(self, X: np.ndarray) -> np.ndarray:
-        return X
+    def __call__(self, population: np.ndarray) -> np.ndarray:
+        return population
 
 class BinaryMutator:
     """
     Description:
-      Class mutation operator based on insertion_mutation.
+      Class mutation operator based on binary_mutation.
     Arguments:
-        - n_elements:
+        - prob_mutation: float number (default 0.2).
     """
-    def __init__(self, pm: float = 0.2):
-        self.__doc__ = f"Binary mutation \n\t Arguments:\n\t\t - probability to flip: {pm}"
-        self.pm = pm
-    def __call__(self, X:np.ndarray) -> np.ndarray:
-        return binary_mutation(X, self.pm)
+    def __init__(self, prob_mutation: float = 0.2):
+        self.__doc__ = ("Binary mutation \n\t Arguments:\n\t\t "
+        f"- probability to flip: {prob_mutation}")
+        self.prob_mutation = prob_mutation
+    def __call__(self, population:np.ndarray) -> np.ndarray:
+        return binary_mutation(population, self.prob_mutation)
 
 #Mutatio operator for EP.
 class SigmaEpAdaptiveMutator:
+    """
+    Description:
+      Class mutation operator based on sigma_ep_adaptive.
+    Arguments:
+        - decision_variables: integer number. It describe
+            the number of decision variables.
+        - alpha: float number. It means how much impact
+            the noise applied to the individual.
+    """
     def __init__(self,decision_variables:int ,alpha: float):
         self._alpha = alpha
         self._length = decision_variables
-        self.__doc__ = "Sigma EP.\n\t\t-Alpha: {}".format(self._alpha)
+        self.__doc__ = f"Sigma EP.\n\t\t-Alpha: {self._alpha}"
 
     @property
     def length(self):
+        """
+        Return the number of decision variables.
+        """
         return self._length
 
-    def __call__(self, X: np.ndarray) -> np.ndarray:
-        return sigma_ep_adaptive(X,self._alpha)
+    def __call__(self, population: np.ndarray) -> np.ndarray:
+        return sigma_ep_adaptive(population,self._alpha)
 
 #Mutation operator for ES.
 class SigmaMutator:
+    """
+    Description:
+      Class mutation operator based on mutation_by_sigma.
+    Arguments:
+        - None
+    """
     def __init__(self):
         self.__doc__ = "Sigma"
 
-    def __call__(self, X: np.ndarray, Sigma: np.ndarray) -> np.ndarray:
-        return mutation_by_sigma(X,Sigma)
+    def __call__(self, population: np.ndarray, sigma: np.ndarray) -> np.ndarray:
+        return mutation_by_sigma(population,sigma)
 
 class MultSigmaAdaptiveMutator:
+    """
+    Description:
+      Class mutation operator based on mult_sigma_adaptive.
+    Arguments:
+        - None
+    """
     def __init__(self, decision_variables):
         self.__doc__ = "Sigma mult"
         self._length = decision_variables
@@ -350,20 +477,32 @@ class MultSigmaAdaptiveMutator:
 
     @property
     def length(self):
+        """
+        Return the number of decision variables.
+        """
         return self._length
-    
+
     def __call__(self, sigma: np.ndarray) -> np.ndarray:
         return mult_sigma_adaptive(sigma,self._gamma, self._gamma_prime)
 
 class SingleSigmaAdaptiveMutator:
-    def __init__(self, decision_variables):
+    """
+    Description:
+      Class mutation operator based on single_sigma_adaptive.
+    Arguments:
+        - None
+    """
+    def __init__(self):
         self.__doc__ = "Single Sigma"
         self._length = 1
         self._tau = 1/ np.sqrt(self._length)
 
     @property
     def length(self):
+        """
+        Return the number of decision variables.
+        """
         return self._length
-    
-    def __call__(self, sigma: np.ndarray) -> np.ndarray:
-        return single_sigma_adaptive(sigma , self._length)
+
+    def __call__(self, population: np.ndarray) -> np.ndarray:
+        return single_sigma_adaptive( population, self._tau)

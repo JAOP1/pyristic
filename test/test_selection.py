@@ -20,7 +20,7 @@ class TestUtilsSelection(unittest.TestCase):
         """
         Suite of cases for complementary function.
         """
-        
+
         aptitude_array =  numpy.array([1,2,3],dtype=float)
         result = get_expected_values(aptitude_array)
         #It should return a numpy array.
@@ -50,9 +50,15 @@ class TestUtilsSelection(unittest.TestCase):
         self.assertEqual(list(result), [6,7,8])
 
 class TestProporcionalSamplingSelection(unittest.TestCase):
+    """
+    Test suite for proporcional sampling.
+    """
 
     @patch('numpy.arange')
-    def test_proporcional_function(self, numpy_range):
+    def test_sampling_function(self, numpy_range):
+        """
+        Suite of cases for the function operator.
+        """
         numpy_range.return_value = numpy.array([0,1,2,3,4,5])
         input_array = numpy.array([1,2,3,4,5,5])
         result = proporcional_sampling(input_array)
@@ -67,12 +73,15 @@ class TestProporcionalSamplingSelection(unittest.TestCase):
         self.assertListEqual(list(result), list(range(6)))
 
     @patch('numpy.arange')
-    def test_proporcional_class(self, numpy_range):
+    def test_sampling_class(self, numpy_range):
+        """
+        Suite of cases for the class operator.
+        """
         numpy_range.return_value = numpy.array([0,1,2,3,4,5])
         input_array = numpy.array([1,2,3,4,5,5])
         method = ProporcionalSampler()
         result = method(input_array)
-        
+
         #It should return a numpy array.
         self.assertEqual(type(result).__module__, 'numpy')
 
@@ -86,9 +95,14 @@ class TestProporcionalSamplingSelection(unittest.TestCase):
         self.assertEqual(method.__doc__, "Proporcional sampling")
 
 class TestRouletteSamplingSelection(unittest.TestCase):
-
+    """
+    Test suite for Roulette sampling.
+    """
     @patch('numpy.random.uniform')
-    def test_proporcional_function(self, random_numbers):
+    def test_sampling_function(self, random_numbers):
+        """
+        Suite of cases for the function operator.
+        """
         random_numbers.return_value = numpy.array([0.3,0.78,0.89,0.3,0.1,1])
         input_array = numpy.array([0.10,0.2,0.3,0.4,0.5,0.5])
         result = roulette_sampling(input_array)
@@ -103,7 +117,10 @@ class TestRouletteSamplingSelection(unittest.TestCase):
         self.assertListEqual(list(result), [0,1,1,0,0,2])
 
     @patch('numpy.random.uniform')
-    def test_proporcional_class(self, random_numbers):
+    def test_sampling_class(self, random_numbers):
+        """
+        Suite of cases for the class operator.
+        """
         random_numbers.return_value = numpy.array([0.3,0.78,0.89,0.3,0.1,1])
         input_array = numpy.array([0.10,0.2,0.3,0.4,0.5,0.5])
         method = RouletteSampler()
@@ -122,9 +139,14 @@ class TestRouletteSamplingSelection(unittest.TestCase):
         self.assertEqual(method.__doc__, "Roulette sampling")
 
 class TestStochasticUniversalSamplingSelection(unittest.TestCase):
-
+    """
+    Test suite for stochastic universal sampling.
+    """
     @patch('numpy.random.uniform')
-    def test_proporcional_function(self, random_number):
+    def test_sampling_function(self, random_number):
+        """
+        Suite of cases for the function operator.
+        """
         random_number.return_value = 0.78
         input_array = numpy.array([0.10,0.2,0.3,0.4,0.5,0.5])
         result = stochastic_universal_sampling(input_array)
@@ -138,7 +160,10 @@ class TestStochasticUniversalSamplingSelection(unittest.TestCase):
         self.assertListEqual(list(result), [1,2,3,4,5,5])
 
     @patch('numpy.random.uniform')
-    def test_proporcional_class(self, random_number):
+    def test_sampling_class(self, random_number):
+        """
+        Suite of cases for the class operator.
+        """
         random_number.return_value = 0.78
         input_array = numpy.array([0.10,0.2,0.3,0.4,0.5,0.5])
         method = StochasticUniversalSampler()
@@ -157,8 +182,13 @@ class TestStochasticUniversalSamplingSelection(unittest.TestCase):
         self.assertEqual(method.__doc__, "Stochastic universal sampling")
 
 class TestDeterministicSamplingSelection(unittest.TestCase):
-
-    def test_proporcional_function(self):
+    """
+    Test suite for deterministic sampling.
+    """
+    def test_sampling_function(self):
+        """
+        Suite of cases for the function operator.
+        """
         input_array = numpy.array([0.10,0.2,0.3,0.4,0.5,0.5])
         result = deterministic_sampling(input_array)
 
@@ -171,7 +201,10 @@ class TestDeterministicSamplingSelection(unittest.TestCase):
         # #It should return this result.
         self.assertListEqual(list(result), [3,4,5,5,1,2])
 
-    def test_proporcional_class(self):
+    def test_sampling_class(self):
+        """
+        Suite of cases for the class operator.
+        """
         input_array = numpy.array([0.10,0.2,0.3,0.4,0.5,0.5])
         method = DeterministicSampler()
         result = method(input_array)
@@ -189,10 +222,16 @@ class TestDeterministicSamplingSelection(unittest.TestCase):
         self.assertEqual(method.__doc__, "Deterministic sampling")
 
 class TestTournamentSamplingSelection(unittest.TestCase):
+    """
+    Test suite for tournament sampling.
+    """
 
     @patch('numpy.random.permutation')
     @patch('numpy.random.rand')
-    def test_proporcional_function(self, random_number, random_permutation):
+    def test_sampling_function(self, random_number, random_permutation):
+        """
+        Suite of cases for the function operator.
+        """
         random_number.side_effect = [0.76,0.23,0.45,0.98,0.47,0.28,0.18,0.84,0.65]
         random_permutation.side_effect = [
             numpy.array([0,2,1,4,5,3]),
@@ -212,7 +251,10 @@ class TestTournamentSamplingSelection(unittest.TestCase):
 
     @patch('numpy.random.permutation')
     @patch('numpy.random.rand')
-    def test_proporcional_class(self, random_number, random_permutation):
+    def test_sampling_class(self, random_number, random_permutation):
+        """
+        Suite of cases for the class operator.
+        """
         random_number.side_effect = [0.76,0.23,0.45,0.98,0.47,0.28,0.18,0.84,0.65]
         random_permutation.side_effect = [
             numpy.array([0,2,1,4,5,3]),
@@ -237,8 +279,13 @@ class TestTournamentSamplingSelection(unittest.TestCase):
              "Tournament sampling\n\t Arguments:\n\t\t-Chunks: 2\n\t\t-prob: 1.0")
 
 class TestMergeSelector(unittest.TestCase):
-
+    """
+    Test suite for merge selection survivor.
+    """
     def test_class_method(self):
+        """
+        Suite of cases for the class operator.
+        """
         aptitude_parents = numpy.array([0.1,0.3,0.2])
         aptitude_offspring = numpy.array([0.3,0.3,0.01])
         population_features = {}
@@ -278,8 +325,13 @@ class TestMergeSelector(unittest.TestCase):
             method(aptitude_parents, aptitude_offspring, population_features)
 
 class TestReplacementSelector(unittest.TestCase):
-
+    """
+    Test suite for replacement selection survivor.
+    """
     def test_class_method(self):
+        """
+        Suite of cases for the class operator.
+        """
         aptitude_parents = numpy.array([0.1,0.3,0.2])
         aptitude_offspring = numpy.array([0.3,0.3,0.01])
         population_features = {}
@@ -314,7 +366,7 @@ class TestReplacementSelector(unittest.TestCase):
         with self.assertRaises(Exception):
             method(aptitude_parents, aptitude_offspring, population_features)
 
-        #It should catch an exception when the offspring size is lower to the parent size. 
+        #It should catch an exception when the offspring size is lower to the parent size.
         with self.assertRaises(AssertionError):
             method(aptitude_parents,[], population_features)
 if __name__ == '__main__':
