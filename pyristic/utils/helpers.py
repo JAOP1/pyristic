@@ -1,174 +1,94 @@
 import numpy as np
 import time
 
-def f(x):
-    pass
-function_type = type(f)
-
-
-def get_stats(optimizer, NIter, OptArgs, ExternOptArgs={}, transformer=None, showAll = True) -> dict:
+def get_stats(
+    optimizer,\
+    num_iterations,\
+    optimizer_args,\
+    optimizer_additional_args={},\
+    transformer=None,\
+    verbose = True) -> dict:
     """
     ------------------------------------------------------
     Description:
         Return a dictionary with information about how the opmizer algorithm
         perform after N evaluations applied to opmizer function.
 
-        The dictionary has the mean solution obtained, standard desviation, worst and 
+        The dictionary has the mean solution obtained, standard desviation, worst and
         best solution.
 
     Arguments:
         - optimizer: optimization class.
-        - NIter: evaluation number, which is the number of times to 
+        - num_iterations: evaluation number, which is the number of times to
         applied class.optimize(args).
-        - OptArgs: Arguments necessary to perform.
-        - ExternOptArgs(optional): additional arguments passed to optimizer.
+        - optimizer_args: Arguments necessary to perform.
+        - optimizer_additional_args(optional): additional arguments passed to optimizer.
         - transformer: Function that return a float value. The fuction input is
             the best individual obtained after an execution.
-        - showAll: display every solution and objective function.
+        - verbose: display every solution and objective function.
     ------------------------------------------------------
     """
-    f_ = []
-    x_ = []
-    timeByExecution = []
-    for i in range(NIter):
+    data_by_execution = {
+        'execution_time': [],
+        'individual_x': [],
+        'individual_f': []
+    }
+    for i in range(num_iterations):
         start_time = time.time()
-        optimizer.optimize(*OptArgs,**ExternOptArgs)
-        timeByExecution.append(time.time() - start_time)
-        x_.append(optimizer.logger['best_individual'])
-        if(transformer != None):
-            f_.append(transformer(optimizer.logger['best_individual']))
-        else:
-            f_.append(optimizer.logger['best_f'])
-        
-    IndWorst = np.argmax(f_)
-    IndBest = np.argmin(f_)
-    stats_ = {"Worst solution":{} , "Best solution":{}}
-    
-    stats_["Worst solution"]["x"] = x_[IndWorst]
-    stats_["Best solution"]["x"] = x_[IndBest]
-    
-    stats_["Worst solution"]["f"] = f_[IndWorst]
-    stats_["Best solution"]["f"] = f_[IndBest]
-    stats_["Mean"] = np.mean(f_)
-    stats_["Standard deviation"] = np.std(f_)
-    stats_['Median'] = np.median(f_)
+        optimizer.optimize(*optimizer_args,**optimizer_additional_args)
+        data_by_execution['execution_time'].append(time.time() - start_time)
+        data_by_execution['individual_x'].append(optimizer.logger['best_individual'])
+        function_value = optimizer.logger['best_f']
+        if transformer is not None:
+            function_value = transformer(optimizer.logger['best_individual'])
+        data_by_execution['individual_f'].append(function_value)
 
-    if showAll:
-        stats_["averageTime"] = np.mean(timeByExecution)
-        stats_["objectiveFunction"] = f_
-        stats_["solutions"] = x_
+    ind_worst = np.argmax(data_by_execution['individual_f'])
+    ind_best = np.argmin(data_by_execution['individual_f'])
+    stats = {"Worst solution":{} , "Best solution":{}}
 
-    return stats_
+    stats["Worst solution"]["x"] = data_by_execution['individual_x'][ind_worst]
+    stats["Best solution"]["x"] = data_by_execution['individual_x'][ind_best]
 
+    stats["Worst solution"]["f"] = data_by_execution['individual_f'][ind_worst]
+    stats["Best solution"]["f"] = data_by_execution['individual_f'][ind_best]
+    stats["Mean"] = np.mean(data_by_execution['individual_f'])
+    stats["Standard deviation"] = np.std(data_by_execution['individual_f'])
+    stats['Median'] = np.median(data_by_execution['individual_f'])
 
-# -----------------------------------------------------------------------
-#                   Configuration by Evolutionary computing 
-# -----------------------------------------------------------------------
+    if verbose:
+        stats.update(data_by_execution)
 
-class OptimizerConfig:
-    def __init__(self):
-        self.cross_op          = None
-        self.mutation_op       = None
-        self.survivor_selector = None 
-        self.fixer             = None
-
-    def cross(self, crossover_: function_type):
-        self.cross_op = crossover_
-        return self
-
-    def mutate(self, mutate_ : function_type):
-        self.mutation_op = mutate_
-        return self
-    
-    def survivor_selection(self, survivor_function: function_type):
-        self.survivor_selector = survivor_function
-        return self
-
-    def fixer_invalide_solutions(self, fixer_function: function_type):
-        self.fixer = fixer_function
-        return self
-    #-----------------------------------------------------
-                    #Private function.
-    #----------------------------------------------------- 
-    def default_printable(self) -> str:
-        printable = "--------------------------------\n\tConfiguration\n--------------------------------\n"
-        if self.cross_op != None:
-            printable += "Crossover operator: "+self.cross_op.__doc__ + '\n'
-        if self.mutation_op != None:
-            printable += "Mutation operator: "+ self.mutation_op.__doc__ + '\n'
-        if self.survivor_selector != None:
-            printable += "Survivor selection: " + self.survivor_selector.__doc__ + '\n'
-        if self.fixer != None:
-            printable += "Fixer: " + self.fixer.__doc__ + '\n'
-        return printable
-
-class GeneticConfig(OptimizerConfig):
-    def __init__(self):
-        super().__init__()
-        self.parent_selector = None
-
-    def __str__(self):
-        printable = self.default_printable()
-        if self.parent_selector != None:
-            printable += "Parent selection: "+self.parent_selector.__doc__ + '\n'
-        printable+="\n--------------------------------"
-        return printable
-    
-    def parent_selection(self, parent_function: function_type):
-        self.parent_selector = parent_function
-        return self
-
-class EvolutionStrategyConfig(OptimizerConfig):
-    def __init__(self):
-        super().__init__()
-        self.adaptive_crossover_op = None
-        self.adaptive_mutation_op  = None
-
-    def __str__(self):
-        printable = self.default_printable()        
-        if self.adaptive_crossover_op != None:
-            printable += "Adaptive crossover: "+ self.adaptive_crossover_op.__doc__ + '\n'
-        if self.adaptive_mutation_op != None:
-            printable += "Adaptive mutation: " + self.adaptive_mutation_op.__doc__ + '\n'
-        printable+="\n--------------------------------"
-        return printable
-
-    def adaptive_crossover(self, adaptive_crossover_function : function_type):
-        self.adaptive_crossover_op = adaptive_crossover_function
-        return self
-    
-    def adaptive_mutation(self, adaptive_mutation_function: function_type):
-        self.adaptive_mutation_op = adaptive_mutation_function
-        return self
-
-class EvolutionaryProgrammingConfig(OptimizerConfig):
-    def __init__(self):
-        super().__init__()
-        self.adaptive_mutation_op  = None
-
-    def __str__(self):
-        printable = self.default_printable()        
-        if self.adaptive_mutation_op != None:
-            printable += "Adaptive mutation: " + self.adaptive_mutation_op.__doc__ + '\n'
-        printable+="\n--------------------------------"
-        return printable    
-
-    def adaptive_mutation(self, adaptive_mutation_function: function_type):
-        self.adaptive_mutation_op = adaptive_mutation_function
-        return self         
+    return stats
 
 class ContinuosFixer:
+    """
+    Description:
+        When a solution is pass to this callback, the solution is setting as follow:
+        Given an interval, values outside the interval are clipped to the interval edges.
+        For example, if an interval of [0, 1] is specified, values smaller than 0 become 0,
+        and values larger than 1 become 1.
+    Arguments:
+        - bounds: float list. The first element is the lower bound and
+            the second element is the upper bound. Where could be arrays meaning
+            the boundaries for every decision variable.
+    """
     def __init__(self, bounds: list):
-        self.Bounds = bounds
+        self.bounds = bounds
         self.__doc__ = "continuos"
 
-    def __call__(self, X_: np.ndarray, ind: int):
-        return np.clip(X_[ind], self.Bounds[0], self.Bounds[1])
+    def __call__(self, solution: np.ndarray, ind: int):
+        return np.clip(solution[ind], self.bounds[0], self.bounds[1])
 
 class NoneFixer:
+    """
+    Description:
+        This callback doesn't anything. It only keeps as a standard of pyristic.
+    Arguments:
+        - None.
+    """
     def __init__(self):
         self.__doc__ = "None"
 
-    def __call__(self, X_: np.ndarray, ind: int):
-        return X_
-        
+    def __call__(self, solution: np.ndarray, ind: int):
+        return solution

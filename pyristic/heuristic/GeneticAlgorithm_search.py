@@ -1,4 +1,4 @@
-from pyristic.utils.helpers import function_type
+import typing
 from tqdm import tqdm
 import numpy as np
 
@@ -18,7 +18,7 @@ class Genetic:
             and another one is the upper limit.
     ------------------------------------------------------
     """
-    def __init__(self,  function: function_type,\
+    def __init__(self,  function: typing.Callable[[np.ndarray], typing.Union[int,float]] ,\
                         decision_variables:int,\
                         constraints:list=[],\
                         bounds: list=[],\
@@ -108,13 +108,7 @@ class Genetic:
                 #mutate.
                 self.__mutate_individuals()
 
-                #Fixing solutions and getting aptitude.
-                f_offspring = []
-                for ind in range(len(self.logger['offspring_population_x'])):
-                    if self.is_invalid(self.logger['offspring_population_x'][ind]):
-                        self.logger['offspring_population_x'][ind] = self.fixer(ind)
-                    f_offspring.append(self.aptitude_function(self.logger['offspring_population_x'][ind]))
-                self.logger['offspring_population_f'] = np.array(f_offspring)
+                self.__set_invalid_individuals()
 
                 #Survivor selection.
                 next_generation = self.survivor_selection(**kwargs)
@@ -129,7 +123,7 @@ class Genetic:
         ind = np.argmin(self.logger['parent_population_f'])
         self.logger['best_individual'] = self.logger['parent_population_x'][ind]
         self.logger['best_f']   = self.logger['parent_population_f'][ind]
-    
+
     def initialize_population(self, **kwargs) -> np.ndarray:
         """
         ------------------------------------------------------
@@ -245,14 +239,25 @@ class Genetic:
                 return True
         return False
 
+    def __set_invalid_individuals(self):
+        #Fixing solutions and getting aptitude.
+        f_offspring = []
+        for ind in range(len(self.logger['offspring_population_x'])):
+            if self.is_invalid(self.logger['offspring_population_x'][ind]):
+                self.logger['offspring_population_x'][ind] = self.fixer(ind)
+            f_offspring.append(
+                self.aptitude_function(self.logger['offspring_population_x'][ind])
+                )
+        self.logger['offspring_population_f'] = np.array(f_offspring)
+
     def __get_pairs(self,parent_ind : np.ndarray):
         parent_ind1=[]
         parent_ind2=[]
         size_ = len(parent_ind)//2
-
-        for a,b in np.random.randint(0,len(parent_ind),size=(size_,2)):
-            parent_ind1.append(parent_ind[a])
-            parent_ind2.append(parent_ind[b])
+        ind_individuals_selected = np.random.randint(0,len(parent_ind),size=(size_,2))
+        for ind_individual_a,ind_individual_b in ind_individuals_selected:
+            parent_ind1.append(parent_ind[ind_individual_a])
+            parent_ind2.append(parent_ind[ind_individual_b])
 
         return parent_ind1,parent_ind2
 
