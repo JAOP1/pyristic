@@ -164,7 +164,7 @@ class TestSingleSigmaAdaptiveMutation(unittest.TestCase):
     @patch('numpy.random.normal')
     def test_mutation_class_method(self, random_segment):
         random_segment.return_value = 0.786
-        method = SingleSigmaAdaptiveMutator(decision_variables=3)
+        method = SingleSigmaAdaptiveMutator()
         result = method(POPULATION)
         #It should return a numpy array.
         self.assertEqual(type(result).__module__, 'numpy')
@@ -288,7 +288,7 @@ class TestBinaryMutation(unittest.TestCase):
                 [0,0],
                 [1,1]
             ]),
-            pm=0.5
+            prob_mutation=0.5
         )
         #It should return a numpy array.
         self.assertEqual(type(result).__module__, 'numpy')
@@ -309,7 +309,7 @@ class TestBinaryMutation(unittest.TestCase):
     @patch('numpy.random.rand')
     def test_mutation_class_method(self, random_numbers):
         random_numbers.side_effect=[0.23,0.54,0.34,0.76]
-        method = BinaryMutator(pm=0.5)
+        method = BinaryMutator(prob_mutation=0.5)
         result = method(
             numpy.array([
                 [0,0],
@@ -370,7 +370,7 @@ class TestBoundaryMutation(unittest.TestCase):
     def test_mutation_function_array_bound(self, random_float_number, random_int_number):
         random_float_number.side_effect = [0.67,0.23,0.51]
         random_int_number.side_effect = [0,2,1]
-        result = boundary_mutationArray(
+        result = boundary_mutation_array(
             POPULATION,
             [-3,-5,-1],
             [3,5,1]
@@ -487,7 +487,7 @@ class TestUniformMutation(unittest.TestCase):
     def test_mutation_function_array_bound(self, random_float_number, random_int_number):
         random_float_number.side_effect = [0.67,-4.23,0.01]
         random_int_number.side_effect = [0,2,1]
-        result = uniform_mutationArray(
+        result = uniform_mutation_array(
             POPULATION,
             [-3,-5,-1],
             [3,5,1]
@@ -611,7 +611,6 @@ class TestNoneUniformMutation(unittest.TestCase):
             POPULATION,
             sigma=1.0
         )
-        print(result)
         #It should return a numpy array.
         self.assertEqual(type(result).__module__, 'numpy')
 

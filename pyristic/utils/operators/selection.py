@@ -208,7 +208,7 @@ class RouletteSampler:
         self.__doc__ = "Roulette sampling"
 
     def __call__(self,population_f: np.ndarray) -> np.ndarray:
-        vals = np.copy(population_f)        
+        vals = np.copy(population_f)
         return roulette_sampling(vals)
 
 class StochasticUniversalSampler:
@@ -248,7 +248,7 @@ class TournamentSampler:
         - prob: Float value which means if choose the max or min value in every chunk
         (by default is 1).
     """
-    def __init__(self, chunks_ : int=2 , prob_: float=1.0):  
+    def __init__(self, chunks_ : int=2 , prob_: float=1.0):
         self.chunks = chunks_
         self.prob = prob_
         self.__doc__ =\
