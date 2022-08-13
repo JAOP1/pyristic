@@ -1,26 +1,27 @@
 from pyristic.utils.helpers import *
-from random import random 
+from random import random
 import math
 import numpy as np
-import copy 
+import copy
 
 __all__=['SimulatedAnnealing']
 
 class SimulatedAnnealing:
-
-    def __init__(self, function : function_type,\
+    """
+    ------------------------------------------------------
+    Description:
+        Optimization search algorithm inspired on simulated
+        annealing algorithm.
+    Arguments:
+        - Function: The aptitude function to minimize.
+        - Constraints: Array with boolean functions.
+    ------------------------------------------------------
+    """
+    def __init__(self, function : typing.Callable[[np.ndarray], typing.Union[int,float]],\
                        constraints : list):
-        """
-        ------------------------------------------------------
-        Description:
-            Initializing every variable necessary to the search.
-        Arguments: 
-            - Function: Objective function to minimize.
-            - Constraints: Constraints to be a feasible solution.
-        ------------------------------------------------------ 
-        """
-        self.f = function
-        self.Constraints = constraints
+
+        self.function = function
+        self.constraints = constraints
 
         #Search information.
         self.logger = {}
@@ -28,23 +29,26 @@ class SimulatedAnnealing:
         self.logger['best_f']     = None
 
     def __str__(self):
-        printable = "Simulated Annealing: \n f(X) = {} \n X = {} \n ".format(self.logger['best_f'], self.logger['best_individual'])
+        printable = ("Simulated Annealing: \n "
+            f"f(X) = {self.logger['best_f']} \n X = {self.logger['best_individual']} \n ")
         first = True
 
-        for i in range(len(self.Constraints)):
-            if self.Constraints[i].__doc__ != None:
-
+        for constraint in self.constraints:
+            if constraint.__doc__ is not None:
                 if first:
                     first = False
                     printable += "Constraints: \n "
 
-                self.Constraints[i](self.logger['best_individual'])
-                printable += "{} \n".format( self.Constraints[i].__doc__)
+                constraint(self.logger['best_individual'])
+                printable += f"{constraint.__doc__} \n"
         return printable
-    
-    
-    def optimize(self,  Init : (np.ndarray,function_type),\
-                        IniTemperature : float ,\
+
+
+    def optimize(self,  initial_solution : typing.Union[
+                            np.ndarray,
+                            typing.Callable[[], np.ndarray]
+                        ],\
+                        initial_temperature: float ,\
                         eps : float,\
                         **kwargs) -> None:
         """
@@ -52,61 +56,64 @@ class SimulatedAnnealing:
         Description:
             Main function to find the best solution using Simulated Annealing strategy.
         Arguments:
-            - Init: Numpy array, represent the initial solution or function which generates a random 
-              initial solution (this solution should be a numpy array).
-            - IniTemperature:  Floating value, it define how much allow worse solutions.
+            - initial_solution: Numpy array, represent the initial solution or function
+                which generates a random initial solution (this solution should be a numpy array).
+            - initial_temperature:  Floating value, it define how much allow worse solutions.
             - eps: it means what's the final temperature.
         ------------------------------------------------------
         """
-
-        if type(Init) == function_type:
-            candidate = Init()
-        else:
-            candidate = copy.deepcopy(Init)
+        try:
+            candidate = initial_solution()
+        except TypeError:
+            candidate = copy.deepcopy(initial_solution)
 
         self.logger['best_individual'] = copy.deepcopy(candidate)
-        self.logger['best_f'] = self.f(copy.deepcopy(candidate))
-        self.logger['temperature'] = IniTemperature
-        
-        f_candidate =self.f(candidate)
+        self.logger['best_f'] = self.function(copy.deepcopy(candidate))
+        self.logger['temperature'] = initial_temperature
 
-
+        f_candidate =self.function(candidate)
         while self.logger['temperature'] >= eps:
-            Neighbor = self.get_neighbor(candidate,**kwargs)
-            
-            if not self.is_valid(Neighbor):
+            neighbor = self.get_neighbor(candidate,**kwargs)
+
+            if not self.is_valid(neighbor):
                 continue
 
-            f_neighbor = self.f(Neighbor)
+            f_neighbor = self.function(neighbor)
 
-            if f_neighbor < f_candidate or random() < self.P(f_neighbor,f_candidate,**kwargs):
-                candidate = Neighbor
+            if (f_neighbor < f_candidate or
+                random() < self.acceptance_measure(f_neighbor,f_candidate,**kwargs)):
+                candidate = neighbor
                 f_candidate = f_neighbor
-            
+
             self.logger['temperature'] = self.update_temperature(**kwargs)
-            
+
             #Update best solution found.
             if f_candidate < self.logger['best_f']:
                 self.logger['best_f'] = f_candidate
                 self.logger['best_individual'] = candidate
 
-        
-    def P(self, f_n : float , f_x : float,**kwargs) -> float:
-        T = self.logger['temperature']
-        return math.exp( -(f_n - f_x)/ T)
 
-    def is_valid(self , x: np.ndarray) -> bool:
+    def acceptance_measure(self, f_n : float , f_x : float,**kwargs) -> float:
+        """
+        Description:
+            Metric used to evaluate how much confidence accept
+            a solution.
+        """
+        temperature = self.logger['temperature']
+        return math.exp( -(f_n - f_x)/ temperature)
+
+    def is_valid(self , solution: np.ndarray) -> bool:
         """
         ------------------------------------------------------
         Description:
-            Check if the current solution is valid. 
+            Check if the current solution is valid.
         ------------------------------------------------------
         """
-        for constrain in self.Constraints:
-            if not constrain(x):
+        for constrain in self.constraints:
+            if not constrain(solution):
                 return False
         return True
-    
+
     def update_temperature(self,**kwargs) -> float:
         """
         ------------------------------------------------------
@@ -116,14 +123,12 @@ class SimulatedAnnealing:
         """
         return  self.logger['temperature'] *0.99
 
-    def get_neighbor(self, x : np.ndarray,**kwargs) -> np.ndarray:
+    def get_neighbor(self, solution: np.ndarray,**kwargs) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
-           Return only one solution which is a "random" 
+           Return only one solution which is a "random"
             variation of current solution.
         ------------------------------------------------------
         """
         raise NotImplementedError
-
-
