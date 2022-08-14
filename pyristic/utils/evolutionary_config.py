@@ -1,6 +1,10 @@
 import typing
 import numpy as np
 
+__all__=[
+    'OptimizerConfig','GeneticConfig',
+    'EvolutionStrategyConfig', 'EvolutionaryProgrammingConfig'
+]
 class OptimizerConfig:
     """
     Description:
@@ -10,10 +14,13 @@ class OptimizerConfig:
         - None
     """
     def __init__(self):
-        self.cross_op          = None
-        self.mutation_op       = None
-        self.survivor_selector = None
-        self.fixer             = None
+        self.methods = {}
+        self.method_types = [
+            'crossover_operator',
+            'mutation_operator',
+            'survivor_selector',
+            'setter_invalid_solution'
+        ]
 
     def cross(self, crossover_: typing.Callable[
                                     [np.ndarray, np.ndarray, np.ndarray],
@@ -24,7 +31,7 @@ class OptimizerConfig:
             which the algorithm apply. By default the configuration hasn't
             a crossover operator.
         """
-        self.cross_op = crossover_
+        self.methods['crossover_operator'] = crossover_
         return self
 
     def mutate(self, mutate_ : typing.Callable[[np.ndarray], np.ndarray]):
@@ -34,7 +41,7 @@ class OptimizerConfig:
             which the algorithm apply. By default the configuration hasn't
             a mutation operator.
         """
-        self.mutation_op = mutate_
+        self.methods['mutation_operator'] = mutate_
         return self
 
     def survivor_selection(self,
@@ -48,7 +55,7 @@ class OptimizerConfig:
             which the algorithm apply. By default the configuration hasn't
             a survivor method.
         """
-        self.survivor_selector = survivor_function
+        self.methods['survivor_selector'] = survivor_function
         return self
 
     def fixer_invalide_solutions(self, fixer_function: typing.Callable[[np.ndarray], np.ndarray]):
@@ -59,26 +66,19 @@ class OptimizerConfig:
             which the algorithm apply. By default the configuration hasn't
             a fix method.
         """
-        self.fixer = fixer_function
+        self.methods['setter_invalid_solution'] = fixer_function
         return self
-    #-----------------------------------------------------
-                    #Private function.
-    #-----------------------------------------------------
-    def default_printable(self) -> str:
+
+    def __str__(self):
         """
         Description:
             attach the printable information of crossover, mutation, survivor selection.
         """
         printable =\
             "--------------------------------\n\tConfiguration\n--------------------------------\n"
-        if self.cross_op is not None:
-            printable += "Crossover operator: "+self.cross_op.__doc__ + '\n'
-        if self.mutation_op is not None:
-            printable += "Mutation operator: "+ self.mutation_op.__doc__ + '\n'
-        if self.survivor_selector is not None:
-            printable += "Survivor selection: " + self.survivor_selector.__doc__ + '\n'
-        if self.fixer is not None:
-            printable += "Fixer: " + self.fixer.__doc__ + '\n'
+        for method_type in self.method_types:
+            if method_type in self.methods:
+                printable += f"{method_type} {self.methods[method_type].__doc__}\n"
         return printable
 
 class GeneticConfig(OptimizerConfig):
@@ -93,14 +93,7 @@ class GeneticConfig(OptimizerConfig):
     """
     def __init__(self):
         super().__init__()
-        self.parent_selector = None
-
-    def __str__(self):
-        printable = self.default_printable()
-        if self.parent_selector is not None:
-            printable += "Parent selection: "+self.parent_selector.__doc__ + '\n'
-        printable+="\n--------------------------------"
-        return printable
+        self.method_types.extend(['parent_selector'])
 
     def parent_selection(self, parent_function: typing.Callable):
         """
@@ -109,7 +102,7 @@ class GeneticConfig(OptimizerConfig):
         Arguments:
             - parent_function: the callback need to perform the parent selection step.
         """
-        self.parent_selector = parent_function
+        self.methods['parent_selector'] = parent_function
         return self
 
 class EvolutionStrategyConfig(OptimizerConfig):
@@ -124,17 +117,10 @@ class EvolutionStrategyConfig(OptimizerConfig):
     """
     def __init__(self):
         super().__init__()
-        self.adaptive_crossover_op = None
-        self.adaptive_mutation_op  = None
-
-    def __str__(self):
-        printable = self.default_printable()
-        if self.adaptive_crossover_op is not None:
-            printable += "Adaptive crossover: "+ self.adaptive_crossover_op.__doc__ + '\n'
-        if self.adaptive_mutation_op is not None:
-            printable += "Adaptive mutation: " + self.adaptive_mutation_op.__doc__ + '\n'
-        printable+="\n--------------------------------"
-        return printable
+        self.method_types.extend([
+            'adaptive_crossover_operator',
+            'adaptive_mutation_operator'
+            ])
 
     def adaptive_crossover(self, adaptive_crossover_function : typing.Callable):
         """
@@ -144,7 +130,7 @@ class EvolutionStrategyConfig(OptimizerConfig):
             - adaptive_crossover_function: the callback need to perform
             the adaptation crossover step.
         """
-        self.adaptive_crossover_op = adaptive_crossover_function
+        self.methods['adaptive_crossover_operator'] = adaptive_crossover_function
         return self
 
     def adaptive_mutation(self, adaptive_mutation_function: typing.Callable):
@@ -155,7 +141,7 @@ class EvolutionStrategyConfig(OptimizerConfig):
             - adaptive_mutation_function: the callback need to perform
             the adaptive mutation step.
         """
-        self.adaptive_mutation_op = adaptive_mutation_function
+        self.methods['adaptive_mutation_operator'] = adaptive_mutation_function
         return self
 
 class EvolutionaryProgrammingConfig(OptimizerConfig):
@@ -170,14 +156,7 @@ class EvolutionaryProgrammingConfig(OptimizerConfig):
     """
     def __init__(self):
         super().__init__()
-        self.adaptive_mutation_op  = None
-
-    def __str__(self):
-        printable = self.default_printable()
-        if self.adaptive_mutation_op is not None:
-            printable += "Adaptive mutation: " + self.adaptive_mutation_op.__doc__ + '\n'
-        printable+="\n--------------------------------"
-        return printable
+        self.method_types.extend(['adaptive_mutation_operator'])
 
     def adaptive_mutation(self, adaptive_mutation_function: typing.Callable):
         """
@@ -187,5 +166,5 @@ class EvolutionaryProgrammingConfig(OptimizerConfig):
             - adaptive_mutation_function: the callback need to perform
             the adaptive mutation step.
         """
-        self.adaptive_mutation_op = adaptive_mutation_function
+        self.methods['adaptive_mutation_operator'] = adaptive_mutation_function
         return self

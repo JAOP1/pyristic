@@ -30,12 +30,9 @@ class Genetic:
         self.decision_variables = decision_variables # Decision variables.
 
         #Operators.
-        if config is not None:
-            self._mutation_operator  = config.mutation_op
-            self._crossover_operator = config.cross_op
-            self._survivor_selector  = config.survivor_selector
-            self._parent_selector    = config.parent_selector
-            self._fixer              = config.fixer
+        self.config_methods = {}
+        if config:
+            self.config_methods.update( config.methods )
         #Search information.
         self.logger = {}
         self.logger['best_individual']      = None
@@ -158,9 +155,11 @@ class Genetic:
             -ind: index of individual.
         ------------------------------------------------------
         """
-        if self._fixer is None:
+        if 'setter_invalid_solution' not in self.config_methods:
             raise NotImplementedError
-        return self._fixer(self.logger['offspring_population_x'], ind)
+        return self.config_methods['setter_invalid_solution'](
+                    self.logger['offspring_population_x'], ind
+                )
 
     def mutation_operator(self, indices,**kwargs):
         """
@@ -172,9 +171,11 @@ class Genetic:
             to mutate.
         ------------------------------------------------------
         """
-        if self._mutation_operator is None:
+        if 'mutation_operator' not in self.config_methods:
             raise NotImplementedError
-        return self._mutation_operator(self.logger['offspring_population_x'][indices])
+        return self.config_methods['mutation_operator'](
+                    self.logger['offspring_population_x'][indices]
+                )
 
     def crossover_operator(self,parent_ind1: np.ndarray,\
                                 parent_ind2: np.ndarray,\
@@ -185,13 +186,13 @@ class Genetic:
             Apply the crossover operator selected by the configuration.
         ------------------------------------------------------
         """
-        if self._crossover_operator is None:
+        if 'crossover_operator' not in self.config_methods:
             raise NotImplementedError
-        return self._crossover_operator(
-            self.logger['parent_population_x'],
-            parent_ind1,
-            parent_ind2
-        )
+        return self.config_methods['crossover_operator'](
+                    self.logger['parent_population_x'],
+                    parent_ind1,
+                    parent_ind2
+                )
 
     def survivor_selection(self,**kwargs) -> dict:
         """
@@ -200,7 +201,7 @@ class Genetic:
             Apply the selection survivors method by the configuration.
         ------------------------------------------------------
         """
-        if self._survivor_selector is None:
+        if 'survivor_selector' not in self.config_methods:
             raise NotImplementedError
 
         individuals = {}
@@ -209,9 +210,11 @@ class Genetic:
             self.logger['offspring_population_x']
         ]
 
-        return self._survivor_selector( self.logger['parent_population_f'],\
-                                        self.logger['offspring_population_f'],\
-                                        individuals)
+        return self.config_methods['survivor_selector'](
+                    self.logger['parent_population_f'],
+                    self.logger['offspring_population_f'],
+                    individuals
+                )
 
     def parent_selection(self,**kwargs) -> np.ndarray:
         """
@@ -220,9 +223,11 @@ class Genetic:
             Apply the parent selection method by the configuration.
         ------------------------------------------------------
         """
-        if self._parent_selector is None:
+        if 'parent_selector' not in self.config_methods:
             raise NotImplementedError
-        return self._parent_selector(self.logger['parent_population_f'])
+        return self.config_methods['parent_selector'](
+                    self.logger['parent_population_f']
+                )
 
     #-----------------------------------------------------
                     #Private functions.
@@ -275,7 +280,6 @@ class Genetic:
                 offspring = individuals
 
         self.logger['offspring_population_x'] = offspring
-
 
     def __mutate_individuals(self):
         individuals, variables = self.logger['offspring_population_x'].shape
