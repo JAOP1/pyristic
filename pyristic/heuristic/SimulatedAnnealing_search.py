@@ -1,8 +1,9 @@
-from pyristic.utils.helpers import *
+import typing
 from random import random
 import math
 import numpy as np
 import copy
+from pyristic.utils.helpers import *
 
 __all__=['SimulatedAnnealing']
 

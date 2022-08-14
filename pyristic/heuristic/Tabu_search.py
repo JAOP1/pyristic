@@ -1,7 +1,8 @@
-from pyristic.utils.helpers import *
+import typing
 from tqdm import tqdm
 import numpy as np
 import copy 
+from pyristic.utils.helpers import *
 
 __all__=['TabuList','TabuSearch']
 
