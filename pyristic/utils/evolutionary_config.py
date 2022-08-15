@@ -78,7 +78,7 @@ class OptimizerConfig:
             "--------------------------------\n\tConfiguration\n--------------------------------\n"
         for method_type in self.method_types:
             if method_type in self.methods:
-                printable += f"{method_type} {self.methods[method_type].__doc__}\n"
+                printable += f"{method_type} - {self.methods[method_type].__doc__}\n"
         return printable
 
 class GeneticConfig(OptimizerConfig):
