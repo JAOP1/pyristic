@@ -42,7 +42,7 @@ class EvolutionaryProgramming:
                                         )
         }
         if config:
-            self.config_methods.update(config)
+            self.config_methods.update(config.methods)
 
         #Global information.
         self.logger = {}
