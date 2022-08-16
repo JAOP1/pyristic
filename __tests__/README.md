@@ -3,7 +3,7 @@ This folder has the test cases that cover currently the utilities that has pyris
 
 ## How to execute
 Before to execute the tests, you should install the following:
-`pip install coverage` and include the required enviroment variables `export PYTHONPATH=$(pwd)/pyristic:$(pwd)/__tests__`.
+- `pip install coverage` and include the required enviroment variables `export PYTHONPATH=$(pwd)/pyristic:$(pwd)/__tests__`.
 
 
 Finally, if you wanted execute only one test file execute as follow in the root pyristic's folder:
