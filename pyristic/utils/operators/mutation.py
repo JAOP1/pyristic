@@ -97,6 +97,7 @@ def insertion_mutation(population: np.ndarray, n_elements: int=1) -> np.ndarray:
           elements in the segment.
     ------------------------------------------------------
     """
+    n_elements = int(n_elements)
     num_individuals, decision_variables = population.shape
     x_mutated = np.ones((num_individuals,decision_variables))
 
@@ -263,8 +264,8 @@ def uniform_mutation_array( population: np.ndarray, lower_bounds: list,\
             )
     return mutated_x
 
-def uniform_mutation(population: np.ndarray, lower_bound,\
-                     upper_bound) -> np.ndarray:
+def uniform_mutation(population: np.ndarray, lower_bound:float,\
+                     upper_bound:float) -> np.ndarray:
     """
     ------------------------------------------------------
     Description:
