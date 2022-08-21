@@ -84,7 +84,7 @@ def n_point_crossover(population: np.ndarray , parent_ind1 : np.ndarray,\
         Matriz with size 2m x n.
     ------------------------------------------------------
     """
-
+    n_cross = int(n_cross)
     num_individuals = len(parent_ind1)
     decision_variables = len(population[0])
     new_population = np.ones((num_individuals*2,decision_variables), dtype=np.float64)
@@ -208,6 +208,7 @@ def simulated_binary_crossover(population: np.ndarray, parent_ind1: np.ndarray,\
         Matriz with size 2m x n.
     ------------------------------------------------------
     """
+    nc = int(nc)
     random_float_number = np.random.rand()
     B = -1
     exponent = 1/(nc+1)

@@ -133,6 +133,7 @@ def tournament_sampling( expected_vals : np.ndarray,\
 
     ------------------------------------------------------
     """
+    chunks = int(chunks)
     expected_vals = get_expected_values(expected_vals)
     num_items = len(expected_vals)
     indices = np.arange(num_items)

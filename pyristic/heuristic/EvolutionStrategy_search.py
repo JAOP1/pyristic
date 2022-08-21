@@ -82,6 +82,9 @@ class EvolutionStrategy:
             - population_size: the population that
         ------------------------------------------------------
         """
+        generations = int(generations)
+        population_size = int(population_size)
+        offspring_size = int(offspring_size)
         #Reset global solution.
         self.logger['best_individual']      = None
         self.logger['best_f']        = None

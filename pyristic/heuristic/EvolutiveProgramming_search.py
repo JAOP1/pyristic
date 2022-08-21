@@ -87,6 +87,8 @@ class EvolutionaryProgramming:
             - Population size: Number of individuals.
         ------------------------------------------------------
         """
+        generations = int(generations)
+        size_population = int(size_population)
         #Reset global solution.
         self.logger['current_iter'] = 0
         self.logger['total_iter'] = generations

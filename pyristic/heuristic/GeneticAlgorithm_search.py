@@ -78,6 +78,8 @@ class Genetic:
         """
         assert 0 <= cross_percentage <= 1.0
         assert 0 <= mutation_percentage <= 1.0
+        generations = int(generations)
+        size_population = int(size_population)
         #Reset global information.
         self.logger['current_iter']         = 0
         self.logger['total_iter']           = generations
