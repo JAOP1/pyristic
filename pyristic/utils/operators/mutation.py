@@ -436,7 +436,7 @@ class SigmaEpAdaptiveMutator:
     """
     def __init__(self,decision_variables:int ,alpha: float):
         self._alpha = alpha
-        self._length = decision_variables
+        self._length = int(decision_variables)
         self.__doc__ = f"Sigma EP.\n\t\t-Alpha: {self._alpha}"
 
     @property
@@ -470,9 +470,9 @@ class MultSigmaAdaptiveMutator:
     Arguments:
         - None
     """
-    def __init__(self, decision_variables):
+    def __init__(self, decision_variables: int):
         self.__doc__ = "Sigma mult"
-        self._length = decision_variables
+        self._length = int(decision_variables)
         self._gamma_prime = 1/np.sqrt(2*self._length)
         self._gamma = 1/ np.sqrt( 2 * np.sqrt(self._length))
 
