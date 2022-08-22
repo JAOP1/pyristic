@@ -109,7 +109,7 @@ class TestSigmaEpAdaptiveMutation(unittest.TestCase):
             [-1.45822813, -0.96113428, -0.46841437]
        ])
         method = SigmaEpAdaptiveMutator(
-            decision_variables=3,
+            decision_variables=3.,
             alpha=0.5
         )
         result = method(POPULATION)

@@ -158,7 +158,8 @@ class TestNpointsCrossover(unittest.TestCase):
             result = n_point_crossover(
                 population,
                 [0,2],
-                [1,0]
+                [1,0],
+                1.0
                 )
             #It should return a numpy array.
             self.assertEqual(type(result).__module__, 'numpy')
