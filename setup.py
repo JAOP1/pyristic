@@ -7,7 +7,7 @@ with open("README.md") as f:
 
 setup(
   name = 'pyristic',\
-  version = 'v1.0.2',\
+  version = 'v1.1.0',\
   license='MIT',\
   description = 'Set of metaheuristic for solve optimization problems.',\
   author = 'Jesús Armando Ortíz Peñafiel',\
@@ -15,7 +15,7 @@ setup(
   long_description = LONG_DESCRIPTION,\
   long_description_content_type="text/markdown",\
   url = 'https://github.com/JAOP1/',\
-  download_url = 'https://github.com/JAOP1/pyristic/archive/refs/tags/v1.0.2.tar.gz',\
+  download_url = 'https://github.com/JAOP1/pyristic/archive/refs/tags/v1.1.0.tar.gz',\
   keywords = ['Optimization', 'Metaheuristic', 'Python'],\
   install_requires=[
           'numpy>=1.15.4',
