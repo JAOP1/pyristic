@@ -18,12 +18,13 @@ class SimulatedAnnealing:
         - Constraints: Array with boolean functions.
     ------------------------------------------------------
     """
-    def __init__(self, function : typing.Callable[[np.ndarray], typing.Union[int,float]],\
-                       constraints : list):
-
+    def __init__(self,
+                function : typing.Callable[[np.ndarray],typing.Union[int,float]],
+                constraints : list,
+                neighbor_generator: typing.Callable[[np.ndarray], np.ndarray]=None):
         self.function = function
         self.constraints = constraints
-
+        self.neighbor_generator = neighbor_generator
         #Search information.
         self.logger = {}
         self.logger['best_individual']   = None
@@ -76,7 +77,7 @@ class SimulatedAnnealing:
         while self.logger['temperature'] >= eps:
             neighbor = self.get_neighbor(candidate,**kwargs)
 
-            if not self.is_valid(neighbor):
+            if not self.__is_valid(neighbor):
                 continue
 
             f_neighbor = self.function(neighbor)
@@ -103,7 +104,7 @@ class SimulatedAnnealing:
         temperature = self.logger['temperature']
         return math.exp( -(f_n - f_x)/ temperature)
 
-    def is_valid(self , solution: np.ndarray) -> bool:
+    def __is_valid(self , solution: np.ndarray) -> bool:
         """
         ------------------------------------------------------
         Description:
@@ -124,7 +125,7 @@ class SimulatedAnnealing:
         """
         return  self.logger['temperature'] *0.99
 
-    def get_neighbor(self, solution: np.ndarray,**kwargs) -> np.ndarray:
+    def get_neighbor(self, solution: np.ndarray, **kwargs) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -132,4 +133,6 @@ class SimulatedAnnealing:
             variation of current solution.
         ------------------------------------------------------
         """
-        raise NotImplementedError
+        if not self.neighbor_generator:
+            raise NotImplementedError
+        return self.neighbor_generator(solution)
