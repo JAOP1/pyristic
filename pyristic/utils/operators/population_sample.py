@@ -1,4 +1,3 @@
-import unittest
 import typing
 import numpy as np
 
@@ -56,5 +55,3 @@ class RandomPermutationPopulation:
             individuals += [np.random.permutation(self.x)]
 
         return np.array(individuals)
-if __name__ == '__main__':
-    unittest.main(verbosity=3)

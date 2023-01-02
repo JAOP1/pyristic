@@ -41,3 +41,5 @@ class TestPopulationSampler(unittest.TestCase):
             row.sort()
             self.assertTrue(list(row) == [3,4,5])
      
+if __name__ == '__main__':
+    unittest.main(verbosity=3)
