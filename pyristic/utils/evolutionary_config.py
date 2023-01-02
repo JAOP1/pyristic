@@ -15,12 +15,6 @@ class OptimizerConfig:
     """
     def __init__(self):
         self.methods = {}
-        self.method_types = [
-            'crossover_operator',
-            'mutation_operator',
-            'survivor_selector',
-            'setter_invalid_solution'
-        ]
 
     def cross(self, crossover_: typing.Callable[
                                     [np.ndarray, np.ndarray, np.ndarray],
@@ -69,6 +63,15 @@ class OptimizerConfig:
         self.methods['setter_invalid_solution'] = fixer_function
         return self
 
+    def initialize_population(self, init_function: typing.Callable):
+        """
+        Description:
+            This function update the current method to initialize the population
+            of our algorithm. By default the configuration hasn't a method.
+        """
+        self.methods['init_population'] = init_function
+        return self
+
     def __str__(self):
         """
         Description:
@@ -76,9 +79,8 @@ class OptimizerConfig:
         """
         printable =\
             "--------------------------------\n\tConfiguration\n--------------------------------\n"
-        for method_type in self.method_types:
-            if method_type in self.methods:
-                printable += f"{method_type} - {self.methods[method_type].__doc__}\n"
+        for key, func in self.methods.items():
+            printable += f"{key} - {func.__doc__}\n"
         return printable
 
 class GeneticConfig(OptimizerConfig):
@@ -93,7 +95,6 @@ class GeneticConfig(OptimizerConfig):
     """
     def __init__(self):
         super().__init__()
-        self.method_types.extend(['parent_selector'])
 
     def parent_selection(self, parent_function: typing.Callable):
         """
@@ -117,10 +118,6 @@ class EvolutionStrategyConfig(OptimizerConfig):
     """
     def __init__(self):
         super().__init__()
-        self.method_types.extend([
-            'adaptive_crossover_operator',
-            'adaptive_mutation_operator'
-            ])
 
     def adaptive_crossover(self, adaptive_crossover_function : typing.Callable):
         """
@@ -156,7 +153,6 @@ class EvolutionaryProgrammingConfig(OptimizerConfig):
     """
     def __init__(self):
         super().__init__()
-        self.method_types.extend(['adaptive_mutation_operator'])
 
     def adaptive_mutation(self, adaptive_mutation_function: typing.Callable):
         """

@@ -2,7 +2,7 @@ import typing
 from tqdm import tqdm
 import numpy as np
 from pyristic.utils.helpers import ContinuosFixer
-from pyristic.utils.operators import mutation,selection
+from pyristic.utils.operators import mutation,selection, population_sample
 
 __all__=['EvolutionaryProgramming']
 
@@ -34,6 +34,9 @@ class EvolutionaryProgramming:
 
         #Setting operators.
         self.config_methods = {
+            'init_population': population_sample.RandomUniformPopulation(
+                self.decision_variables, self.bounds
+            ),
             'mutation_operator': mutation.SigmaMutator(),
             'survivor_selector': selection.MergeSelector(),
             'setter_invalid_solution': ContinuosFixer(self.bounds),
@@ -208,10 +211,8 @@ class EvolutionaryProgramming:
             -n: The population size.
         ------------------------------------------------------
         """
-        return np.random.uniform(
-            self.bounds[0],
-            self.bounds[1],
-            size=(self.logger['population_size'],self.decision_variables)
+        return self.config_methods['init_population'](
+            self.logger['parent_population_size']
         )
 
     def fixer(self, ind:int) -> np.ndarray:
