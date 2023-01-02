@@ -44,7 +44,7 @@ class Genetic:
         self.logger['best_f']        = None
         self.logger['current_iter']    = None
         self.logger['total_iter']      = None
-        self.logger['population_size'] = None
+        self.logger['parent_population_size'] = None
 
     def __str__(self):
         printable = ("Genetic search: \n F_a(X) = "
@@ -88,7 +88,7 @@ class Genetic:
         #Reset global information.
         self.logger['current_iter']         = 0
         self.logger['total_iter']           = generations
-        self.logger['population_size']      = size_population
+        self.logger['parent_population_size']      = size_population
         self.logger['cross_percentage']     = cross_percentage
         self.logger['mutation_percentage']  = mutation_percentage
         self.logger['best_f']               = None
