@@ -2,7 +2,7 @@ import typing
 from tqdm import tqdm
 import numpy as np
 from pyristic.utils.helpers import ContinuosFixer
-from pyristic.utils.operators import mutation,selection
+from pyristic.utils.operators import mutation,selection, population_sample
 
 __all__=['EvolutionaryProgramming']
 
@@ -34,6 +34,9 @@ class EvolutionaryProgramming:
 
         #Setting operators.
         self.config_methods = {
+            'init_population': population_sample.RandomUniformPopulation(
+                self.decision_variables, self.bounds
+            ),
             'mutation_operator': mutation.SigmaMutator(),
             'survivor_selector': selection.MergeSelector(),
             'setter_invalid_solution': ContinuosFixer(self.bounds),
@@ -50,7 +53,7 @@ class EvolutionaryProgramming:
         self.logger['best_f']                       = None
         self.logger['current_iter']                 = None
         self.logger['total_iter']                   = None
-        self.logger['population_size']              = None
+        self.logger['parent_population_size']              = None
         self.logger['parent_population_x']          = None
         self.logger['parent_population_sigma']      = None
         self.logger['parent_population_f']          = None
@@ -92,7 +95,7 @@ class EvolutionaryProgramming:
         #Reset global solution.
         self.logger['current_iter'] = 0
         self.logger['total_iter'] = generations
-        self.logger['population_size'] = size_population
+        self.logger['parent_population_size'] = size_population
         self.logger['best_individual'] = None
         self.logger['best_f'] = None
 
@@ -193,7 +196,7 @@ class EvolutionaryProgramming:
         ------------------------------------------------------
         """
         steps = np.random.uniform(0,1,
-            size=(self.logger['population_size'] , self.decision_variables)
+            size=(self.logger['parent_population_size'] , self.decision_variables)
         )
         return np.maximum(steps,0.00001)
 
@@ -208,10 +211,8 @@ class EvolutionaryProgramming:
             -n: The population size.
         ------------------------------------------------------
         """
-        return np.random.uniform(
-            self.bounds[0],
-            self.bounds[1],
-            size=(self.logger['population_size'],self.decision_variables)
+        return self.config_methods['init_population'](
+            self.logger['parent_population_size']
         )
 
     def fixer(self, ind:int) -> np.ndarray:

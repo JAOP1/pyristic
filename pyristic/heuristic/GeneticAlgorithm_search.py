@@ -1,6 +1,7 @@
 import typing
 from tqdm import tqdm
 import numpy as np
+from pyristic.utils.operators import population_sample
 
 __all__= ['Genetic']
 
@@ -30,7 +31,11 @@ class Genetic:
         self.decision_variables = decision_variables # Decision variables.
 
         #Operators.
-        self.config_methods = {}
+        self.config_methods = {
+            'init_population': population_sample.RandomUniformPopulation(
+                self.decision_variables, self.bounds
+            ),
+        }
         if config:
             self.config_methods.update( config.methods )
         #Search information.
@@ -39,7 +44,7 @@ class Genetic:
         self.logger['best_f']        = None
         self.logger['current_iter']    = None
         self.logger['total_iter']      = None
-        self.logger['population_size'] = None
+        self.logger['parent_population_size'] = None
 
     def __str__(self):
         printable = ("Genetic search: \n F_a(X) = "
@@ -83,7 +88,7 @@ class Genetic:
         #Reset global information.
         self.logger['current_iter']         = 0
         self.logger['total_iter']           = generations
-        self.logger['population_size']      = size_population
+        self.logger['parent_population_size']      = size_population
         self.logger['cross_percentage']     = cross_percentage
         self.logger['mutation_percentage']  = mutation_percentage
         self.logger['best_f']               = None
@@ -138,13 +143,8 @@ class Genetic:
             n is the number of variables about the problem.
         ------------------------------------------------------
         """
-        return np.random.uniform(
-            self.bounds[0],
-            self.bounds[1],
-            size=(
-                self.logger['population_size'],
-                self.decision_variables
-            )
+        return self.config_methods['init_population'](
+            self.logger['parent_population_size']
         )
 
     def fixer(self, ind: int) -> np.ndarray:

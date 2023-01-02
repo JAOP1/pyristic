@@ -1,7 +1,7 @@
 import typing
 from tqdm import tqdm
 import numpy as np
-from pyristic.utils.operators import selection, mutation, crossover
+from pyristic.utils.operators import selection, mutation, crossover, population_sample
 from pyristic.utils.helpers import  ContinuosFixer
 
 __all__= ['EvolutionStrategy']
@@ -32,6 +32,9 @@ class EvolutionStrategy:
 
         #Configuration.
         self.config_methods = {
+            'init_population': population_sample.RandomUniformPopulation(
+                self.decision_variables, self.bounds
+            ),
             'mutation_operator': mutation.SigmaMutator(),
             'crossover_operator': crossover.DiscreteCrossover(),
             'survivor_selector': selection.MergeSelector(),
@@ -160,14 +163,10 @@ class EvolutionStrategy:
             -size_: Tnteger n where n is the number of variables about the problem.
         ------------------------------------------------------
         """
-        return np.random.uniform(
-                    self.bounds[0],
-                    self.bounds[1],
-                    size=(
-                        self.logger['parent_population_size'],
-                        self.decision_variables
-                    )
-                )
+        return self.config_methods['init_population'](
+            self.logger['parent_population_size']
+        )
+
 
     def fixer(self, ind:int) -> np.ndarray:
         """

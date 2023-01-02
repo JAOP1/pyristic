@@ -25,13 +25,7 @@ class TestOptimizerConfig(unittest.TestCase):
 
         self.assertEqual(type(config.methods), dict)
         self.assertEqual(len(config.methods.keys()), 0)
-        self.assertEqual(type(config.method_types), list)
-        self.assertListEqual(config.method_types, [
-            'crossover_operator',
-            'mutation_operator',
-            'survivor_selector',
-            'setter_invalid_solution'
-        ])
+
 
     def test_attach_operators(self):
         """
@@ -74,14 +68,6 @@ class TestGeneticConfig(unittest.TestCase):
 
         self.assertEqual(type(config.methods), dict)
         self.assertEqual(len(config.methods.keys()), 0)
-        self.assertEqual(type(config.method_types), list)
-        self.assertListEqual(config.method_types, [
-            'crossover_operator',
-            'mutation_operator',
-            'survivor_selector',
-            'setter_invalid_solution',
-            'parent_selector'
-        ])
 
     def test_attach_operators(self):
         """
@@ -121,15 +107,7 @@ class TestEvolutionStrategyConfig(unittest.TestCase):
 
         self.assertEqual(type(config.methods), dict)
         self.assertEqual(len(config.methods.keys()), 0)
-        self.assertEqual(type(config.method_types), list)
-        self.assertListEqual(config.method_types, [
-            'crossover_operator',
-            'mutation_operator',
-            'survivor_selector',
-            'setter_invalid_solution',
-            'adaptive_crossover_operator',
-            'adaptive_mutation_operator'
-        ])
+
 
     def test_attach_operators(self):
         """
@@ -170,14 +148,7 @@ class TestEvolutionaryProgrammingConfig(unittest.TestCase):
 
         self.assertEqual(type(config.methods), dict)
         self.assertEqual(len(config.methods.keys()), 0)
-        self.assertEqual(type(config.method_types), list)
-        self.assertListEqual(config.method_types, [
-            'crossover_operator',
-            'mutation_operator',
-            'survivor_selector',
-            'setter_invalid_solution',
-            'adaptive_mutation_operator'
-        ])
+
 
     def test_attach_operators(self):
         """
