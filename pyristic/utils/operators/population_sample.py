@@ -19,9 +19,17 @@ class RandomUniformPopulation:
         num_variables: int,
         bounds: typing.Union[ list[float], list[list[int]]]
     ) -> None:
-        self.bounds = bounds
         self.num_variables = num_variables
-
+        if isinstance(num_variables, float):
+            print("WARNING: The num_variable argument is floating number, updating to integer.")
+            self.num_variables = int(num_variables)
+        self.bounds = bounds
+        self.__doc__ = f"""
+            Generate random numbers using uniform distribution.
+            Arguments:
+                bounds: {self.bounds}
+                num_variables: {self.num_variables}
+        """
     def __call__(self, num_individulas:int ) -> np.ndarray:
         return np.random.uniform(
             self.bounds[0],
@@ -47,7 +55,14 @@ class RandomPermutationPopulation:
     """
     def __init__(self, x: int) -> None:
         self.x = x
-
+        if isinstance(x,float):
+            print("WARNING: The x argument is floating number, updating to integer.")
+            self.x = int(x)
+        self.__doc__ = f"""
+            Generate random permutations.
+            Arguments: 
+                x: {self.x}
+        """
     def __call__(self, num_individuals: int) -> np.ndarray:
         individuals = []
 

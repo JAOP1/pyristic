@@ -5,7 +5,7 @@ class TestPopulationSampler(unittest.TestCase):
 
     def test_random_uniform_population(self):
         #It should return a matrix 2x2 when the bounds are a uni-dimensional array.
-        sampler = RandomUniformPopulation(2,[0,1])
+        sampler = RandomUniformPopulation(2.0,[0,1])
         result = sampler(2)
         self.assertEqual(type(result).__module__, 'numpy')
         self.assertEqual((2,2), result.shape)
@@ -25,7 +25,7 @@ class TestPopulationSampler(unittest.TestCase):
     def test_random_permutation_population(self):
         #It should return a matrix where every row is a permutation of [0,...,n]
         #when the input is a integer.
-        sampler = RandomPermutationPopulation(3)
+        sampler = RandomPermutationPopulation(3.0)
         result = sampler(2)
         self.assertEqual((2,3), result.shape)
         for row in result:
