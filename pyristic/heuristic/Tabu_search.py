@@ -1,10 +1,13 @@
 import typing
+import logging
 from tqdm import tqdm
 import numpy as np
-import copy 
+import copy
 from pyristic.utils.helpers import *
 
-__all__=['TabuList','TabuSearch']
+__all__ = ["TabuList", "TabuSearch"]
+LOGGER = logging.getLogger()
+
 
 class TabuList:
     """
@@ -16,16 +19,16 @@ class TabuList:
         - timer: integer number (default 2). It indicates
             the time that a item is retained in the tabu list.
     """
-    def __init__(self, timer: int=2):
-        self.tabu_list = [[None,None,-1, 100000000]]
+
+    def __init__(self, timer: int = 2):
+        self.tabu_list = [[None, None, -1, 100000000]]
         self.timer = timer
 
     def __str__(self):
         printable_object = "\n ---- Tabu list: ---- \n"
         printable_object += f"List size: {self.tabu_list} \n"
-        for position, value, iteration, current_timer  in self.tabu_list:
-            printable_object += \
-            f"p: {position} v:{value} Iteration: {iteration} current timer: {current_timer} \n"
+        for position, value, iteration, current_timer in self.tabu_list:
+            printable_object += f"p: {position} v:{value} Iteration: {iteration} current timer: {current_timer} \n"
         return printable_object
 
     def push(self, solution: list) -> None:
@@ -37,7 +40,7 @@ class TabuList:
         """
         assert len(solution) == 3
         solution.append(self.timer)
-        self.tabu_list.insert(0,solution)
+        self.tabu_list.insert(0, solution)
 
     def pop_back(self) -> None:
         """
@@ -48,7 +51,7 @@ class TabuList:
         """
         x_last = self.tabu_list.pop()
         x_current_back = self.get_back()
-        update_time = self.timer - (x_current_back[2]-x_last[2])
+        update_time = self.timer - (x_current_back[2] - x_last[2])
         x_current_back[2] -= update_time
         self.update_back(x_current_back)
 
@@ -79,14 +82,14 @@ class TabuList:
             is the location in the current solution and the second position is
             the value replaced.
         """
-        #X is [p, v], where p is the position changed and v the new value.
+        # X is [p, v], where p is the position changed and v the new value.
         assert len(solution) == 2
         for position, value, *internal_items in self.tabu_list:
             if solution[0] == position and solution[1] == value:
                 return True
         return False
 
-    def reset(self, timer : int) -> None:
+    def reset(self, timer: int) -> None:
         """
         Description:
             Clean up the data structure.
@@ -112,6 +115,7 @@ class TabuList:
         else:
             self.update_back(most_old_candidate)
 
+
 class TabuSearch:
     """
     ------------------------------------------------------
@@ -125,24 +129,30 @@ class TabuSearch:
             informationn during the search (optional argument).
     ------------------------------------------------------
     """
-    def __init__(self,  function: typing.Callable[[np.ndarray], typing.Union[int,float]],\
-                        constraints : list,\
-                        tabu_struct = TabuList()):
 
-        self.tabu_list = tabu_struct #Initialize tabulist
+    def __init__(
+        self,
+        function: typing.Callable[[np.ndarray], typing.Union[int, float]],
+        constraints: list,
+        tabu_struct=TabuList(),
+    ):
+
+        self.tabu_list = tabu_struct  # Initialize tabulist
         self.constraints = constraints
         self.function = function
 
-        #Search information.
+        # Search information.
         self.logger = {}
-        self.logger['best_individual']   = None
-        self.logger['best_f']     = None
-        self.logger['current_iter'] = None
-        self.logger['total_iter']   = None
+        self.logger["best_individual"] = None
+        self.logger["best_f"] = None
+        self.logger["current_iter"] = None
+        self.logger["total_iter"] = None
 
     def __str__(self):
-        printable = ("Tabu search: \n "
-            f"f(X) = {self.logger['best_f']} \n X = {self.logger['best_individual']} \n ")
+        printable = (
+            "Tabu search: \n "
+            f"f(X) = {self.logger['best_f']} \n X = {self.logger['best_individual']} \n "
+        )
         first = True
 
         for constraint in self.constraints:
@@ -152,18 +162,19 @@ class TabuSearch:
                     first = False
                     printable += "Constraints: \n "
 
-                constraint(self.logger['best_individual'])
+                constraint(self.logger["best_individual"])
                 printable += f"{constraint.__doc__} \n"
 
         return printable
 
-    def optimize(self, initial_solution: typing.Union[
-                            np.ndarray,
-                            typing.Callable[[], np.ndarray]
-                        ],
-                iterations: int,
-                memory_time : int,
-                verbose:bool=True, **kwargs)->None:
+    def optimize(
+        self,
+        initial_solution: typing.Union[np.ndarray, typing.Callable[[], np.ndarray]],
+        iterations: int,
+        memory_time: int,
+        verbose: bool = True,
+        **kwargs,
+    ) -> None:
         """
         ------------------------------------------------------
         Description:
@@ -182,55 +193,53 @@ class TabuSearch:
 
         self.tabu_list.reset(memory_time)
 
-        self.logger['best_individual'] = None
-        self.logger['best_f']   = None
+        self.logger["best_individual"] = None
+        self.logger["best_f"] = None
 
-        f_candidate =self.function(best_candidate)
+        f_candidate = self.function(best_candidate)
 
         try:
-            for step_ in tqdm(range(1,iterations+1), disable=not verbose):
+            for step_ in tqdm(range(1, iterations + 1), disable=not verbose):
 
-                neighbors =[neighbor for  neighbor in self.get_neighbors(best_candidate,**kwargs) \
-                                if not self.tabu_list.find(
-                                    self.encode_change(
-                                        neighbor,
-                                        best_candidate,
-                                        **kwargs
-                                    )
-                                )
-                            ]
+                neighbors = [
+                    neighbor
+                    for neighbor in self.get_neighbors(best_candidate, **kwargs)
+                    if not self.tabu_list.find(
+                        self.encode_change(neighbor, best_candidate, **kwargs)
+                    )
+                ]
                 neighbors = np.array(neighbors)
 
-                valid_neighbors =  \
-                neighbors[np.apply_along_axis(self.is_valid,1, neighbors),:]
+                valid_neighbors = neighbors[
+                    np.apply_along_axis(self.is_valid, 1, neighbors), :
+                ]
 
-                #Check if there exists a valid neighbor
+                # Check if there exists a valid neighbor
                 if len(valid_neighbors) == 0:
                     continue
 
-                f_feasible_candidates =  \
-                np.apply_along_axis(self.function , 1, valid_neighbors)
+                f_feasible_candidates = np.apply_along_axis(
+                    self.function, 1, valid_neighbors
+                )
 
                 ind_min = np.argmin(f_feasible_candidates)
 
                 position, value = self.encode_change(
-                            valid_neighbors[ind_min],
-                            best_candidate,
-                            **kwargs
-                        )
+                    valid_neighbors[ind_min], best_candidate, **kwargs
+                )
                 self.tabu_list.push([position, value, step_])
 
-                if f_feasible_candidates[ind_min]< f_candidate:
+                if f_feasible_candidates[ind_min] < f_candidate:
                     best_candidate = copy.deepcopy(valid_neighbors[ind_min])
                     f_candidate = f_feasible_candidates[ind_min]
 
                 self.tabu_list.update()
 
         except KeyboardInterrupt:
-            print("Interrupted, saving best solution found so far.")
+            LOGGER.error("Interrupted, saving best solution found so far.")
 
-        self.logger['best_individual'] = best_candidate
-        self.logger['best_f'] = f_candidate
+        self.logger["best_individual"] = best_candidate
+        self.logger["best_f"] = f_candidate
 
     def is_valid(self, solution: np.ndarray) -> bool:
         """
@@ -244,8 +253,7 @@ class TabuSearch:
                 return False
         return True
 
-    def get_neighbors(self, solution: typing.Union[list,np.ndarray],\
-                            **kwargs)-> list:
+    def get_neighbors(self, solution: typing.Union[list, np.ndarray], **kwargs) -> list:
         """
         ------------------------------------------------------
         Description:
@@ -256,9 +264,12 @@ class TabuSearch:
         """
         raise NotImplementedError
 
-    def encode_change(self, neighbor: typing.Union[list,np.ndarray],\
-                            solution: typing.Union[list,np.ndarray],\
-                            **kwargs) -> list:
+    def encode_change(
+        self,
+        neighbor: typing.Union[list, np.ndarray],
+        solution: typing.Union[list, np.ndarray],
+        **kwargs,
+    ) -> list:
         """
         ------------------------------------------------------
         Description:
@@ -267,4 +278,3 @@ class TabuSearch:
         ------------------------------------------------------
         """
         raise NotImplementedError
-     
