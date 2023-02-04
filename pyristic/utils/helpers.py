@@ -1,6 +1,28 @@
-import numpy as np
+import logging
+import io
 import time
+from tqdm import tqdm
+import numpy as np
 
+class TqdmToLogger(io.StringIO):
+    """
+        Output stream for TQDM which will output to logger module instead of
+        the StdOut.
+    """
+    logger = None
+    level = None
+    buf = ''
+    def __init__(self,logger,level=None):
+        super(TqdmToLogger, self).__init__()
+        self.logger = logger
+        self.level = level or logging.INFO
+    def write(self,buf):
+        self.buf = buf.strip('\r\n\t ')
+    def flush(self):
+        self.logger.log(self.level, self.buf)
+tqdm_logger = TqdmToLogger(
+    logging.getLogger()
+)
 
 def get_stats(
     optimizer,
@@ -31,7 +53,7 @@ def get_stats(
     ------------------------------------------------------
     """
     data_by_execution = {"execution_time": [], "individual_x": [], "individual_f": []}
-    for i in range(num_iterations):
+    for i in tqdm(range(num_iterations), file=tqdm_logger, miniters=4,):
         start_time = time.time()
         optimizer.optimize(*optimizer_args, **optimizer_additional_args)
         data_by_execution["execution_time"].append(time.time() - start_time)
