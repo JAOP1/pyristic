@@ -53,7 +53,7 @@ def get_stats(
     ------------------------------------------------------
     """
     data_by_execution = {"execution_time": [], "individual_x": [], "individual_f": []}
-    for i in tqdm(range(num_iterations), file=tqdm_logger, miniters=4,):
+    for _ in tqdm(range(num_iterations), file=tqdm_logger, miniters=4,):
         start_time = time.time()
         optimizer.optimize(*optimizer_args, **optimizer_additional_args)
         data_by_execution["execution_time"].append(time.time() - start_time)

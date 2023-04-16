@@ -28,7 +28,10 @@ class TabuList:
         printable_object = "\n ---- Tabu list: ---- \n"
         printable_object += f"List size: {self.tabu_list} \n"
         for position, value, iteration, current_timer in self.tabu_list:
-            printable_object += f"p: {position} v:{value} Iteration: {iteration} current timer: {current_timer} \n"
+            printable_object += (
+                f"p: {position} v:{value} Iteration: "
+                f"{iteration} current timer: {current_timer} \n"
+            )
         return printable_object
 
     def push(self, solution: list) -> None:
@@ -84,7 +87,7 @@ class TabuList:
         """
         # X is [p, v], where p is the position changed and v the new value.
         assert len(solution) == 2
-        for position, value, *internal_items in self.tabu_list:
+        for position, value, *_ in self.tabu_list:
             if solution[0] == position and solution[1] == value:
                 return True
         return False
@@ -136,7 +139,6 @@ class TabuSearch:
         constraints: list,
         tabu_struct=TabuList(),
     ):
-
         self.tabu_list = tabu_struct  # Initialize tabulist
         self.constraints = constraints
         self.function = function
@@ -187,59 +189,50 @@ class TabuSearch:
         ------------------------------------------------------
         """
         try:
-            best_candidate = initial_solution()
+            x_candidate = initial_solution()
         except TypeError:
-            best_candidate = copy.deepcopy(initial_solution)
+            x_candidate = copy.deepcopy(initial_solution)
 
+        f_candidate = self.function(x_candidate)
         self.tabu_list.reset(memory_time)
-
-        self.logger["best_individual"] = None
-        self.logger["best_f"] = None
-
-        f_candidate = self.function(best_candidate)
-
+        self.logger["best_individual"] = np.copy(x_candidate)
+        self.logger["best_f"] = f_candidate
         try:
-            for step_ in tqdm(range(1, iterations + 1), disable=not verbose):
+            for step in tqdm(range(1, iterations + 1), disable=not verbose):
 
                 neighbors = [
                     neighbor
-                    for neighbor in self.get_neighbors(best_candidate, **kwargs)
+                    for neighbor in self.get_neighbors(x_candidate, **kwargs)
                     if not self.tabu_list.find(
-                        self.encode_change(neighbor, best_candidate, **kwargs)
+                        self.encode_change(neighbor, x_candidate, **kwargs)
                     )
                 ]
                 neighbors = np.array(neighbors)
+                try:
+                    neighbors = neighbors[
+                        np.apply_along_axis(self.is_valid, 1, neighbors), :
+                    ]
+                    f_candidates = np.apply_along_axis(
+                        self.function, 1, neighbors
+                    )
 
-                valid_neighbors = neighbors[
-                    np.apply_along_axis(self.is_valid, 1, neighbors), :
-                ]
+                    ind_min = np.argmin(f_candidates)
 
-                # Check if there exists a valid neighbor
-                if len(valid_neighbors) == 0:
-                    continue
-
-                f_feasible_candidates = np.apply_along_axis(
-                    self.function, 1, valid_neighbors
-                )
-
-                ind_min = np.argmin(f_feasible_candidates)
-
-                position, value = self.encode_change(
-                    valid_neighbors[ind_min], best_candidate, **kwargs
-                )
-                self.tabu_list.push([position, value, step_])
-
-                if f_feasible_candidates[ind_min] < f_candidate:
-                    best_candidate = copy.deepcopy(valid_neighbors[ind_min])
-                    f_candidate = f_feasible_candidates[ind_min]
-
+                    position, value = self.encode_change(
+                        neighbors[ind_min], x_candidate, **kwargs
+                    )
+                    self.tabu_list.push([position, value, step])
+                    x_candidate = neighbors[ind_min]
+                    f_candidate = f_candidates
+                    if f_candidates[ind_min] < self.logger["best_f"]:
+                        self.logger["best_individual"] = copy.deepcopy(neighbors[ind_min])
+                        self.logger["best_f"] = f_candidates[ind_min]
+                except ValueError:
+                    pass
                 self.tabu_list.update()
 
         except KeyboardInterrupt:
             LOGGER.error("Interrupted, saving best solution found so far.")
-
-        self.logger["best_individual"] = best_candidate
-        self.logger["best_f"] = f_candidate
 
     def is_valid(self, solution: np.ndarray) -> bool:
         """

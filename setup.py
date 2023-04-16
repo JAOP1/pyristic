@@ -7,7 +7,7 @@ with open("README.md", encoding="utf-8") as f:
 
 setup(
     name="pyristic",
-    version="v1.4.0",
+    version="v1.4.1",
     license="MIT",
     description="Set of metaheuristic for solve optimization problems.",
     author="Jesús Armando Ortíz Peñafiel",
