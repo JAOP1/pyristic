@@ -1,14 +1,22 @@
+"""
+Module: Genetic algorithm.
+
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import typing
 import logging
 from tqdm import tqdm
 import numpy as np
+from pyristic.heuristic.mixins import PrintableMixin, ValidateSolutionMixin
 from pyristic.utils.operators import population_sample
 
 __all__ = ["Genetic"]
 LOGGER = logging.getLogger()
 
 
-class Genetic:
+class Genetic(PrintableMixin, ValidateSolutionMixin):
     """
     ------------------------------------------------------
     Description:
@@ -53,28 +61,6 @@ class Genetic:
         self.logger["total_iter"] = None
         self.logger["parent_population_size"] = None
 
-    def __str__(self):
-        printable = (
-            "Genetic search: \n F_a(X) = "
-            f"{self.logger['best_f']} \n X = {self.logger['best_individual']} \n "
-        )
-        first = True
-
-        for constraint in self.constraints:
-            if constraint.__doc__ is not None:
-
-                if first:
-                    first = False
-                    printable += "Constraints: \n "
-
-                constraint(self.logger["best_individual"])
-                printable += f"{constraint.__doc__} \n"
-
-        return printable
-
-    # -----------------------------------------------------
-    # Public functions.
-    # -----------------------------------------------------
     def optimize(
         self,
         generations: int,
@@ -82,7 +68,7 @@ class Genetic:
         cross_percentage: float = 1.0,
         mutation_percentage: float = 1.0,
         verbose: bool = True,
-        **kwargs,
+        **_,
     ) -> None:
         """
         ------------------------------------------------------
@@ -107,15 +93,15 @@ class Genetic:
         self.logger["best_individual"] = None
 
         # Initial population.
-        self.logger["parent_population_x"] = self.initialize_population(**kwargs)
+        self.logger["parent_population_x"] = self.initialize_population(**_)
         self.logger["parent_population_f"] = np.apply_along_axis(
             self.aptitude_function, 1, self.logger["parent_population_x"]
         )
 
         try:
-            for g in tqdm(range(generations), disable=not verbose):
+            for _ in tqdm(range(generations), disable=not verbose):
                 # Parent selection.
-                parent_ind = self.parent_selection(**kwargs)
+                parent_ind = self.parent_selection(**_)
                 first_parent_indices, second_parent_indices = self.__get_pairs(
                     parent_ind
                 )
@@ -127,7 +113,7 @@ class Genetic:
                 self.__set_invalid_individuals()
 
                 # Survivor selection.
-                next_generation = self.survivor_selection(**kwargs)
+                next_generation = self.survivor_selection(**_)
                 self.logger["parent_population_x"] = next_generation["population"]
                 self.logger["parent_population_f"] = next_generation[
                     "parent_population_f"
@@ -142,7 +128,7 @@ class Genetic:
         self.logger["best_individual"] = self.logger["parent_population_x"][ind]
         self.logger["best_f"] = self.logger["parent_population_f"][ind]
 
-    def initialize_population(self, **kwargs) -> np.ndarray:
+    def initialize_population(self, **_) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -177,7 +163,7 @@ class Genetic:
             self.logger["offspring_population_x"], ind
         )
 
-    def mutation_operator(self, indices, **kwargs):
+    def mutation_operator(self, indices, **_):
         """
         ------------------------------------------------------
         Description:
@@ -193,9 +179,7 @@ class Genetic:
             self.logger["offspring_population_x"][indices]
         )
 
-    def crossover_operator(
-        self, parent_ind1: np.ndarray, parent_ind2: np.ndarray, **kwargs
-    ):
+    def crossover_operator(self, parent_ind1: np.ndarray, parent_ind2: np.ndarray, **_):
         """
         ------------------------------------------------------
         Description:
@@ -208,7 +192,7 @@ class Genetic:
             self.logger["parent_population_x"], parent_ind1, parent_ind2
         )
 
-    def survivor_selection(self, **kwargs) -> dict:
+    def survivor_selection(self, **_) -> dict:
         """
         ------------------------------------------------------
         Description:
@@ -230,7 +214,7 @@ class Genetic:
             individuals,
         )
 
-    def parent_selection(self, **kwargs) -> np.ndarray:
+    def parent_selection(self, **_) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -242,21 +226,6 @@ class Genetic:
         return self.config_methods["parent_selector"](
             self.logger["parent_population_f"]
         )
-
-    # -----------------------------------------------------
-    # Private functions.
-    # -----------------------------------------------------
-    def is_invalid(self, individual: np.ndarray) -> bool:
-        """
-        ------------------------------------------------------
-        Description:
-            Check if the current solution is invalid.
-        ------------------------------------------------------
-        """
-        for constraint in self.constraints:
-            if not constraint(individual):
-                return True
-        return False
 
     def __set_invalid_individuals(self):
         # Fixing solutions and getting aptitude.
@@ -285,7 +254,6 @@ class Genetic:
     def __cross_individuals(
         self, first_parents: np.ndarray, second_parents: np.ndarray
     ) -> None:
-
         offspring = None
         for parent_a, parent_b in zip(first_parents, second_parents):
             individuals = self.logger["parent_population_x"][[parent_a, parent_b]]
@@ -302,7 +270,7 @@ class Genetic:
         self.logger["offspring_population_x"] = offspring
 
     def __mutate_individuals(self):
-        individuals, variables = self.logger["offspring_population_x"].shape
+        individuals, _ = self.logger["offspring_population_x"].shape
         individuals_to_mutate = [
             np.random.rand() <= self.logger["mutation_percentage"]
             for i in range(individuals)

@@ -4,11 +4,11 @@ Librería de *Python* con metaheurísticas para resolver problemas de optimizaci
 🗀 Pyristic
 │   
 └─── 🗀 heuristic
-│   │   EvolutionStrategy_search 
-│   │   EvolutiveProgramming_search
-│   │   GeneticAlgorithm_search
-│   │   SimulatedAnnealing_search
-│   │   Tabu_search
+│   │   evolution_strategy_search 
+│   │   evolutive_programming_search
+│   │   genetic_search
+│   │   simulated_annealing_search
+│   │   tabu_search
 │  
 └─── 🗀 utils
      │   helpers

@@ -1,7 +1,15 @@
+"""
+Module: Evolutionary programming algorithm.
+
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import typing
 import logging
 from tqdm import tqdm
 import numpy as np
+from pyristic.heuristic.mixins import PrintableMixin, ValidateSolutionMixin
 from pyristic.utils.helpers import ContinuosFixer
 from pyristic.utils.operators import mutation, selection, population_sample
 
@@ -9,7 +17,7 @@ __all__ = ["EvolutionaryProgramming"]
 LOGGER = logging.getLogger()
 
 
-class EvolutionaryProgramming:
+class EvolutionaryProgramming(PrintableMixin, ValidateSolutionMixin):
     """
     ------------------------------------------------------
     Description:
@@ -68,26 +76,8 @@ class EvolutionaryProgramming:
         self.logger["offspring_population_sigma"] = None
         self.logger["offspring_population_f"] = None
 
-    def __str__(self):
-        printable = (
-            "Evolutive Programming search: \n "
-            f"F_a(X) = {self.logger['best_f']} \n X = {self.logger['best_individual']} \n "
-        )
-        first = True
-
-        for constraint in self.constraints:
-            if constraint.__doc__ is not None:
-                if first:
-                    first = False
-                    printable += "Constraints: \n "
-
-                constraint(self.logger["best_individual"])
-                printable += f"{constraint.__doc__} \n"
-
-        return printable
-
     def optimize(
-        self, generations: int, size_population: int, verbose=True, **kwargs
+        self, generations: int, size_population: int, verbose=True, **_
     ) -> None:
         """
         ------------------------------------------------------
@@ -109,25 +99,23 @@ class EvolutionaryProgramming:
 
         # Initial population.
 
-        self.logger["parent_population_x"] = self.initialize_population(**kwargs)
-        self.logger["parent_population_sigma"] = self.initialize_step_weights(**kwargs)
+        self.logger["parent_population_x"] = self.initialize_population(**_)
+        self.logger["parent_population_sigma"] = self.initialize_step_weights(**_)
         self.logger["parent_population_f"] = np.apply_along_axis(
             self.aptitude_function, 1, self.logger["parent_population_x"]
         )
 
         try:
-            for generation in tqdm(range(generations), disable=not verbose):
+            for _ in tqdm(range(generations), disable=not verbose):
                 # Mutation.
-                self.logger["offspring_population_sigma"] = self.adaptive_mutation(
-                    **kwargs
-                )
+                self.logger["offspring_population_sigma"] = self.adaptive_mutation(**_)
 
-                self.logger["offspring_population_x"] = self.mutation_operator(**kwargs)
+                self.logger["offspring_population_x"] = self.mutation_operator(**_)
 
                 # Fixing solutions and getting aptitude.
                 f_offspring = []
                 for ind in range(len(self.logger["offspring_population_x"])):
-                    if self.__is_invalid(self.logger["offspring_population_x"][ind]):
+                    if self.is_invalid(self.logger["offspring_population_x"][ind]):
                         self.logger["offspring_population_x"][ind] = self.fixer(ind)
                     f_offspring.append(
                         self.aptitude_function(
@@ -137,7 +125,7 @@ class EvolutionaryProgramming:
                 self.logger["offspring_population_f"] = np.array(f_offspring)
 
                 # Survivor selection.
-                next_generation = self.survivor_selection(**kwargs)
+                next_generation = self.survivor_selection(**_)
                 self.logger["parent_population_x"] = next_generation[
                     "parent_population_x"
                 ]
@@ -157,7 +145,7 @@ class EvolutionaryProgramming:
         self.logger["best_individual"] = self.logger["parent_population_x"][ind]
         self.logger["best_f"] = self.logger["parent_population_f"][ind]
 
-    def mutation_operator(self, **kwargs) -> None:
+    def mutation_operator(self, **_) -> None:
         """
         ------------------------------------------------------
         Description:
@@ -170,7 +158,7 @@ class EvolutionaryProgramming:
             self.logger["parent_population_x"], self.logger["parent_population_sigma"]
         )
 
-    def adaptive_mutation(self, **kwargs) -> None:
+    def adaptive_mutation(self, **_) -> None:
         """
         ------------------------------------------------------
         Description:
@@ -181,7 +169,7 @@ class EvolutionaryProgramming:
             self.logger["parent_population_sigma"]
         )
 
-    def survivor_selection(self, **kwargs) -> dict:
+    def survivor_selection(self, **_) -> dict:
         """
         ------------------------------------------------------
         Description:
@@ -204,7 +192,7 @@ class EvolutionaryProgramming:
             individuals,
         )
 
-    def initialize_step_weights(self, **kwargs) -> np.ndarray:
+    def initialize_step_weights(self, **_) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -216,7 +204,7 @@ class EvolutionaryProgramming:
         )
         return np.maximum(steps, 0.00001)
 
-    def initialize_population(self, **kwargs) -> np.ndarray:
+    def initialize_population(self, **_) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -243,15 +231,3 @@ class EvolutionaryProgramming:
         return self.config_methods["setter_invalid_solution"](
             self.logger["offspring_population_x"], ind
         )
-
-    def __is_invalid(self, individual: np.ndarray) -> bool:
-        """
-        ------------------------------------------------------
-        Description:
-            This function checks if the current solution is unfeasible
-        ------------------------------------------------------
-        """
-        for constraint in self.constraints:
-            if not constraint(individual):
-                return True
-        return False

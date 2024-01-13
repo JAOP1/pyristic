@@ -66,11 +66,5 @@ nav:
   - Utilidades:
     - Funciones auxiliares y prueba: helpers.md
     - operadores para algoritmos de cómputo evolutivo: operadores.md
-  - Ejemplos:
-    - Búsqueda Tabú: TabuEjemplo.ipynb
-    - Recocido Simulado: RecocidoEjemplo.ipynb
-    - Programación evolutiva: PEEjemplo.ipynb
-    - Estrategias evolutivas: EEEjemplo.ipynb
-    - Algoritmos genéticos: AGEjemplo.ipynb
   - PyristicLab: pyristicLab.md
     

@@ -1,3 +1,9 @@
+"""
+Module: Evolutionary configuration helpers.
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import typing
 import numpy as np
 
@@ -83,7 +89,10 @@ class OptimizerConfig:
         Description:
             attach the printable information of crossover, mutation, survivor selection.
         """
-        printable = "--------------------------------\n\tConfiguration\n--------------------------------\n"
+        printable = (
+            "--------------------------------\n\t"
+            "Configuration\n--------------------------------\n"
+        )
         for key, func in self.methods.items():
             printable += f"{key} - {func.__doc__}\n"
         return printable
@@ -99,9 +108,6 @@ class GeneticConfig(OptimizerConfig):
     Arguments:
         - None.
     """
-
-    def __init__(self):
-        super().__init__()
 
     def parent_selection(self, parent_function: typing.Callable):
         """
@@ -124,9 +130,6 @@ class EvolutionStrategyConfig(OptimizerConfig):
     Arguments:
         - None.
     """
-
-    def __init__(self):
-        super().__init__()
 
     def adaptive_crossover(self, adaptive_crossover_function: typing.Callable):
         """
@@ -161,9 +164,6 @@ class EvolutionaryProgrammingConfig(OptimizerConfig):
     Arguments:
         - None.
     """
-
-    def __init__(self):
-        super().__init__()
 
     def adaptive_mutation(self, adaptive_mutation_function: typing.Callable):
         """

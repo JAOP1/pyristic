@@ -1,9 +1,16 @@
+"""
+Module: Tabu search algorithm.
+
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import typing
 import logging
+import copy
 from tqdm import tqdm
 import numpy as np
-import copy
-from pyristic.utils.helpers import *
+from pyristic.heuristic.mixins import PrintableMixin
 
 __all__ = ["TabuList", "TabuSearch"]
 LOGGER = logging.getLogger()
@@ -119,7 +126,7 @@ class TabuList:
             self.update_back(most_old_candidate)
 
 
-class TabuSearch:
+class TabuSearch(PrintableMixin):
     """
     ------------------------------------------------------
     Description:
@@ -150,32 +157,13 @@ class TabuSearch:
         self.logger["current_iter"] = None
         self.logger["total_iter"] = None
 
-    def __str__(self):
-        printable = (
-            "Tabu search: \n "
-            f"f(X) = {self.logger['best_f']} \n X = {self.logger['best_individual']} \n "
-        )
-        first = True
-
-        for constraint in self.constraints:
-            if constraint.__doc__ is not None:
-
-                if first:
-                    first = False
-                    printable += "Constraints: \n "
-
-                constraint(self.logger["best_individual"])
-                printable += f"{constraint.__doc__} \n"
-
-        return printable
-
     def optimize(
         self,
         initial_solution: typing.Union[np.ndarray, typing.Callable[[], np.ndarray]],
         iterations: int,
         memory_time: int,
         verbose: bool = True,
-        **kwargs,
+        **_,
     ) -> None:
         """
         ------------------------------------------------------
@@ -199,12 +187,11 @@ class TabuSearch:
         self.logger["best_f"] = f_candidate
         try:
             for step in tqdm(range(1, iterations + 1), disable=not verbose):
-
                 neighbors = [
                     neighbor
-                    for neighbor in self.get_neighbors(x_candidate, **kwargs)
+                    for neighbor in self.get_neighbors(x_candidate, **_)
                     if not self.tabu_list.find(
-                        self.encode_change(neighbor, x_candidate, **kwargs)
+                        self.encode_change(neighbor, x_candidate, **_)
                     )
                 ]
                 neighbors = np.array(neighbors)
@@ -212,20 +199,20 @@ class TabuSearch:
                     neighbors = neighbors[
                         np.apply_along_axis(self.is_valid, 1, neighbors), :
                     ]
-                    f_candidates = np.apply_along_axis(
-                        self.function, 1, neighbors
-                    )
+                    f_candidates = np.apply_along_axis(self.function, 1, neighbors)
 
                     ind_min = np.argmin(f_candidates)
 
                     position, value = self.encode_change(
-                        neighbors[ind_min], x_candidate, **kwargs
+                        neighbors[ind_min], x_candidate, **_
                     )
                     self.tabu_list.push([position, value, step])
                     x_candidate = neighbors[ind_min]
                     f_candidate = f_candidates
                     if f_candidates[ind_min] < self.logger["best_f"]:
-                        self.logger["best_individual"] = copy.deepcopy(neighbors[ind_min])
+                        self.logger["best_individual"] = copy.deepcopy(
+                            neighbors[ind_min]
+                        )
                         self.logger["best_f"] = f_candidates[ind_min]
                 except ValueError:
                     pass
@@ -246,7 +233,7 @@ class TabuSearch:
                 return False
         return True
 
-    def get_neighbors(self, solution: typing.Union[list, np.ndarray], **kwargs) -> list:
+    def get_neighbors(self, solution: typing.Union[list, np.ndarray], **_) -> list:
         """
         ------------------------------------------------------
         Description:
@@ -261,7 +248,7 @@ class TabuSearch:
         self,
         neighbor: typing.Union[list, np.ndarray],
         solution: typing.Union[list, np.ndarray],
-        **kwargs,
+        **_,
     ) -> list:
         """
         ------------------------------------------------------

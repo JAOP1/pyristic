@@ -13,7 +13,7 @@ Para iniciar es necesario instalar pyristic. Recomendamos crear un entorno de co
 Para comprobar que todo está funcionando correctamente, crea un script de python `pyristicTest.py` con el siguiente código:
 
 ``` python
-from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
+from pyristic.heuristic import EvolutionStrategy
 from pyristic.utils.test_function import beale_
 """
 Declaración del algoritmo: 
@@ -37,7 +37,7 @@ BealeOptimizer.optimize(300,80,160,verbose=True)
 print(BealeOptimizer)
 ```
 
-Si todo funciona correctamente es momento de conocer como está estructurada la librería. Actualmente, se encuentran todos los algoritmos en *heuristic* y todas las utilidades en *utils* (funciones prueba, clases para almacenar las configuraciones y los operadores para las metaheurísticas de cómputo evolutivo).
+Si todo funciona correctamente es momento de conocer como está estructurada la librería. Actualmente, se encuentran todos los algoritmos en *heuristic* y todos los métodos complementarios están en *utils* (funciones prueba, clases para almacenar las configuraciones y los operadores para las metaheurísticas de cómputo evolutivo).
 
 ```
 🗀 Pyristic
@@ -58,3 +58,7 @@ Si todo funciona correctamente es momento de conocer como está estructurada la 
      │   │   mutation
      │   │   selection 
 ```
+
+!!! note "Nota"
+    Te sugerimos revisar los ejemplos preparados para ti, donde te mostrarán cómo implementar las distintas metaheurísticas para resolver problemas de optimización combinatorial y continua. [¡Click aquí!](https://github.com/JAOP1/pyristic-notebooks)
+ 

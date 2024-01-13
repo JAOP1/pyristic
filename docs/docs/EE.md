@@ -3,7 +3,7 @@
 La búsqueda se importar:
 
 ```python
-from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
+from pyristic.heuristic import EvolutionStrategy
 ```
 
 !!! info "EvolutionStrategy (clase de la metaheurística)"
@@ -55,7 +55,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
             - `offspring_size.` Tamaño de la población creada a partir de los operadores de cruza y mutación.
             - `eps_sigma.` Valor mínimo que pueden tener los tamaños de paso. Por defecto, está en 0.001.
             - `verbose.`  Indica si se imprime en qué iteración se encuentra nuestra búsqueda. Por defecto, está en True.
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno: 
             
@@ -75,7 +75,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
 
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -86,7 +86,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
             Argumentos:
             
             - `eps_sigma.` Valor mínimo que pueden tomar sigma (tamaños de paso).
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -98,7 +98,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
             
             - `parent_ind1.` Índices de los individuos que son seleccionados para actuar como padre 1.
             - `parent_ind2.` Índices de los individuos que son seleccionados para actuar como padre 2.
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -119,7 +119,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
             
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -131,7 +131,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
             
             - `parent_ind1.` Índices de los individuos que son seleccionados para actuar como padre 1.
             - `parent_ind2.` Índices de los individuos que son seleccionados para actuar como padre 2.
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -157,7 +157,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
             
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -167,7 +167,7 @@ from pyristic.heuristic.EvolutionStrategy_search import EvolutionStrategy
             
             Argumentos: 
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             

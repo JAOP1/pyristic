@@ -106,20 +106,20 @@ class TestHimmelblauSuite(unittest.TestCase):
         # It should return true when the input is between the boundaries
         cases = [[-5, 1], [5, 1], [1, -5], [1, 5]]
         for case in cases:
-            self.assertTrue(constraint1_Himmelblau(case))
+            self.assertTrue(constraint1_himmelblau(case))
 
         # It should return false when the input has a value out of the bounds.
         cases = [[-6, 1], [6, 1], [1, -6], [1, 6]]
         for case in cases:
-            self.assertFalse(constraint1_Himmelblau(case))
+            self.assertFalse(constraint1_himmelblau(case))
 
         # It should return the doc string when execute the beale constraint.
-        constraint1_Himmelblau([-3, -3])
+        constraint1_himmelblau([-3, -3])
         self.assertEqual(
-            constraint1_Himmelblau.__doc__,
+            constraint1_himmelblau.__doc__,
             "x1: -5 <= -3.00 <= 5 \n x2: -5 <= -3.00 <= 5 \n ",
         )
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main(verbosity=2)

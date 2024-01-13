@@ -1,3 +1,9 @@
+"""
+Module: Generate population methods for evolutionary algorithms.
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import typing
 import logging
 import numpy as np
@@ -57,23 +63,23 @@ class RandomPermutationPopulation:
                   Array with two array, every array represent the bounds by variable.
     """
 
-    def __init__(self, x: int) -> None:
-        self.x = x
-        if isinstance(x, float):
+    def __init__(self, to_permute: int) -> None:
+        self.to_permute = to_permute
+        if isinstance(to_permute, float):
             LOGGER.warning(
                 "WARNING: The x argument is floating number, updating to integer."
             )
-            self.x = int(x)
+            self.to_permute = int(to_permute)
         self.__doc__ = f"""
             Generate random permutations.
             Arguments: 
-                x: {self.x}
+                x: {self.to_permute}
         """
 
     def __call__(self, num_individuals: int) -> np.ndarray:
         individuals = []
 
         for _ in range(num_individuals):
-            individuals += [np.random.permutation(self.x)]
+            individuals += [np.random.permutation(self.to_permute)]
 
         return np.array(individuals)

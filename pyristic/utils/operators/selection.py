@@ -1,3 +1,9 @@
+"""
+Module: Selection methods for evolutionary algorithms.
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 from copy import deepcopy
 import numpy as np
 
@@ -27,20 +33,6 @@ def get_expected_values(aptitude: np.array) -> np.array:
     average_aptitude = np.sum(aptitude)
     number_individuals = len(aptitude)
     return aptitude / average_aptitude * number_individuals
-
-
-"""
----------------------------------------------------------------------------------
-                            |   Genetic Algorithms.   |
----------------------------------------------------------------------------------
-"""
-
-
-"""
----------------------------------------------------------------------------------
-                                Parent selection.
----------------------------------------------------------------------------------
-"""
 
 
 def proporcional_sampling(expected_vals: np.ndarray) -> np.ndarray:
@@ -163,7 +155,7 @@ def tournament_sampling(
 
     sample = []
     ind = -1
-    for tournament in range(chunks):
+    for _ in range(chunks):
         groups = np.array_split(np.random.permutation(indices), chunks_)
         for group in groups:
             if prob >= np.random.rand():
@@ -173,13 +165,6 @@ def tournament_sampling(
             sample.append(group[ind])
 
     return np.array(sample)
-
-
-"""
----------------------------------------------------------------------------------
-                                Survivor selection.
----------------------------------------------------------------------------------
-"""
 
 
 def get_candidates_by_aptitude(value: np.ndarray, number_items: int) -> np.ndarray:
@@ -194,19 +179,6 @@ def get_candidates_by_aptitude(value: np.ndarray, number_items: int) -> np.ndarr
     """
     pseudo_sorted_array = np.argpartition(value, -1 * number_items)
     return pseudo_sorted_array[-1 * number_items :]
-
-
-"""
----------------------------------------------------------------------------------
-                                Classes
----------------------------------------------------------------------------------
-"""
-
-"""
-----------------------------
-    Parent Selection.
-----------------------------
-"""
 
 
 class ProporcionalSampler:
@@ -285,18 +257,14 @@ class TournamentSampler:
     def __init__(self, chunks_: int = 2, prob_: float = 1.0):
         self.chunks = chunks_
         self.prob = prob_
-        self.__doc__ = f"Tournament sampling\n\t Arguments:\n\t\t-Chunks: {self.chunks}\n\t\t-prob: {self.prob}"
+        self.__doc__ = (
+            f"Tournament sampling\n\t Arguments:\n\t\t-Chunks: {self.chunks}"
+            f"\n\t\t-prob: {self.prob}"
+        )
 
     def __call__(self, population_f: np.ndarray) -> np.ndarray:
         vals = np.copy(population_f)
         return tournament_sampling(vals, self.chunks, self.prob)
-
-
-"""
-----------------------------
-    Survivor Selection.
-----------------------------
-"""
 
 
 class MergeSelector:

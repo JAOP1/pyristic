@@ -42,5 +42,5 @@ class TestPopulationSampler(unittest.TestCase):
             self.assertTrue(list(row) == [3, 4, 5])
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main(verbosity=3)

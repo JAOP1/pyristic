@@ -2,7 +2,7 @@
 
 La búsqueda tabú la podemos importar:
 ```python
-from pyristic.heuristic.Tabu_search import TabuSearch
+from pyristic.heuristic import TabuSearch
 ```
 
 
@@ -39,7 +39,7 @@ from pyristic.heuristic.Tabu_search import TabuSearch
             - `Init.` Solución inicial, se admite un arreglo de *numpy* o una función que retorne un arreglo de *numpy*.
             - `iterations.` Número de iteraciones.
             - `memory_time.` Tiempo que permanecerá una solución en nuestra estructura llamada `TabuList`.
-            - `**kwargs.` Parámetros externos a la búsqueda.
+            - `**_.` Parámetros externos a la búsqueda.
                 
             Valor de retorno:
             - Ninguno
@@ -50,7 +50,7 @@ from pyristic.heuristic.Tabu_search import TabuSearch
                 Argumentos:
 
                 - `x.` Arreglo de *numpy* representando a la solución actual.
-                - `**kwargs` Parámetros externos a la búsqueda.
+                - `**_` Parámetros externos a la búsqueda.
                     
                 Valor de retorno:
 
@@ -63,7 +63,7 @@ from pyristic.heuristic.Tabu_search import TabuSearch
 
                 - `neighbor.` Arreglo de *numpy* representando una variación de nuestra solución actual $x$.
                 - `x.` Arreglo de *numpy* representando nuestra solución actual.
-                - `**kwargs.` Parámetros externos a la búsqueda.
+                - `**_.` Parámetros externos a la búsqueda.
                 
                 Valor de retorno:
                     
@@ -158,10 +158,10 @@ Para emplear la búsqueda tabú se debe crear una clase nueva que herede todos l
         def __init__(self, f_ : function_type , constraints_: list, TabuStruct_):
             super().__init__(f_, constraints_, TabuStruct)
 
-        def get_neighbors(self, x : np.ndarray,**kwargs) -> list:
+        def get_neighbors(self, x : np.ndarray,**_) -> list:
             # Código para su búsqueda.
 
-        def encode_change(self, neighbor : (list,np.ndarray), x : (list,np.ndarray),**kwargs) -> list:
+        def encode_change(self, neighbor : (list,np.ndarray), x : (list,np.ndarray),**_) -> list:
             # Código para su búsqueda
 
 ```

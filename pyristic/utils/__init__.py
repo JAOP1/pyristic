@@ -1,3 +1,9 @@
+"""
+Module: pyristic utils module.
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 from .helpers import get_stats
 from .evolutionary_config import (
     GeneticConfig,

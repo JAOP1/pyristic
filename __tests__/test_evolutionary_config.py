@@ -1,6 +1,5 @@
 import unittest
 from utils.evolutionary_config import *
-import numpy as np
 
 
 class MockOperator:
@@ -10,9 +9,6 @@ class MockOperator:
 
     def __init__(self, operator_type):
         self.__doc__ = f"mock {operator_type} operator"
-
-    def __call__(self, individual: np.ndarray) -> np.ndarray:
-        return individual
 
 
 class TestOptimizerConfig(unittest.TestCase):
@@ -171,5 +167,5 @@ class TestEvolutionaryProgrammingConfig(unittest.TestCase):
             self.assertEqual(str(config), header_string)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main(verbosity=3)

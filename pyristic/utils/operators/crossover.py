@@ -1,3 +1,9 @@
+"""
+Module: Crossover methods for evolutionary algorithms.
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import numpy as np
 
 __all__ = [
@@ -22,6 +28,7 @@ __all__ = [
 ---------------------------------------------------------------------------------
 """
 
+
 # Crossover operators.
 def discrete_crossover(
     population: np.ndarray, parent_ind1: np.ndarray, parent_ind2: np.ndarray
@@ -40,7 +47,7 @@ def discrete_crossover(
     ------------------------------------------------------
     """
 
-    rows, cols = population.shape
+    _, cols = population.shape
     rows_new = len(parent_ind1)
     components_selected_fist_parent = np.zeros((rows_new, cols))
     components_selected_second_parent = np.zeros((rows_new, cols))
@@ -76,13 +83,6 @@ def intermediate_crossover(
     ------------------------------------------------------
     """
     return alpha * population[parent_ind1] + (1 - alpha) * population[parent_ind2]
-
-
-"""
----------------------------------------------------------------------------------
-                                Genetic Algorithm.
----------------------------------------------------------------------------------
-"""
 
 
 def n_point_crossover(
@@ -211,7 +211,6 @@ def permutation_order_crossover(
     new_population = np.ones((num_individuals * 2, decision_variables))
 
     def create_child(parent1: np.ndarray, parent2: np.ndarray) -> np.ndarray:
-
         interval = np.random.choice(decision_variables + 1, 2, replace=False)
         interval.sort()
 
@@ -241,7 +240,7 @@ def simulated_binary_crossover(
     population: np.ndarray,
     parent_ind1: np.ndarray,
     parent_ind2: np.ndarray,
-    nc: int = 1,
+    denominator: int = 1,
 ) -> np.ndarray:
     """
     ------------------------------------------------------
@@ -252,29 +251,32 @@ def simulated_binary_crossover(
         population and n is the problem variables. Every row is an element.
         -parent_ind1: the chosen parents, where every position is the index in X.
         -parent_ind2: the chosen parents, where every position is the index in X.
-        -nc: integer number. Default is 1.
+        -denominator: integer number. Default is 1.
         Note:
             parent_ind1 and parent_ind2 should be m elements.
     Return:
         Matriz with size 2m x n.
     ------------------------------------------------------
     """
-    nc = int(nc)
+    denominator = int(denominator)
     random_float_number = np.random.rand()
-    B = -1
-    exponent = 1 / (nc + 1)
+    exponent = 1 / (denominator + 1)
     if random_float_number <= 0.5:
-        B = np.power((2 * random_float_number), exponent)
+        lambda_ = np.power((2 * random_float_number), exponent)
     else:
-        B = np.power(1 / (2 * (1 - random_float_number)), exponent)
+        lambda_ = np.power(1 / (2 * (1 - random_float_number)), exponent)
 
     first_parent_population = population[parent_ind1]
     second_parent_population = population[parent_ind2]
 
-    A = first_parent_population + second_parent_population
-    B = np.absolute(second_parent_population - first_parent_population) * B
+    sum_parents = first_parent_population + second_parent_population
+    diff_parents = (
+        np.absolute(second_parent_population - first_parent_population) * lambda_
+    )
 
-    return np.concatenate((0.5 * (A - B), 0.5 * (A + B)), axis=0)
+    return np.concatenate(
+        (0.5 * (sum_parents - diff_parents), 0.5 * (sum_parents + diff_parents)), axis=0
+    )
 
 
 class IntermediateCrossover:
@@ -362,16 +364,18 @@ class SimulatedBinaryCrossover:
         - nc: Integer number (default = 1).
     """
 
-    def __init__(self, nc: int = 1):
-        self.nc = nc
-        self.__doc__ = f"Simulated binary\n\tArguments:\n\t\t-nc: {self.nc}"
+    def __init__(self, denominator: int = 1):
+        self.denominator = denominator
+        self.__doc__ = f"Simulated binary\n\tArguments:\n\t\t-nc: {self.denominator}"
 
     def __call__(
         self, population: np.ndarray, parent_ind1: np.ndarray, parent_ind2: np.ndarray
     ) -> np.ndarray:
         assert len(parent_ind1) == len(parent_ind2)
 
-        return simulated_binary_crossover(population, parent_ind1, parent_ind2, self.nc)
+        return simulated_binary_crossover(
+            population, parent_ind1, parent_ind2, self.denominator
+        )
 
 
 class NoneCrossover:

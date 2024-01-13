@@ -3,7 +3,7 @@
 La búsqueda se importar:
 
 ```python
-from pyristic.heuristic.GeneticAlgorithm_search import Genetic
+from pyristic.heuristic import Genetic
 ```
 
 !!! info "Genetic (clase de la metaheurística)"
@@ -54,7 +54,7 @@ from pyristic.heuristic.GeneticAlgorithm_search import Genetic
             - `generations.` Número de generaciones (iteraciones de la metaheurística).
             - `size_population.` Tamaño de la población (número de individuos).
             - `verbose.` Indica si se imprime en qué iteración se encuentra nuestra búsqueda. Por defecto, está en True.
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -75,7 +75,7 @@ from pyristic.heuristic.GeneticAlgorithm_search import Genetic
 
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -85,7 +85,7 @@ from pyristic.heuristic.GeneticAlgorithm_search import Genetic
 
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -97,7 +97,7 @@ from pyristic.heuristic.GeneticAlgorithm_search import Genetic
             
             - `parent_ind1.` Índices de los individuos que son seleccionados para actuar como padre 1.
             - `parent_ind2.` Índices de los individuos que son seleccionados para actuar como padre 2.
-            - `**kwargs.`  Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.`  Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -107,7 +107,7 @@ from pyristic.heuristic.GeneticAlgorithm_search import Genetic
  
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -117,7 +117,7 @@ from pyristic.heuristic.GeneticAlgorithm_search import Genetic
 
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
 
             Valor de retorno:
             

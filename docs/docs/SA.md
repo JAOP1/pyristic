@@ -3,7 +3,7 @@
 La búsqueda de recocido simulado la podemos importar:
 
 ```python
-from pyristic.heuristic.SimulatedAnnealing_search import SimulatedAnnealing
+from pyristic.heuristic import SimulatedAnnealing
 ```
 
 !!! info "SimulatedAnnealing (Clase recocido simulado)"
@@ -38,7 +38,7 @@ from pyristic.heuristic.SimulatedAnnealing_search import SimulatedAnnealing
             - `Init.` Solución inicial, se admite un arreglo de *numpy* o una función que retorne un arreglo de *numpy*.
             - `IniTemperature.` Valor de punto flotante que indica con que temperatura inicia la búsqueda.
             - `eps.` Valor de punto flotante que indica con que temperatura termina la búsqueda.
-            - `**kwargs.` Parámetros externos a la búsqueda.
+            - `**_.` Parámetros externos a la búsqueda.
         
             Valor de retorno:
         
@@ -48,7 +48,7 @@ from pyristic.heuristic.SimulatedAnnealing_search import SimulatedAnnealing
 
             Argumentos:
             
-            - `**kwargs` Parámetros externos a la búsqueda.
+            - `**_` Parámetros externos a la búsqueda.
             
             Valor de retorno:
             
@@ -60,7 +60,7 @@ from pyristic.heuristic.SimulatedAnnealing_search import SimulatedAnnealing
                 Argumentos:
                 
                 - `x.` Arreglo de *numpy* representando a la solución actual.
-                - `**kwargs` Parámetros externos a la búsqueda.
+                - `**_` Parámetros externos a la búsqueda.
                 
                 Valor de retorno:
                 

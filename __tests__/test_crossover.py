@@ -360,7 +360,7 @@ class TestSimulatedBinaryCrossover(unittest.TestCase):
         random_number.return_value = 0.78
 
         # It should return new population when create the crossover as a class.
-        method = SimulatedBinaryCrossover(nc=1)
+        method = SimulatedBinaryCrossover(denominator=1)
 
         result = method(population, [0], [1])
         # It should return a numpy array.
@@ -391,5 +391,5 @@ class TestSimulatedBinaryCrossover(unittest.TestCase):
         self.assertEqual(method.__doc__, "Simulated binary\n\tArguments:\n\t\t-nc: 1")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main(verbosity=3)

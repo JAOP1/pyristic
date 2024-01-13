@@ -6,13 +6,6 @@ import numpy
 from utils.operators.selection import *
 
 
-def transform(array):
-    """
-    Transform de floating numbers with more decimals to two decimals.
-    """
-    return [f"{item:.2f}" for item in array]
-
-
 class TestUtilsSelection(unittest.TestCase):
     """
     Tests complementary functions that need every selection operator.
@@ -395,5 +388,5 @@ class TestReplacementSelector(unittest.TestCase):
             method(aptitude_parents, [], population_features)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main(verbosity=3)

@@ -1,28 +1,39 @@
+"""
+Module: Classic optimization test problems.
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import numpy as np
-import math
 
 
-"""
---------------------------------------------------------------------------
-                            Beale function.
---------------------------------------------------------------------------
-"""
+def beale_function(solution: np.ndarray) -> float:
+    """
+    Beale optimization function.
+
+    Arguments:
+        solution: floating numpy array with only two elements.
+    """
+    return (
+        (1.5 - solution[0] + solution[0] * solution[1]) ** 2
+        + (2.25 - solution[0] + solution[0] * solution[1] ** 2) ** 2
+        + (2.625 - solution[0] + solution[0] * solution[1] ** 3) ** 2
+    )
 
 
-def beale_function(X: np.ndarray) -> float:
-    a = (1.5 - X[0] + X[0] * X[1]) ** 2
-    b = (2.25 - X[0] + X[0] * X[1] ** 2) ** 2
-    c = (2.625 - X[0] + X[0] * X[1] ** 3) ** 2
-    return a + b + c
+def constraint1_beale(solution: np.ndarray) -> bool:
+    """
+    Beale's constraints.
 
-
-def constraint1_beale(X: np.ndarray) -> bool:
-    for i in range(len(X)):
-        if -4.5 > X[i] or X[i] > 4.5:
+    Arguments:
+        solution: floating numpy array with only two elements.
+    """
+    for component in solution:
+        if not -4.5 <= component <= 4.5:
             return False
     # If you want to see the result.
     constraint1_beale.__doc__ = (
-        "x1: -4.5 <= {:.2f} <= 4.5 \n x2: -4.5 <= {:.2f} <= 4.5".format(X[0], X[1])
+        f"x1: -4.5 <= {solution[0]:.2f} <= 4.5 \n x2: -4.5 <= {solution[1]:.2f} <= 4.5"
     )
     return True
 
@@ -44,23 +55,35 @@ beale_ = {
 """
 
 
-def ackley_function(X: np.ndarray) -> float:
-    n = len(X)
-    square_sum = (1 / n) * np.sum(X * X)
-    trigonometric_sum = (1 / n) * np.sum(np.cos(2 * np.pi * X))
+def ackley_function(solution: np.ndarray) -> float:
+    """
+    Ackley optimization function.
+
+    Arguments:
+        solution: floating numpy array.
+    """
+    size = len(solution)
+    square_sum = (1 / size) * np.sum(solution * solution)
+    trigonometric_sum = (1 / size) * np.sum(np.cos(2 * np.pi * solution))
 
     return (
         -20 * np.exp(-0.2 * np.sqrt(square_sum)) - np.exp(trigonometric_sum) + 20 + np.e
     )
 
 
-def constraint1_ackley(X: np.ndarray) -> bool:
+def constraint1_ackley(solution: np.ndarray) -> bool:
+    """
+    Ackley's constraints.
+
+    Arguments:
+        solution: floating numpy array.
+    """
     str_ = ""
     valid = True
-    for i in range(len(X)):
-        if -30 > X[i] or X[i] > 30:
+    for i, element in enumerate(solution):
+        if -30 > element or element > 30:
             valid = False
-        str_ += "x{}: -30 <= {:.2f} <= 30 \n ".format(i + 1, X[i])
+        str_ += f"x{i + 1}: -30 <= {element:.2f} <= 30 \n "
 
     # Important if you want to see the result.
     constraint1_ackley.__doc__ = str_
@@ -84,13 +107,25 @@ ackley_ = {
 """
 
 
-def bukin_function(X: np.ndarray) -> float:
-    A = np.sqrt(np.abs(X[1] - 0.01 * X[0] ** 2))
-    B = np.abs(X[0] + 10)
-    return 100.0 * A + 0.01 * B
+def bukin_function(solution: np.ndarray) -> float:
+    """
+    Bukin optimization function.
+
+    Arguments:
+        solution: floation numpy array.
+    """
+    return 100.0 * np.sqrt(
+        np.abs(solution[1] - 0.01 * solution[0] ** 2)
+    ) + 0.01 * np.abs(solution[0] + 10)
 
 
 def constraint1_bukin(solution: np.ndarray) -> bool:
+    """
+    Bukin's constraints.
+
+    Arguments:
+        solution: floating numpy array.
+    """
     str_ = ""
     str_ += f"x{1}: -15 <= {solution[0]:.2f} <= -5 \n "
     str_ += f"x{2}: -3 <= {solution[1]:.2f} <= 3 \n "
@@ -119,13 +154,25 @@ bukin_ = {
 """
 
 
-def himmelblau_function(X: np.ndarray) -> float:
-    A = (X[0] ** 2 + X[1] - 11) ** 2
-    B = (X[0] + X[1] ** 2 - 7) ** 2
-    return A + B
+def himmelblau_function(solution: np.ndarray) -> float:
+    """
+    Himmelblau optimization function.
+
+    Arguments:
+        solution: floating numpy array.
+    """
+    return (solution[0] ** 2 + solution[1] - 11) ** 2 + (
+        solution[0] + solution[1] ** 2 - 7
+    ) ** 2
 
 
-def constraint1_Himmelblau(solution: np.ndarray) -> bool:
+def constraint1_himmelblau(solution: np.ndarray) -> bool:
+    """
+    Himmelblau's constraints.
+
+    Arguments:
+        solution: floating numpy array.
+    """
     str_ = ""
     valid = True
     for ind, decision_var in enumerate(solution):
@@ -134,11 +181,11 @@ def constraint1_Himmelblau(solution: np.ndarray) -> bool:
         str_ += f"x{ind+1}: -5 <= {decision_var:.2f} <= 5 \n "
 
     # Important if you want to see the result.
-    constraint1_Himmelblau.__doc__ = str_
+    constraint1_himmelblau.__doc__ = str_
     return valid
 
 
-Himmelblau_constraints = [constraint1_Himmelblau]
+Himmelblau_constraints = [constraint1_himmelblau]
 Himmelblau_bounds = [-5, 5]
 
 Himmelblau_ = {

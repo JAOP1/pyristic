@@ -3,7 +3,7 @@
 La búsqueda se importar:
 
 ```python
-from pyristic.heuristic.EvolutiveProgramming_search import EvolutionaryProgramming
+from pyristic.heuristic import EvolutionaryProgramming
 ```
 
 !!! info "EvolutionaryProgramming (clase de la metaheurística)"
@@ -56,7 +56,7 @@ from pyristic.heuristic.EvolutiveProgramming_search import EvolutionaryProgrammi
             - `generations.` Número de generaciones (iteraciones de la metaheurística).
             - `size_population.` Tamaño de la población (número de individuos).
             - `verbose.` Indica si se imprime en qué iteración se encuentra nuestra búsqueda. Por defecto, está en True.
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -67,7 +67,7 @@ from pyristic.heuristic.EvolutiveProgramming_search import EvolutionaryProgrammi
             
             Argumentos:
             
-            - `**kwargs` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
                 
             Valor de retorno:
             
@@ -78,7 +78,7 @@ from pyristic.heuristic.EvolutiveProgramming_search import EvolutionaryProgrammi
 
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -89,7 +89,7 @@ from pyristic.heuristic.EvolutiveProgramming_search import EvolutionaryProgrammi
 
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -106,7 +106,7 @@ from pyristic.heuristic.EvolutiveProgramming_search import EvolutionaryProgrammi
 
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             
@@ -117,7 +117,7 @@ from pyristic.heuristic.EvolutiveProgramming_search import EvolutionaryProgrammi
 
             Argumentos:
             
-            - `**kwargs.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
+            - `**_.` Diccionario con argumentos externos a la búsqueda. Estos argumentos pueden ser empleados cuando se sobreescribe alguno de los métodos que tiene la clase.
             
             Valor de retorno:
             

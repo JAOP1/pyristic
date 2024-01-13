@@ -1,14 +1,21 @@
+"""
+Module: Simulated Annealing algorithm.
+
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import typing
 from random import random
 import math
-import numpy as np
 import copy
-from pyristic.utils.helpers import *
+import numpy as np
+from pyristic.heuristic.mixins import PrintableMixin, ValidateSolutionMixin
 
 __all__ = ["SimulatedAnnealing"]
 
 
-class SimulatedAnnealing:
+class SimulatedAnnealing(PrintableMixin, ValidateSolutionMixin):
     """
     ------------------------------------------------------
     Description:
@@ -34,29 +41,12 @@ class SimulatedAnnealing:
         self.logger["best_individual"] = None
         self.logger["best_f"] = None
 
-    def __str__(self):
-        printable = (
-            "Simulated Annealing: \n "
-            f"f(X) = {self.logger['best_f']} \n X = {self.logger['best_individual']} \n "
-        )
-        first = True
-
-        for constraint in self.constraints:
-            if constraint.__doc__ is not None:
-                if first:
-                    first = False
-                    printable += "Constraints: \n "
-
-                constraint(self.logger["best_individual"])
-                printable += f"{constraint.__doc__} \n"
-        return printable
-
     def optimize(
         self,
         initial_solution: typing.Union[np.ndarray, typing.Callable[[], np.ndarray]],
         initial_temperature: float,
         eps: float,
-        **kwargs,
+        **_,
     ) -> None:
         """
         ------------------------------------------------------
@@ -80,27 +70,27 @@ class SimulatedAnnealing:
 
         f_candidate = self.function(candidate)
         while self.logger["temperature"] >= eps:
-            neighbor = self.get_neighbor(candidate, **kwargs)
+            neighbor = self.get_neighbor(candidate, **_)
 
-            if not self.__is_valid(neighbor):
+            if not self._is_valid(neighbor):
                 continue
 
             f_neighbor = self.function(neighbor)
 
             if f_neighbor < f_candidate or random() < self.acceptance_measure(
-                f_neighbor, f_candidate, **kwargs
+                f_neighbor, f_candidate, **_
             ):
                 candidate = neighbor
                 f_candidate = f_neighbor
 
-            self.logger["temperature"] = self.update_temperature(**kwargs)
+            self.logger["temperature"] = self.update_temperature(**_)
 
             # Update best solution found.
             if f_candidate < self.logger["best_f"]:
                 self.logger["best_f"] = f_candidate
                 self.logger["best_individual"] = candidate
 
-    def acceptance_measure(self, f_n: float, f_x: float, **kwargs) -> float:
+    def acceptance_measure(self, f_n: float, f_x: float, **_) -> float:
         """
         Description:
             Metric used to evaluate how much confidence accept
@@ -109,19 +99,7 @@ class SimulatedAnnealing:
         temperature = self.logger["temperature"]
         return math.exp(-(f_n - f_x) / temperature)
 
-    def __is_valid(self, solution: np.ndarray) -> bool:
-        """
-        ------------------------------------------------------
-        Description:
-            Check if the current solution is valid.
-        ------------------------------------------------------
-        """
-        for constrain in self.constraints:
-            if not constrain(solution):
-                return False
-        return True
-
-    def update_temperature(self, **kwargs) -> float:
+    def update_temperature(self, **_) -> float:
         """
         ------------------------------------------------------
         Description:
@@ -130,7 +108,7 @@ class SimulatedAnnealing:
         """
         return self.logger["temperature"] * 0.99
 
-    def get_neighbor(self, solution: np.ndarray, **kwargs) -> np.ndarray:
+    def get_neighbor(self, solution: np.ndarray, **_) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -141,3 +119,15 @@ class SimulatedAnnealing:
         if not self.neighbor_generator:
             raise NotImplementedError
         return self.neighbor_generator(solution)
+
+    def _is_valid(self, solution: np.ndarray) -> bool:
+        """
+        ------------------------------------------------------
+        Description:
+            Check if the current solution is valid.
+        ------------------------------------------------------
+        """
+        for constraint in self.constraints:
+            if not constraint(solution):
+                return False
+        return True

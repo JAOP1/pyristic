@@ -573,5 +573,5 @@ class TestNoneUniformMutation(unittest.TestCase):
         self.assertEqual(method.__doc__, "Non Uniform\n\t Arguments:\n\t\t -Sigma: 1.0")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main(verbosity=3)

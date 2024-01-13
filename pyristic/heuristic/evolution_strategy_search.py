@@ -1,7 +1,15 @@
+"""
+Module: Evolution strategy search algorithm.
+
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import typing
 import logging
 from tqdm import tqdm
 import numpy as np
+from pyristic.heuristic.mixins import PrintableMixin, ValidateSolutionMixin
 from pyristic.utils.operators import selection, mutation, crossover, population_sample
 from pyristic.utils.helpers import ContinuosFixer
 
@@ -9,7 +17,7 @@ __all__ = ["EvolutionStrategy"]
 LOGGER = logging.getLogger()
 
 
-class EvolutionStrategy:
+class EvolutionStrategy(PrintableMixin, ValidateSolutionMixin):
     """
     ------------------------------------------------------
     Description:
@@ -61,25 +69,6 @@ class EvolutionStrategy:
         self.logger["current_iter"] = None
         self.logger["total_iter"] = None
 
-    def __str__(self):
-        printable = (
-            "Evolution Strategy search: \n "
-            f"F_a(X) = {self.logger['best_f']} \n X = {self.logger['best_individual']} \n "
-        )
-        first = True
-
-        for constraint in self.constraints:
-            if constraint.__doc__:
-
-                if first:
-                    first = False
-                    printable += "Constraints: \n "
-
-                constraint(self.logger["best_individual"])
-                printable += f"{constraint.__doc__} \n"
-
-        return printable
-
     def optimize(
         self,
         generations: int,
@@ -87,7 +76,7 @@ class EvolutionStrategy:
         offspring_size: int,
         eps_sigma: float = 0.001,
         verbose=True,
-        **kwargs,
+        **_,
     ) -> None:
         """
         ------------------------------------------------------
@@ -108,34 +97,31 @@ class EvolutionStrategy:
         self.logger["total_iter"] = generations
         self.logger["parent_population_size"] = population_size
         self.logger["offspring_population_size"] = offspring_size
-        self.logger["parent_population_x"] = self.initialize_population(**kwargs)
+        self.logger["parent_population_x"] = self.initialize_population(**_)
         self.logger["parent_population_sigma"] = self.initialize_step_weights(
-            eps_sigma, **kwargs
+            eps_sigma, **_
         )
         self.logger["parent_population_f"] = np.apply_along_axis(
             self.aptitude_function, 1, self.logger["parent_population_x"]
         )
 
         try:
-            for generation in tqdm(range(generations), disable=not verbose):
-
+            for _ in tqdm(range(generations), disable=not verbose):
                 # Crossover.
-                first_parent_indices, second_parent_indices = self.__get_pairs(**kwargs)
+                first_parent_indices, second_parent_indices = self.__get_pairs(**_)
                 self.logger["offspring_population_x"] = self.crossover_operator(
-                    first_parent_indices, second_parent_indices, **kwargs
+                    first_parent_indices, second_parent_indices, **_
                 )
 
                 self.logger["offspring_population_sigma"] = self.adaptive_crossover(
-                    first_parent_indices, second_parent_indices, **kwargs
+                    first_parent_indices, second_parent_indices, **_
                 )
                 # mutate.
-                self.logger["offspring_population_sigma"] = self.adaptive_mutation(
-                    **kwargs
-                )
-                self.logger["offspring_population_x"] = self.mutation_operator(**kwargs)
+                self.logger["offspring_population_sigma"] = self.adaptive_mutation(**_)
+                self.logger["offspring_population_x"] = self.mutation_operator(**_)
 
                 self.__set_invalid_individuals()
-                next_generation = self.survivor_selection(**kwargs)
+                next_generation = self.survivor_selection(**_)
                 self.logger["parent_population_x"] = next_generation[
                     "parent_population_x"
                 ]
@@ -155,7 +141,7 @@ class EvolutionStrategy:
         self.logger["best_individual"] = self.logger["parent_population_x"][ind]
         self.logger["best_f"] = self.logger["parent_population_f"][ind]
 
-    def initialize_step_weights(self, eps_sigma: float, **kwargs) -> np.ndarray:
+    def initialize_step_weights(self, eps_sigma: float, **_) -> np.ndarray:
         """
         Description:
             Initialize the size of the steps for every individual.
@@ -170,7 +156,7 @@ class EvolutionStrategy:
         )
         return np.maximum(steps, eps_sigma)
 
-    def initialize_population(self, **kwargs) -> np.ndarray:
+    def initialize_population(self, **_) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -201,7 +187,7 @@ class EvolutionStrategy:
         )
 
     def crossover_operator(
-        self, parent_ind1: np.ndarray, parent_ind2: np.ndarray, **kwargs
+        self, parent_ind1: np.ndarray, parent_ind2: np.ndarray, **_
     ) -> np.ndarray:
         """
         ------------------------------------------------------
@@ -214,7 +200,7 @@ class EvolutionStrategy:
         )
 
     def adaptive_crossover(
-        self, parent_ind1: np.ndarray, parent_ind2: np.ndarray, **kwargs
+        self, parent_ind1: np.ndarray, parent_ind2: np.ndarray, **_
     ) -> np.ndarray:
         """
         ------------------------------------------------------
@@ -226,7 +212,7 @@ class EvolutionStrategy:
             self.logger["parent_population_sigma"], parent_ind1, parent_ind2
         )
 
-    def mutation_operator(self, **kwargs) -> np.ndarray:
+    def mutation_operator(self, **_) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -240,7 +226,7 @@ class EvolutionStrategy:
             self.logger["offspring_population_sigma"],
         )
 
-    def adaptive_mutation(self, **kwargs) -> np.ndarray:
+    def adaptive_mutation(self, **_) -> np.ndarray:
         """
         ------------------------------------------------------
         Description:
@@ -251,7 +237,7 @@ class EvolutionStrategy:
             self.logger["offspring_population_sigma"]
         )
 
-    def survivor_selection(self, **kwargs) -> dict:
+    def survivor_selection(self, **_) -> dict:
         """
         ------------------------------------------------------
         Description:
@@ -274,22 +260,7 @@ class EvolutionStrategy:
             individuals,
         )
 
-    # -----------------------------------------------------
-    # Private functions.
-    # -----------------------------------------------------
-    def __is_invalid(self, individual: np.ndarray) -> bool:
-        """
-        ------------------------------------------------------
-        Description:
-            Check if the current solution is invalid.
-        ------------------------------------------------------
-        """
-        for constraint in self.constraints:
-            if not constraint(individual):
-                return True
-        return False
-
-    def __get_pairs(self, **kwargs):
+    def __get_pairs(self, **_):
         parent_ind1 = np.random.randint(
             self.logger["parent_population_size"],
             size=(self.logger["offspring_population_size"],),
@@ -305,7 +276,7 @@ class EvolutionStrategy:
         # Fixing solutions and getting aptitude.
         f_offspring = []
         for i in range(len(self.logger["offspring_population_x"])):
-            if self.__is_invalid(self.logger["offspring_population_x"][i]):
+            if self.is_invalid(self.logger["offspring_population_x"][i]):
                 self.logger["offspring_population_x"][i] = self.fixer(i)
             f_offspring.append(
                 self.aptitude_function(self.logger["offspring_population_x"][i])

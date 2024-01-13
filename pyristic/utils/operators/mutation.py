@@ -1,3 +1,9 @@
+"""
+Module: Mutation methods for evolutionary algorithms.
+Created: 2023-06-01
+Author: Jesus Armando Ortiz
+__________________________________________________
+"""
 import numpy as np
 
 __all__ = [
@@ -421,7 +427,6 @@ class UniformMutator:
         )
 
     def __call__(self, population: np.ndarray) -> np.ndarray:
-
         if self.type_bound != list:
             return uniform_mutation(population, self.bounds[0], self.bounds[1])
 
