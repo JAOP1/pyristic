@@ -9,14 +9,18 @@ import typing
 import logging
 from tqdm import tqdm
 import numpy as np
-from pyristic.heuristic.mixins import PrintableMixin, ValidateSolutionMixin
+from pyristic.heuristic.mixins import (
+    PrintableMixin,
+    ValidateSolutionMixin,
+    SaveValidSolutionsMixin,
+)
 from pyristic.utils.operators import population_sample
 
 __all__ = ["Genetic"]
 LOGGER = logging.getLogger()
 
 
-class Genetic(PrintableMixin, ValidateSolutionMixin):
+class Genetic(PrintableMixin, ValidateSolutionMixin, SaveValidSolutionsMixin):
     """
     ------------------------------------------------------
     Description:
@@ -110,7 +114,7 @@ class Genetic(PrintableMixin, ValidateSolutionMixin):
                 # mutate.
                 self.__mutate_individuals()
 
-                self.__set_invalid_individuals()
+                self.set_invalid_individuals()
 
                 # Survivor selection.
                 next_generation = self.survivor_selection(**_)
@@ -226,17 +230,6 @@ class Genetic(PrintableMixin, ValidateSolutionMixin):
         return self.config_methods["parent_selector"](
             self.logger["parent_population_f"]
         )
-
-    def __set_invalid_individuals(self):
-        # Fixing solutions and getting aptitude.
-        f_offspring = []
-        for ind in range(len(self.logger["offspring_population_x"])):
-            if self.is_invalid(self.logger["offspring_population_x"][ind]):
-                self.logger["offspring_population_x"][ind] = self.fixer(ind)
-            f_offspring.append(
-                self.aptitude_function(self.logger["offspring_population_x"][ind])
-            )
-        self.logger["offspring_population_f"] = np.array(f_offspring)
 
     def __get_pairs(self, parent_ind: np.ndarray):
         parent_ind1 = []

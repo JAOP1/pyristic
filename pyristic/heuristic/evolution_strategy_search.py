@@ -9,7 +9,11 @@ import typing
 import logging
 from tqdm import tqdm
 import numpy as np
-from pyristic.heuristic.mixins import PrintableMixin, ValidateSolutionMixin
+from pyristic.heuristic.mixins import (
+    PrintableMixin,
+    ValidateSolutionMixin,
+    SaveValidSolutionsMixin,
+)
 from pyristic.utils.operators import selection, mutation, crossover, population_sample
 from pyristic.utils.helpers import ContinuosFixer
 
@@ -17,7 +21,7 @@ __all__ = ["EvolutionStrategy"]
 LOGGER = logging.getLogger()
 
 
-class EvolutionStrategy(PrintableMixin, ValidateSolutionMixin):
+class EvolutionStrategy(PrintableMixin, ValidateSolutionMixin, SaveValidSolutionsMixin):
     """
     ------------------------------------------------------
     Description:
@@ -120,7 +124,7 @@ class EvolutionStrategy(PrintableMixin, ValidateSolutionMixin):
                 self.logger["offspring_population_sigma"] = self.adaptive_mutation(**_)
                 self.logger["offspring_population_x"] = self.mutation_operator(**_)
 
-                self.__set_invalid_individuals()
+                self.set_invalid_individuals()
                 next_generation = self.survivor_selection(**_)
                 self.logger["parent_population_x"] = next_generation[
                     "parent_population_x"
@@ -271,15 +275,3 @@ class EvolutionStrategy(PrintableMixin, ValidateSolutionMixin):
         )
 
         return parent_ind1, parent_ind2
-
-    def __set_invalid_individuals(self):
-        # Fixing solutions and getting aptitude.
-        f_offspring = []
-        for i in range(len(self.logger["offspring_population_x"])):
-            if self.is_invalid(self.logger["offspring_population_x"][i]):
-                self.logger["offspring_population_x"][i] = self.fixer(i)
-            f_offspring.append(
-                self.aptitude_function(self.logger["offspring_population_x"][i])
-            )
-
-        self.logger["offspring_population_f"] = np.array(f_offspring)

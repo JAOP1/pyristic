@@ -40,3 +40,19 @@ class ValidateSolutionMixin:
             if not constraint(individual):
                 return True
         return False
+
+
+class SaveValidSolutionsMixin:
+    """Mixin that validate solutions."""
+
+    def set_invalid_individuals(self):
+        """Save valid solutions or set solutions."""
+        # Fixing solutions and getting aptitude.
+        f_offspring = []
+        for ind in range(len(self.logger["offspring_population_x"])):
+            if self.is_invalid(self.logger["offspring_population_x"][ind]):
+                self.logger["offspring_population_x"][ind] = self.fixer(ind)
+            f_offspring.append(
+                self.aptitude_function(self.logger["offspring_population_x"][ind])
+            )
+        self.logger["offspring_population_f"] = np.array(f_offspring)
